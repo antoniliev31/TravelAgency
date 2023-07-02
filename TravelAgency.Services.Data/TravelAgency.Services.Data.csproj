@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TravelAgency.Common\TravelAgency.Common.csproj" />
+    <ProjectReference Include="..\TravelAgency.Data.Models\TravelAgency.Data.Models.csproj" />
+    <ProjectReference Include="..\TravelAgency.Data\TravelAgency.Data.csproj" />
+    <ProjectReference Include="..\TravelAgency.Web.ViewModels\TravelAgency.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

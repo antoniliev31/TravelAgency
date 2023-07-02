@@ -3,19 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAgency.Web", "TravelAgency.Web\TravelAgency.Web.csproj", "{A7D804AD-D7CB-463D-ADBA-A1C624C2F8D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAgency.Web", "TravelAgency.Web\TravelAgency.Web.csproj", "{A7D804AD-D7CB-463D-ADBA-A1C624C2F8D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAgency.Common", "TravelAgency.Common\TravelAgency.Common.csproj", "{972653AB-C5BA-4268-A22A-4776738E93EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAgency.Common", "TravelAgency.Common\TravelAgency.Common.csproj", "{972653AB-C5BA-4268-A22A-4776738E93EC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{178842EC-EBD7-457F-9986-6EF006CAF7E9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{755F64CF-DB91-48C5-9F32-29BDAE1F6D4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAgency.Data", "TravelAgency.Data\TravelAgency.Data.csproj", "{38E325E7-69F9-4CDF-8494-9CBDE89E03D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAgency.Data", "TravelAgency.Data\TravelAgency.Data.csproj", "{38E325E7-69F9-4CDF-8494-9CBDE89E03D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAgency.Data.Models", "TravelAgency.Data.Models\TravelAgency.Data.Models.csproj", "{89A8EA88-A1BA-4D34-9A1C-CCABB54E6A51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAgency.Data.Models", "TravelAgency.Data.Models\TravelAgency.Data.Models.csproj", "{89A8EA88-A1BA-4D34-9A1C-CCABB54E6A51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAgency.Web.ViewModels", "TravelAgency.Web.ViewModels\TravelAgency.Web.ViewModels.csproj", "{3FFB5522-4DBB-4465-BDAD-B7EC9AC64E28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAgency.Web.ViewModels", "TravelAgency.Web.ViewModels\TravelAgency.Web.ViewModels.csproj", "{3FFB5522-4DBB-4465-BDAD-B7EC9AC64E28}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{FD9D7CB5-E88E-4826-A2E5-6C6A0A6A0DC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAgency.Services.Data", "TravelAgency.Services.Data\TravelAgency.Services.Data.csproj", "{459A7929-EFC9-4610-ABBC-15C03453A1D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAgency.Web.Infrastructure", "TravelAgency.Web.Infrastructure\TravelAgency.Web.Infrastructure.csproj", "{245B344F-1F1D-40B2-9FFB-B5454582518A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +49,14 @@ Global
 		{3FFB5522-4DBB-4465-BDAD-B7EC9AC64E28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FFB5522-4DBB-4465-BDAD-B7EC9AC64E28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FFB5522-4DBB-4465-BDAD-B7EC9AC64E28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{459A7929-EFC9-4610-ABBC-15C03453A1D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{459A7929-EFC9-4610-ABBC-15C03453A1D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{459A7929-EFC9-4610-ABBC-15C03453A1D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{459A7929-EFC9-4610-ABBC-15C03453A1D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{245B344F-1F1D-40B2-9FFB-B5454582518A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{245B344F-1F1D-40B2-9FFB-B5454582518A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{245B344F-1F1D-40B2-9FFB-B5454582518A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{245B344F-1F1D-40B2-9FFB-B5454582518A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,6 +66,7 @@ Global
 		{38E325E7-69F9-4CDF-8494-9CBDE89E03D4} = {755F64CF-DB91-48C5-9F32-29BDAE1F6D4D}
 		{89A8EA88-A1BA-4D34-9A1C-CCABB54E6A51} = {755F64CF-DB91-48C5-9F32-29BDAE1F6D4D}
 		{3FFB5522-4DBB-4465-BDAD-B7EC9AC64E28} = {178842EC-EBD7-457F-9986-6EF006CAF7E9}
+		{459A7929-EFC9-4610-ABBC-15C03453A1D3} = {FD9D7CB5-E88E-4826-A2E5-6C6A0A6A0DC1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E5C13A4C-1874-48A0-BCFB-4F7857510851}

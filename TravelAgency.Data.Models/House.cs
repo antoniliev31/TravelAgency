@@ -41,8 +41,7 @@
         public string ImageUrl { get; set; } = null!;
 
 
-        //[Required]
-        //public byte[] Image { get; set; } = null!;
+        public DateTime CreatedOn { get; set; }
 
         public decimal Price { get; set; }
 

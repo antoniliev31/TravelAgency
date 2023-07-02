@@ -1,4 +1,7 @@
-﻿namespace TravelAgency.Web.Controllers
+﻿using TravelAgency.Services.Data.Interfaces;
+using TravelAgency.Web.ViewModels.Home;
+
+namespace TravelAgency.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
     using System.Diagnostics;
@@ -7,14 +10,18 @@
 
     public class HomeController : Controller
     {
-        public HomeController()
-        {
+        private readonly IHouseService houseService;
 
+        public HomeController(IHouseService houseService)
+        {
+            this.houseService = houseService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            IEnumerable<IndexViewModel> viewModel = await this.houseService.LastThreeHouseAsync();
+
+            return View(viewModel);
         }
 
 

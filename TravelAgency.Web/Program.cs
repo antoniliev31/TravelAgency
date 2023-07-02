@@ -4,6 +4,8 @@ namespace TravelAgency.Web
 
     using Data;
     using TravelAgency.Data.Models;
+    using TravelAgency.Services.Data.Interfaces;
+    using Infrastructure.Extensions;
 
     public class Program
     {
@@ -17,18 +19,20 @@ namespace TravelAgency.Web
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
                 {
-                    options.SignIn.RequireConfirmedAccount = 
+                    options.SignIn.RequireConfirmedAccount =
                         builder.Configuration.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
                     options.Password.RequireLowercase =
                         builder.Configuration.GetValue<bool>("Identity:SignIn:RequireLowercase");
-                    options.Password.RequireUppercase = 
+                    options.Password.RequireUppercase =
                         builder.Configuration.GetValue<bool>("Identity:SignIn:RequireUppercase");
                     options.Password.RequireNonAlphanumeric =
                         builder.Configuration.GetValue<bool>("Identity:SignIn:RequireNonAlphanumeric");
-                    options.Password.RequiredLength = 
+                    options.Password.RequiredLength =
                         builder.Configuration.GetValue<int>("Identity:SignIn:RequiredLength");
                 })
                 .AddEntityFrameworkStores<TravelAgencyDbContext>();
+
+            builder.Services.AddApplicationServices(typeof(IHouseService));
 
             builder.Services.AddControllersWithViews();
 
