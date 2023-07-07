@@ -1,4 +1,6 @@
-﻿namespace TravelAgency.Data.Models
+﻿using System.ComponentModel;
+
+namespace TravelAgency.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -10,6 +12,7 @@
         public House()
         {
             this.Id = Guid.NewGuid();
+            this.Posts = new HashSet<Post>();
         }
 
         [Key]
@@ -45,6 +48,10 @@
 
         public decimal Price { get; set; }
 
+        [Required]
+        [DefaultValue(1)]
+        public byte IsActiv { get; set; }
+
 
         [ForeignKey(nameof(Category))]
         public int CategoryId { get; set; }
@@ -59,5 +66,8 @@
         public Guid? RenterId { get; set; }
 
         public virtual ApplicationUser? Renter { get; set; }
+
+
+        public virtual ICollection<Post> Posts { get; set; }
     }
 }

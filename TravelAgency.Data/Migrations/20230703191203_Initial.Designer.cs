@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelAgency.Data;
 
@@ -11,9 +12,10 @@ using TravelAgency.Data;
 namespace TravelAgency.Data.Migrations
 {
     [DbContext(typeof(TravelAgencyDbContext))]
-    partial class TravelAgencyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230703191203_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -256,15 +258,14 @@ namespace TravelAgency.Data.Migrations
                         {
                             Id = new Guid("dea12856-c198-4129-b3f3-b893d8395082"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "271488a2-4087-477c-a5f3-74cb6e4b0471",
+                            ConcurrencyStamp = "dc415167-8756-446a-9cc7-50b0971f39ce",
                             Email = "agent@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "agent@mail.com",
                             NormalizedUserName = "agent@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKSCd/wmu6pV1jUhH8pMg55V893SZwup+Jzmc1Tv9+jmN4TiMbfUHI98nzUG1IdUpg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEA7Spi+MgeTLygsMgcqeOQmHfUR2T1+V1Y/RERsa75jIdiJICd/q3wr5ukwdonGoOQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e057d005-4764-4020-a03f-839363f66fb3",
                             TwoFactorEnabled = false,
                             UserName = "agent@mail.com"
                         },
@@ -272,15 +273,14 @@ namespace TravelAgency.Data.Migrations
                         {
                             Id = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3c74336d-2aa4-46ca-a6e7-d3df80c388a9",
+                            ConcurrencyStamp = "05d07851-9c0d-4602-aa1c-43e260626377",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAkX7Umja8HtXpAPCNS31Ch/gMJ7XfkNyuKwRRyiW+l5TTVayJzBzKiabYLScv690Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEI/xGLxNCdy4FV7v5vG18IwXVg+/hsalaOb4lVhJL6qzhUv/kQMi93lsKIjwVkSxJw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "879f6c33-84fc-4cfa-91e5-13ac6a541471",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         });
@@ -379,7 +379,7 @@ namespace TravelAgency.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 7, 4, 20, 23, 29, 391, DateTimeKind.Local).AddTicks(5350));
+                        .HasDefaultValue(new DateTime(2023, 7, 3, 22, 12, 3, 246, DateTimeKind.Local).AddTicks(5667));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -441,7 +441,7 @@ namespace TravelAgency.Data.Migrations
                             CityId = 1,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Хотел „Табанов бийч” е разположен в новата част на град Созопол. Намира се само на 60м. от плаж \"Хармани\", а в близост има много магазини, ресторанти, клубове и други развлечения..",
-                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/Z4Y7.jpg",
+                            ImageUrl = "http://www.tabanovhotel.com/images/slide1.jpg",
                             IsActiv = (byte)0,
                             Price = 0m,
                             Title = "Tabanov Beach"

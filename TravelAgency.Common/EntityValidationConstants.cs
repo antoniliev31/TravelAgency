@@ -37,5 +37,11 @@
             public const int NameMinLength = 5;
             public const int NameMaxLength = 50;
         }
+
+        public static class Post
+        {
+            public const int PostMinLength = 5;
+            public const int PostMaxLength = 500;
+        }
     }
 }

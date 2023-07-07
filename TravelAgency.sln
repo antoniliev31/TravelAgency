@@ -19,9 +19,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAgency.Web.ViewModels
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{FD9D7CB5-E88E-4826-A2E5-6C6A0A6A0DC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAgency.Services.Data", "TravelAgency.Services.Data\TravelAgency.Services.Data.csproj", "{459A7929-EFC9-4610-ABBC-15C03453A1D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAgency.Services.Data", "TravelAgency.Services.Data\TravelAgency.Services.Data.csproj", "{459A7929-EFC9-4610-ABBC-15C03453A1D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAgency.Web.Infrastructure", "TravelAgency.Web.Infrastructure\TravelAgency.Web.Infrastructure.csproj", "{245B344F-1F1D-40B2-9FFB-B5454582518A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAgency.Web.Infrastructure", "TravelAgency.Web.Infrastructure\TravelAgency.Web.Infrastructure.csproj", "{245B344F-1F1D-40B2-9FFB-B5454582518A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{06AC4179-E62B-4A1A-9312-A4E73A6E49C5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{0361F014-BAE8-48C0-B589-C2039BB81A6E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,10 +67,12 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A7D804AD-D7CB-463D-ADBA-A1C624C2F8D0} = {178842EC-EBD7-457F-9986-6EF006CAF7E9}
+		{972653AB-C5BA-4268-A22A-4776738E93EC} = {06AC4179-E62B-4A1A-9312-A4E73A6E49C5}
 		{38E325E7-69F9-4CDF-8494-9CBDE89E03D4} = {755F64CF-DB91-48C5-9F32-29BDAE1F6D4D}
 		{89A8EA88-A1BA-4D34-9A1C-CCABB54E6A51} = {755F64CF-DB91-48C5-9F32-29BDAE1F6D4D}
 		{3FFB5522-4DBB-4465-BDAD-B7EC9AC64E28} = {178842EC-EBD7-457F-9986-6EF006CAF7E9}
 		{459A7929-EFC9-4610-ABBC-15C03453A1D3} = {FD9D7CB5-E88E-4826-A2E5-6C6A0A6A0DC1}
+		{245B344F-1F1D-40B2-9FFB-B5454582518A} = {0361F014-BAE8-48C0-B589-C2039BB81A6E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E5C13A4C-1874-48A0-BCFB-4F7857510851}

@@ -5,6 +5,8 @@
     public interface IHouseService
     {
         Task<IEnumerable<IndexViewModel>> LastThreeHouseAsync();
+
+        //Task<IEnumerable<IndexViewModel>> LastThreeCommentAsync();
     }
 
 }

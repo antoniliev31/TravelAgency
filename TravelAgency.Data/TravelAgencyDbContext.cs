@@ -14,6 +14,8 @@ namespace TravelAgency.Data
         {
         }
 
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        
         public DbSet<Category> Categories { get; set; } = null!;
 
         public DbSet<House> Houses { get; set; } = null!;
@@ -21,6 +23,8 @@ namespace TravelAgency.Data
         public DbSet<Agent> Agents { get; set; } = null!;
 
         public DbSet<City> Cities { get; set; } = null!;
+
+        public DbSet<Post> Posts { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

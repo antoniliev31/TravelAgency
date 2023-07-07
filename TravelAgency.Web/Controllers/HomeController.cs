@@ -1,12 +1,11 @@
-﻿using TravelAgency.Services.Data.Interfaces;
-using TravelAgency.Web.ViewModels.Home;
-
-namespace TravelAgency.Web.Controllers
+﻿namespace TravelAgency.Web.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
     using System.Diagnostics;
+    using Microsoft.AspNetCore.Mvc;
 
-    using Models;
+    using TravelAgency.Services.Data.Interfaces;
+    using ViewModels.Home;
+    
 
     public class HomeController : Controller
     {
@@ -28,7 +27,7 @@ namespace TravelAgency.Web.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ViewModels.Home.ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

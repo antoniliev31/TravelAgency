@@ -19,12 +19,12 @@
                 throw new InvalidOperationException("Invalid service type provided!");
             }
 
-            Type[] servicesTypes = serviceAssembly
+            Type[] implementationTypes = serviceAssembly
                 .GetTypes()
                 .Where(t => t.Name.EndsWith("Service") && !t.IsInterface)
                 .ToArray();
 
-            foreach (var inplementationType in servicesTypes)
+            foreach (var inplementationType in implementationTypes)
             {
                 Type? interfaceType = inplementationType.GetInterface($"I{inplementationType.Name}");
 

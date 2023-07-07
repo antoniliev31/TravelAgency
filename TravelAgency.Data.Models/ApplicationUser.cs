@@ -8,8 +8,11 @@
         {
             this.Id = Guid.NewGuid();
             this.RentedHouses = new HashSet<House>();
+            this.MyPosts = new HashSet<Post>();
         }
 
         public virtual ICollection<House> RentedHouses { get; set; }
+
+        public virtual ICollection<Post> MyPosts { get; set; }
     }
 }

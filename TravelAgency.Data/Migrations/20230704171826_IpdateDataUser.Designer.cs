@@ -12,8 +12,8 @@ using TravelAgency.Data;
 namespace TravelAgency.Data.Migrations
 {
     [DbContext(typeof(TravelAgencyDbContext))]
-    [Migration("20230702082027_AddColomDateTimeNow")]
-    partial class AddColomDateTimeNow
+    [Migration("20230704171826_IpdateDataUser")]
+    partial class IpdateDataUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -178,6 +178,14 @@ namespace TravelAgency.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Agents");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
+                            PhoneNumber = "+359888888888",
+                            UserId = new Guid("dea12856-c198-4129-b3f3-b893d8395082")
+                        });
                 });
 
             modelBuilder.Entity("TravelAgency.Data.Models.ApplicationUser", b =>
@@ -244,6 +252,38 @@ namespace TravelAgency.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("dea12856-c198-4129-b3f3-b893d8395082"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "dfcfc3b6-534f-406b-a5b6-8ff810a0c585",
+                            Email = "agent@mail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "agent@mail.com",
+                            NormalizedUserName = "agent@mail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAECNuLCL7kwpDHyUR3nGxH83Gc1VXfPBx1AlO0yIRmLypg3e6F62IYNCpQEE8U9yDJA==",
+                            PhoneNumberConfirmed = false,
+                            TwoFactorEnabled = false,
+                            UserName = "agent@mail.com"
+                        },
+                        new
+                        {
+                            Id = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "966a1a5b-7e9d-4919-95e0-cd3896b837be",
+                            Email = "guest@mail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "guest@mail.com",
+                            NormalizedUserName = "guest@mail.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIYxwCwS2UiI1UKpGDxDdo0VYLu2XRUVQU88ZfidqdlZ/9pVSQsd3SiEXNVfrwif2A==",
+                            PhoneNumberConfirmed = false,
+                            TwoFactorEnabled = false,
+                            UserName = "guest@mail.com"
+                        });
                 });
 
             modelBuilder.Entity("TravelAgency.Data.Models.Category", b =>
@@ -339,7 +379,7 @@ namespace TravelAgency.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 7, 2, 11, 20, 27, 167, DateTimeKind.Local).AddTicks(7184));
+                        .HasDefaultValue(new DateTime(2023, 7, 4, 20, 18, 25, 839, DateTimeKind.Local).AddTicks(751));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -350,6 +390,9 @@ namespace TravelAgency.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(2048)
                         .HasColumnType("nvarchar(2048)");
+
+                    b.Property<byte>("IsActiv")
+                        .HasColumnType("tinyint");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -377,29 +420,124 @@ namespace TravelAgency.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("16ef5f6c-6f1b-4643-828d-954a7c96f1bb"),
+                            Id = new Guid("03a5df20-bd50-4d95-b674-00ec170b9212"),
                             Address = "Lozengrad 15",
-                            AgentId = new Guid("951bd3ff-53e2-49c4-a272-19d7ec7cfb14"),
+                            AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                             CategoryId = 1,
                             CityId = 1,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Малък семеен хотел в новата част на Созопол. намира се събсем близо до плажа.",
                             ImageUrl = "https://scontent.fsof1-1.fna.fbcdn.net/v/t1.6435-9/100680496_278314133535432_5456391328319406080_n.jpg?_nc_cat=111&cb=99be929b-3346023f&ccb=1-7&_nc_sid=730e14&_nc_ohc=RQpXwJhHdZ8AX_Zk1Ij&_nc_ht=scontent.fsof1-1.fna&oh=00_AfBao85ltJ0fFXEO_3zyFBC7IudFxDoxuQfOT-3Lzt8mtg&oe=64C4CE8C",
+                            IsActiv = (byte)0,
                             Price = 0m,
                             Title = "Morska zvezda"
                         },
                         new
                         {
-                            Id = new Guid("b0be9466-e5ea-404e-bf66-2fafe69e78c3"),
+                            Id = new Guid("91a6ce15-9413-4e04-8393-d48d651e09fc"),
                             Address = "Republikanska 37",
-                            AgentId = new Guid("951bd3ff-53e2-49c4-a272-19d7ec7cfb14"),
+                            AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                             CategoryId = 1,
                             CityId = 1,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Хотел „Табанов бийч” е разположен в новата част на град Созопол. Намира се само на 60м. от плаж \"Хармани\", а в близост има много магазини, ресторанти, клубове и други развлечения..",
-                            ImageUrl = "http://www.tabanovhotel.com/images/slide1.jpg",
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/Z4Y7.jpg",
+                            IsActiv = (byte)0,
                             Price = 0m,
                             Title = "Tabanov Beach"
+                        });
+                });
+
+            modelBuilder.Entity("TravelAgency.Data.Models.Post", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<Guid>("HouseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HouseId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Posts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Content = "Прекрасно преживяване в хотела! Уютна стая, отлично обслужване и изискан ресторант. Няма как да не се чувстваш приветливо посрещнат и релаксиран. Препоръчвам",
+                            HouseId = new Guid("03a5df20-bd50-4d95-b674-00ec170b9212"),
+                            UserId = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e")
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Content = "Къщата за гости беше просто превъзходна! Прекарахме незабравим уикенд сред природата, в компанията на любезни домакини. Всичко беше перфектно - от удобствата до гледката. С удоволствие ще се върнем отново!",
+                            HouseId = new Guid("03a5df20-bd50-4d95-b674-00ec170b9212"),
+                            UserId = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e")
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Content = "Невероятно преживяване в този хотел. Спокойствие, лукс и безупречно обслужване. От момента на пристигането до заминаването си се чувствахме като VIP гости. Благодарим на персонала за прекрасния престой!",
+                            HouseId = new Guid("03a5df20-bd50-4d95-b674-00ec170b9212"),
+                            UserId = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e")
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Content = "Хотелът ни очарова с уникален дизайн и стил. Всяка детайлна измислица беше внимателно изпълнена. Спяхме в комфортен легловия аранжимент и се насладихме на изисканата храна. Подгответе се за неповторимо изживяване!",
+                            HouseId = new Guid("03a5df20-bd50-4d95-b674-00ec170b9212"),
+                            UserId = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e")
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Content = "Къщата за гости беше уютна и пълна със сърце и душа. Гостоприемните домакини ни посрещнаха с топлина и готвената храна беше вкусна и автентична. Проведохме спокоен и релаксиращ уикенд в прекрасна обстановка.",
+                            HouseId = new Guid("91a6ce15-9413-4e04-8393-d48d651e09fc"),
+                            UserId = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e")
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Content = "Семейният ни престой в този хотел беше мечтан. Басейнът и игралната зала развълнуваха децата, докато спа-центърът ни предложи наистина релаксиращ опит. Отлична комбинация от забавление и отдих!",
+                            HouseId = new Guid("91a6ce15-9413-4e04-8393-d48d651e09fc"),
+                            UserId = new Guid("dea12856-c198-4129-b3f3-b893d8395082")
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Content = "Избрахме тази къща за гости за нашата романтична почивка и не бихме могли да бъдем по-щастливи. Атмосферата беше магична, а гледката от терасата буквално откъсна дъха. Ще я препоръчаме на всички!",
+                            HouseId = new Guid("91a6ce15-9413-4e04-8393-d48d651e09fc"),
+                            UserId = new Guid("dea12856-c198-4129-b3f3-b893d8395082")
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Content = "Хотелът беше прекрасно решение за нашия семеен отдих. Паркът и детските площадки зарадваха децата, а ресторантът ни предложи невероятни вкусове. Прекарахме незабравимо време с любимите си хора.",
+                            HouseId = new Guid("91a6ce15-9413-4e04-8393-d48d651e09fc"),
+                            UserId = new Guid("dea12856-c198-4129-b3f3-b893d8395082")
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Content = "Невероятна къща за гости, вложена със стил и комфорт. Пълноценното оборудване и уютната атмосфера ни позволиха да се отпуснем напълно. Прекарахме прекрасна почивка сред природата.",
+                            HouseId = new Guid("91a6ce15-9413-4e04-8393-d48d651e09fc"),
+                            UserId = new Guid("dea12856-c198-4129-b3f3-b893d8395082")
                         });
                 });
 
@@ -498,6 +636,25 @@ namespace TravelAgency.Data.Migrations
                     b.Navigation("Renter");
                 });
 
+            modelBuilder.Entity("TravelAgency.Data.Models.Post", b =>
+                {
+                    b.HasOne("TravelAgency.Data.Models.House", "House")
+                        .WithMany("Posts")
+                        .HasForeignKey("HouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TravelAgency.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("MyPosts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("House");
+                });
+
             modelBuilder.Entity("TravelAgency.Data.Models.Agent", b =>
                 {
                     b.Navigation("OwnedHouses");
@@ -505,6 +662,8 @@ namespace TravelAgency.Data.Migrations
 
             modelBuilder.Entity("TravelAgency.Data.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("MyPosts");
+
                     b.Navigation("RentedHouses");
                 });
 
@@ -516,6 +675,11 @@ namespace TravelAgency.Data.Migrations
             modelBuilder.Entity("TravelAgency.Data.Models.City", b =>
                 {
                     b.Navigation("HosesInCity");
+                });
+
+            modelBuilder.Entity("TravelAgency.Data.Models.House", b =>
+                {
+                    b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
         }
