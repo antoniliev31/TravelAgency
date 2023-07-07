@@ -16,6 +16,9 @@
             public const int AddressMinLength = 30;
             public const int AddressMaxLength = 150;
 
+            public const int CityMinLength = 4;
+            public const int CityMaxLength = 50;
+
             public const int DescriptionMinLength = 50;
             public const int DescriptionMaxLength = 500;
 
