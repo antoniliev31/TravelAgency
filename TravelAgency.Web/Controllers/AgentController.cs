@@ -6,6 +6,7 @@
     using ViewModels.Agent;
     using TravelAgency.Services.Data.Interfaces;
     using Infrastructure.Extensions;
+    
     using static Common.NotificationMessagesConstants;
 
     [Authorize]
