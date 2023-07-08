@@ -1,12 +1,9 @@
 ﻿namespace TravelAgency.Services.Data.Interfaces
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using Web.ViewModels.Category;
 
-    internal class ICategoryService
+    public interface ICategoryService
     {
+        Task<IEnumerable<HouseSelectCategoryFormModel>> AllCategoryesAsync();
     }
 }

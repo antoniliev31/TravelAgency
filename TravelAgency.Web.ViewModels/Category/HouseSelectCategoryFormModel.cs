@@ -1,12 +1,10 @@
 ﻿namespace TravelAgency.Web.ViewModels.Category
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
-    internal class HouseCategoryFormModel
+    public class HouseSelectCategoryFormModel
     {
+        public int Id { get; set; }
+
+        public string Name { get; set; } = null!;
+
     }
 }
