@@ -6,6 +6,7 @@ namespace TravelAgency.Web
     using TravelAgency.Data.Models;
     using TravelAgency.Services.Data.Interfaces;
     using Infrastructure.Extensions;
+    using Infrastructure.ModelBinders;
 
     public class Program
     {
@@ -34,7 +35,12 @@ namespace TravelAgency.Web
 
             builder.Services.AddApplicationServices(typeof(IHouseService));
 
-            builder.Services.AddControllersWithViews();
+            builder.Services
+                .AddControllersWithViews()
+                .AddMvcOptions(opt =>
+                {
+                    opt.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+                });
 
             WebApplication app = builder.Build();
 

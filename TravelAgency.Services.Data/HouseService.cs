@@ -1,4 +1,5 @@
 ﻿using TravelAgency.Data.Models;
+using TravelAgency.Web.ViewModels.House;
 
 namespace TravelAgency.Services.Data
 {
@@ -49,6 +50,23 @@ namespace TravelAgency.Services.Data
             return lastThreeHouse;
         }
 
-        
+        public async Task CreateHouseAsync(HouseFormModel formModel, string agentId, int cityId)
+        {
+            House newHouse = new House
+            {
+                Title = formModel.Title,
+                CategoryId = formModel.CategoryId,
+                CityId = cityId,
+                Address = formModel.Address,
+                Description = formModel.Description,
+                ImageUrl = formModel.ImageUrl,
+                Price = 0,
+                AgentId = Guid.Parse(agentId)
+
+            };
+
+            await this.dbContext.Houses.AddAsync(newHouse);
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }

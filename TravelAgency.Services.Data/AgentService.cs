@@ -48,7 +48,7 @@ namespace TravelAgency.Services.Data
             return user.RentedHouses.Any();
         }
 
-        public async Task CreateAgent(string userId, BecomeAgentFormModel model)
+        public async Task CreateAgentAsync(string userId, BecomeAgentFormModel model)
         {
             Agent newAgent = new Agent()
             {
@@ -58,6 +58,20 @@ namespace TravelAgency.Services.Data
 
             await this.dbContext.Agents.AddAsync(newAgent);
             await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<string?> GetAgentIdByUserIdAsync(string userId)
+        {
+            Agent? agent = await this.dbContext
+                .Agents
+                .FirstOrDefaultAsync(a => a.UserId.ToString() == userId);
+
+            if (agent == null)
+            {
+                return null;
+            }
+
+            return agent.Id.ToString();
         }
     }
 }

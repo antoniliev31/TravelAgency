@@ -20,7 +20,8 @@
 
         [Required]
         [StringLength(CityMaxLength, MinimumLength = CityMinLength)]
-        public string City { get; set; } = null!;
+        [Display(Name = "City")]
+        public string CityName { get; set; } = null!;
 
         [Required]
         [StringLength(AddressMaxLength, MinimumLength = AddressMinLength)]

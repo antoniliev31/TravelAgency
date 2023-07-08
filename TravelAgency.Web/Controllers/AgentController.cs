@@ -76,7 +76,7 @@
 
             try
             {
-                await this.agentService.CreateAgent(userId, model);
+                await this.agentService.CreateAgentAsync(userId, model);
             }
             catch (Exception)
             {
