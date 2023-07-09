@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Authorization;
 
     using Infrastructure.Extensions;
+    using Services.Data.Models.House;
     using TravelAgency.Services.Data.Interfaces;
     using ViewModels.House;
 
@@ -25,12 +26,20 @@
             this.houseService = houseService;
         }
 
-
+        [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery]AllHousesQueryModel queryModel)
         {
-            // Todo: Implement this!
-            return Ok();
+            AllHousesFilteredAndPagesServiceModel serviceModel =
+                await this.houseService.AllAsync(queryModel);
+
+            queryModel.Houses = serviceModel.Houses;
+            queryModel.TotalHouses = serviceModel.TotalHousesCount;
+            queryModel.Categories = await this.categoryService.AllCategoryNamesAsync();
+            queryModel.Cities = await this.cityService.AllCityNamesAsync();
+
+
+            return this.View(queryModel);
         }
 
         [HttpGet]

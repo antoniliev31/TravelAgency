@@ -47,6 +47,14 @@
             return city.Id;
         }
 
+        public async Task<IEnumerable<string>> AllCityNamesAsync()
+        {
+            IEnumerable<string> allNames = await this.dbContext
+                .Cities
+                .Select(c => c.Name)
+                .ToArrayAsync();
 
+            return allNames;
+        }
     }
 }

@@ -19,6 +19,7 @@
     <ProjectReference Include="..\TravelAgency.Common\TravelAgency.Common.csproj" />
     <ProjectReference Include="..\TravelAgency.Data.Models\TravelAgency.Data.Models.csproj" />
     <ProjectReference Include="..\TravelAgency.Data\TravelAgency.Data.csproj" />
+    <ProjectReference Include="..\TravelAgency.Services.Data.Models\TravelAgency.Services.Data.Models.csproj" />
     <ProjectReference Include="..\TravelAgency.Services.Data\TravelAgency.Services.Data.csproj" />
     <ProjectReference Include="..\TravelAgency.Web.Infrastructure\TravelAgency.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\TravelAgency.Web.ViewModels\TravelAgency.Web.ViewModels.csproj" />

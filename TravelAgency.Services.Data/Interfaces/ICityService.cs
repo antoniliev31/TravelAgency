@@ -14,5 +14,7 @@
         Task CreateCityAsync(string cityName);
 
         Task<int> GetCityId(string cityName);
+
+        Task<IEnumerable<string>> AllCityNamesAsync();
     }
 }
