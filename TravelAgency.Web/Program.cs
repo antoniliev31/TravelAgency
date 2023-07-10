@@ -33,7 +33,7 @@ namespace TravelAgency.Web
                 })
                 .AddEntityFrameworkStores<TravelAgencyDbContext>();
 
-            builder.Services.AddApplicationServices(typeof(IHouseService));
+            builder.Services.AddApplicationServices(typeof(IHotelService));
 
             builder.Services
                 .AddControllersWithViews()

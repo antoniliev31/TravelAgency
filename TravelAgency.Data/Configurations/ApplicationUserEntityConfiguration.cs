@@ -7,8 +7,9 @@ namespace TravelAgency.Data.Configurations
 {
     public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {
-        public void Configure(EntityTypeBuilder<ApplicationUser> builder)
-        {
+        public void Configure(EntityTypeBuilder<ApplicationUser> builder){
+            
+
             builder.HasData(this.GenerateIdentityUser());
         }
 

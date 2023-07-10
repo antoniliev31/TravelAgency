@@ -8,7 +8,7 @@
 
         Task<bool> AgentExistsByPhoneNumberAsync(string phoneNumber);
 
-        Task<bool> HasRentsByUserIdAsync(string userId);
+        Task<bool> HasBooksByUserIdAsync(string userId);
 
         Task CreateAgentAsync(string userId, BecomeAgentFormModel model);
 

@@ -7,11 +7,14 @@
         public ApplicationUser()
         {
             this.Id = Guid.NewGuid();
-            this.RentedHouses = new HashSet<House>();
+            this.LikedHotels = new HashSet<Hotel>();
+            this.BookedHotels = new HashSet<Hotel>();
             this.MyPosts = new HashSet<Post>();
         }
 
-        public virtual ICollection<House> RentedHouses { get; set; }
+        public virtual ICollection<Hotel> LikedHotels { get; set; }
+
+        public virtual ICollection<Hotel> BookedHotels { get; set; }
 
         public virtual ICollection<Post> MyPosts { get; set; }
     }

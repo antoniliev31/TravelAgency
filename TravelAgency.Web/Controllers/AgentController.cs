@@ -65,7 +65,7 @@
             }
 
             bool userHasActiveRents = await this.agentService
-                .HasRentsByUserIdAsync(userId);
+                .HasBooksByUserIdAsync(userId);
 
             if (userHasActiveRents)
             {
@@ -86,7 +86,7 @@
                 return this.RedirectToAction("Index", "Home");
             }
 
-            return this.RedirectToAction("All", "House");
+            return this.RedirectToAction("All", "Hotel");
 
         }
     }

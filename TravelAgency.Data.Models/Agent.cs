@@ -8,7 +8,7 @@
     {
         public Agent()
         {
-            this.OwnedHouses = new HashSet<House>();
+            this.OwnedHotel = new HashSet<Hotel>();
             this.Id = Guid.NewGuid();
         }
 
@@ -22,6 +22,6 @@
         public Guid UserId { get; set; }
         public virtual ApplicationUser User { get; set; } = null!;
 
-        public ICollection<House> OwnedHouses { get; set; }
+        public ICollection<Hotel> OwnedHotel { get; set; }
     }
 }

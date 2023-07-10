@@ -1,15 +1,16 @@
 ﻿namespace TravelAgency.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
-    using static Common.EntityValidationConstants.Category;
+    using static Common.EntityValidationConstants.RoomType;
+    
 
-    public class Category
+    public class RoomType
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(CategoryNameMaxLength)]
+        [MaxLength(NameMaxLength)]
         public string Name { get; set; } = null!;
     }
 }

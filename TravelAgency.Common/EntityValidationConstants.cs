@@ -2,22 +2,28 @@
 {
     public static class EntityValidationConstants
     {
-        public static class Category
+        public static class CateringType
         {
-            public const int NameMinLength = 2;
-            public const int NameMaxLength = 50;
+            public const int CateringNameMinLength = 2;
+            public const int CateringNameMaxLength = 20;
         }
 
-        public static class House
+        public static class Hotel
         {
             public const int TitleMinLength = 10;
             public const int TitleMaxLength = 50;
 
-            public const int AddressMinLength = 5;
-            public const int AddressMaxLength = 150;
+            public const int StarMinValue = 1;
+            public const int StarMaxValue = 5;
+
+            public const int SubTitleMinLength = 5;
+            public const int SubTitleMaxLength = 150;
 
             public const int CityMinLength = 4;
             public const int CityMaxLength = 50;
+
+            public const int CateringTypeMinLength = 1;
+            public const int CateringTypeMaxLength = 5;
 
             public const int DescriptionMinLength = 50;
             public const int DescriptionMaxLength = 500;
@@ -37,14 +43,26 @@
 
         public static class City
         {
-            public const int NameMinLength = 5;
-            public const int NameMaxLength = 50;
+            public const int CityMinLength = 5;
+            public const int CityMaxLength = 50;
         }
 
         public static class Post
         {
             public const int PostMinLength = 5;
             public const int PostMaxLength = 500;
+        }
+
+        public static class RoomType
+        {
+            public const int NameMinLength = 5;
+            public const int NameMaxLength = 30;
+        }
+
+        public static class Category
+        {
+            public const int CategoryNameMinLength = 5;
+            public const int CategoryNameMaxLength = 20;
         }
     }
 }

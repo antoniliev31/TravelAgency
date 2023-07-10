@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelAgency.Data;
 
@@ -11,9 +12,10 @@ using TravelAgency.Data;
 namespace TravelAgency.Data.Migrations
 {
     [DbContext(typeof(TravelAgencyDbContext))]
-    partial class TravelAgencyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230709140949_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +23,36 @@ namespace TravelAgency.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("ApplicationUserHotel", b =>
+                {
+                    b.Property<Guid>("LikedHotelsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UsersWhoLikedId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("LikedHotelsId", "UsersWhoLikedId");
+
+                    b.HasIndex("UsersWhoLikedId");
+
+                    b.ToTable("ApplicationUserHotel");
+                });
+
+            modelBuilder.Entity("ApplicationUserHotel1", b =>
+                {
+                    b.Property<Guid>("BookedHotelsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UsersWhoBookedId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("BookedHotelsId", "UsersWhoBookedId");
+
+                    b.HasIndex("UsersWhoBookedId");
+
+                    b.ToTable("ApplicationUserHotel1");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
                 {
@@ -256,15 +288,15 @@ namespace TravelAgency.Data.Migrations
                         {
                             Id = new Guid("dea12856-c198-4129-b3f3-b893d8395082"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "81c696a3-a45a-42bb-9344-7b2ad10a1189",
+                            ConcurrencyStamp = "548b9c29-bef9-4c66-bb5c-ec4ca835f5f6",
                             Email = "agent@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "agent@mail.com",
                             NormalizedUserName = "agent@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAENOkupNJIKVfV4TZ5jkpX+yvR/Rt63H1PoqBtZvLYowFvCumYJnY42247+zLrtX9TA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPrik8fHc89DsvB4zzMMBJdutduDOXxYlbA4XBUmtQprQAvNSdDRUKvRiVDfYmDeRA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "86f3122e-d279-43d2-bec5-946a32f703b5",
+                            SecurityStamp = "448fc011-a63a-4be2-b88f-0bcc6e89ca63",
                             TwoFactorEnabled = false,
                             UserName = "agent@mail.com"
                         },
@@ -272,18 +304,33 @@ namespace TravelAgency.Data.Migrations
                         {
                             Id = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8fe9d563-2dde-46ef-972b-470e5ee9e635",
+                            ConcurrencyStamp = "7abcee83-16aa-4c4e-9d14-843c66ebb9d8",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPKZNzulhsIxTQg180YMj0btAqG7ZWGWLMmaUuySwRtglhPY26fsfLuiHsSUE+/5YA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOYyTukWl6YrgRp76Kv62bPacA4RPliRav1fsJMksrOst/yCNrszIL3ZXCR3MyQ4Ug==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4c06e8be-dc58-4d3a-9617-20dc703bcc4f",
+                            SecurityStamp = "f40056d6-00dd-441c-a283-eda8df2e1f98",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         });
+                });
+
+            modelBuilder.Entity("TravelAgency.Data.Models.ApplicationUserHotel", b =>
+                {
+                    b.Property<Guid>("ApplicationUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("HotelId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ApplicationUserId", "HotelId");
+
+                    b.HasIndex("HotelId");
+
+                    b.ToTable("AplApplicationUserHotels");
                 });
 
             modelBuilder.Entity("TravelAgency.Data.Models.Category", b =>
@@ -375,12 +422,6 @@ namespace TravelAgency.Data.Migrations
                     b.Property<Guid>("AgentId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ApplicationUserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ApplicationUserId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
@@ -390,7 +431,7 @@ namespace TravelAgency.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 7, 10, 9, 5, 30, 767, DateTimeKind.Local).AddTicks(7165));
+                        .HasDefaultValue(new DateTime(2023, 7, 9, 17, 9, 49, 222, DateTimeKind.Local).AddTicks(7889));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -429,10 +470,6 @@ namespace TravelAgency.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AgentId");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("ApplicationUserId1");
 
                     b.HasIndex("CategoryId");
 
@@ -722,6 +759,36 @@ namespace TravelAgency.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("ApplicationUserHotel", b =>
+                {
+                    b.HasOne("TravelAgency.Data.Models.Hotel", null)
+                        .WithMany()
+                        .HasForeignKey("LikedHotelsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TravelAgency.Data.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UsersWhoLikedId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ApplicationUserHotel1", b =>
+                {
+                    b.HasOne("TravelAgency.Data.Models.Hotel", null)
+                        .WithMany()
+                        .HasForeignKey("BookedHotelsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TravelAgency.Data.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UsersWhoBookedId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
@@ -784,6 +851,25 @@ namespace TravelAgency.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("TravelAgency.Data.Models.ApplicationUserHotel", b =>
+                {
+                    b.HasOne("TravelAgency.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TravelAgency.Data.Models.Hotel", "Hotel")
+                        .WithMany()
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Hotel");
+                });
+
             modelBuilder.Entity("TravelAgency.Data.Models.Hotel", b =>
                 {
                     b.HasOne("TravelAgency.Data.Models.Agent", "Agent")
@@ -791,14 +877,6 @@ namespace TravelAgency.Data.Migrations
                         .HasForeignKey("AgentId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("TravelAgency.Data.Models.ApplicationUser", null)
-                        .WithMany("BookedHotels")
-                        .HasForeignKey("ApplicationUserId");
-
-                    b.HasOne("TravelAgency.Data.Models.ApplicationUser", null)
-                        .WithMany("LikedHotels")
-                        .HasForeignKey("ApplicationUserId1");
 
                     b.HasOne("TravelAgency.Data.Models.Category", "Category")
                         .WithMany()
@@ -861,10 +939,6 @@ namespace TravelAgency.Data.Migrations
 
             modelBuilder.Entity("TravelAgency.Data.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("BookedHotels");
-
-                    b.Navigation("LikedHotels");
-
                     b.Navigation("MyPosts");
                 });
 

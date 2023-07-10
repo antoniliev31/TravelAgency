@@ -26,14 +26,10 @@ namespace TravelAgency.Data.Models
         public Guid UserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; } = null!;
 
-        [ForeignKey(nameof(House))]
-        public Guid HouseId { get; set; }
-        public virtual House House { get; set; } = null!;
 
-
-        
-
-
+        [ForeignKey(nameof(Hotel))]
+        public Guid HotelId { get; set; }
+        public virtual Hotel Hotel { get; set; } = null!;
 
 
     }

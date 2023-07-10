@@ -9,16 +9,16 @@
 
     public class HomeController : Controller
     {
-        private readonly IHouseService houseService;
+        private readonly IHotelService _hotelService;
 
-        public HomeController(IHouseService houseService)
+        public HomeController(IHotelService hotelService)
         {
-            this.houseService = houseService;
+            this._hotelService = hotelService;
         }
 
         public async Task<IActionResult> Index()
         {
-            IEnumerable<IndexViewModel> viewModel = await this.houseService.LastThreeHouseAsync();
+            IEnumerable<IndexViewModel> viewModel = await this._hotelService.LastThreeHouseAsync();
 
             return View(viewModel);
         }

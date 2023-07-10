@@ -1,0 +1,16 @@
+﻿@model TravelAgency.Web.ViewModels.Hotel.HotelFormModel
+@{
+    ViewData["Title"] = "Add Hotel";
+}
+
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+<hr />
+
+<partial name="_HotelFormPartial" model="@Model"/>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial"/>
+}

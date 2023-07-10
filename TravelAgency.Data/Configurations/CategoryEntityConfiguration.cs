@@ -2,17 +2,16 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
     using Models;
 
     public class CategoryEntityConfiguration : IEntityTypeConfiguration<Category>
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
-            builder.HasData(this.GenerateCategories());
+            builder.HasData(this.GenerateCategory());
         }
 
-        private Category[] GenerateCategories()
+        private Category[] GenerateCategory()
         {
             ICollection<Category> categories = new HashSet<Category>();
 
@@ -20,26 +19,24 @@
             category = new Category()
             {
                 Id = 1,
-                Name = "Double room"
+                Name = "Семеен хотел"
             };
-
             categories.Add(category);
 
             category = new Category()
             {
                 Id = 2,
-                Name = "Studio"
+                Name = "Хотел"
             };
-
             categories.Add(category);
 
             category = new Category()
             {
                 Id = 3,
-                Name = "Apartment"
+                Name = "Апартхотел"
             };
-
             categories.Add(category);
+
 
             return categories.ToArray();
         }

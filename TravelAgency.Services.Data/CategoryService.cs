@@ -16,12 +16,12 @@
         }
 
 
-        public async Task<IEnumerable<HouseSelectCategoryFormModel>> AllCategoryesAsync()
+        public async Task<IEnumerable<HotelSelectCategoryFormModel>> AllCategoryesAsync()
         {
-            IEnumerable<HouseSelectCategoryFormModel> allCategories = await this.dbContext
+            IEnumerable<HotelSelectCategoryFormModel> allCategories = await this.dbContext
                 .Categories
                 .AsNoTracking()
-                .Select(c => new HouseSelectCategoryFormModel()
+                .Select(c => new HotelSelectCategoryFormModel()
                 {
                     Id = c.Id,
                     Name = c.Name
@@ -49,5 +49,6 @@
 
             return allNames;
         }
+
     }
 }

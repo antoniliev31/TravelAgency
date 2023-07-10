@@ -4,7 +4,7 @@
 
     public interface ICategoryService
     {
-        Task<IEnumerable<HouseSelectCategoryFormModel>> AllCategoryesAsync();
+        Task<IEnumerable<HotelSelectCategoryFormModel>> AllCategoryesAsync();
 
         Task<bool> ExistByIdAsync(int id);
 

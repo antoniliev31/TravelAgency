@@ -1,0 +1,78 @@
+﻿@model TravelAgency.Web.ViewModels.Hotel.HotelFormModel
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Title"></label>
+                <input asp-for="Title" class="form-control" placeholder="Title...">
+                <span asp-validation-for="Title" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubTitle"></label>
+                <input asp-for="SubTitle" class="form-control" placeholder="SubTitle...">
+                <span asp-validation-for="SubTitle" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Star"></label>
+                <input asp-for="Star" class="form-control" placeholder="Star...">
+                <span asp-validation-for="Star" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Location"></label>
+                <input asp-for="Location" class="form-control" placeholder="Location...">
+                <span asp-validation-for="Location" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" rows="4" class="form-control" placeholder="Two bedrooms..."></textarea>
+                <span asp-validation-for="Description" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl"></label>
+                <input asp-for="ImageUrl" class="form-control" placeholder="Your fine URL here...">
+                <span asp-validation-for="ImageUrl" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price"></label>
+                <input asp-for="Price" class="form-control">                 
+                <span asp-validation-for="Price" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId"></label>
+                <select asp-for="CategoryId" class="form-control" placeholder="Choose category">
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="CategoryId" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CateringTypeId"></label>
+                <select asp-for="CateringTypeId" class="form-control" placeholder="Choose catering type">
+                    @foreach (var catering in Model.Caterings)
+                    {
+                        <option value="@catering.Id">@catering.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="CateringTypeId" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RoomTypeId"></label>
+                <select asp-for="RoomTypeId" class="form-control" placeholder="Choose room type">
+                    @foreach (var room in Model.Rooms)
+                    {
+                        <option value="@room.Id">@room.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="RoomTypeId" class="small text-danger"></span>
+            </div>
+
+            <div class="text-center">
+                <input class="btn btn-primary mt-3" type="submit" value="Save" />
+            </div>
+        </form>
+    </div>
+</div>
+

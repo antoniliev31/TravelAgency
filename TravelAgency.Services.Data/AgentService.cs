@@ -34,7 +34,7 @@ namespace TravelAgency.Services.Data
             return result;
         }
 
-        public async Task<bool> HasRentsByUserIdAsync(string userId)
+        public async Task<bool> HasBooksByUserIdAsync(string userId)
         {
             ApplicationUser? user = await this.dbContext
                 .Users
@@ -45,7 +45,7 @@ namespace TravelAgency.Services.Data
                 return false;
             }
 
-            return user.RentedHouses.Any();
+            return user.BookedHotels.Any();
         }
 
         public async Task CreateAgentAsync(string userId, BecomeAgentFormModel model)
