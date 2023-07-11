@@ -67,7 +67,8 @@ namespace TravelAgency.Services.Data
                 ImageUrl = formModel.ImageUrl,
                 Price = formModel.Price,
                 AgentId = Guid.Parse(agentId),
-                RoomTypeId = formModel.RoomTypeId
+                RoomTypeId = formModel.RoomTypeId,
+                IsActive = 1
             };
 
             await this.dbContext.Hotels.AddAsync(newHotel);
@@ -78,6 +79,7 @@ namespace TravelAgency.Services.Data
         {
             IQueryable<Hotel> housesQuery = this.dbContext
                 .Hotels
+                .Where(h => h.IsActive == 1)
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(queryModel.Category))
@@ -96,10 +98,10 @@ namespace TravelAgency.Services.Data
                                 EF.Functions.Like(h.Description, wildCard));
             }
 
-            if (!string.IsNullOrWhiteSpace(queryModel.City))
+            if (!string.IsNullOrWhiteSpace(queryModel.Location))
             {
                 housesQuery = housesQuery
-                    .Where(h => h.Location.Name == queryModel.City);
+                    .Where(h => h.Location.Name == queryModel.Location);
             }
 
             housesQuery = queryModel.HouseSorting switch

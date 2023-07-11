@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelAgency.Data;
 
@@ -11,9 +12,10 @@ using TravelAgency.Data;
 namespace TravelAgency.Data.Migrations
 {
     [DbContext(typeof(TravelAgencyDbContext))]
-    partial class TravelAgencyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230711053906_11-07-23")]
+    partial class _110723
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -256,15 +258,15 @@ namespace TravelAgency.Data.Migrations
                         {
                             Id = new Guid("dea12856-c198-4129-b3f3-b893d8395082"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ce731935-4fba-48da-bcf0-621dd0c41997",
+                            ConcurrencyStamp = "14137eed-e367-4237-b08f-0c377e63cc04",
                             Email = "agent@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "agent@mail.com",
                             NormalizedUserName = "agent@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAENfDpOQVS2Fj9flsLIOdJeZPfR5GVwv05IhjiqvRBVI6PU/LzijUyLjHUNOhUXsPsw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEMGmJmuFN9aLgoIWoZ8ZRmjSj+GEvWbKZhjfsT0jzzSkrgwIF/S7Mqwfq2KWCwROA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2b4615f5-3cb0-4e15-8ce4-f85c2c3e0093",
+                            SecurityStamp = "3fcaf72e-bbdd-4aff-8b4b-5f398aa04d8f",
                             TwoFactorEnabled = false,
                             UserName = "agent@mail.com"
                         },
@@ -272,15 +274,15 @@ namespace TravelAgency.Data.Migrations
                         {
                             Id = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "13ef4d4d-a840-46bd-be48-a8929f3b202b",
+                            ConcurrencyStamp = "52f69581-c9e2-474a-86ed-6eb76c7594ce",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIHnNTA3BgQnG0SUFqqGpgl1Ukoz6DmfIvrJHmvaCDM3frajQk5qoZeiuNgwkHe8Xw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDpupTGMMIc6Ugirgt8S7no2ugrZ3lvpu1mclptwLpOk26Mc36e7ssN6TzIqKtG6dg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "abf158a4-5d9c-4921-96fd-a8edea01ca8a",
+                            SecurityStamp = "549ac14c-a39f-4fe5-9712-a67c12a5cebc",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         });
@@ -384,7 +386,7 @@ namespace TravelAgency.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 7, 11, 9, 28, 58, 644, DateTimeKind.Local).AddTicks(2127));
+                        .HasDefaultValue(new DateTime(2023, 7, 11, 8, 39, 5, 124, DateTimeKind.Local).AddTicks(7831));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -396,8 +398,8 @@ namespace TravelAgency.Data.Migrations
                         .HasMaxLength(2048)
                         .HasColumnType("nvarchar(2048)");
 
-                    b.Property<byte>("IsActive")
-                        .HasColumnType("tinyint");
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<int>("LocationId")
                         .HasColumnType("int");
@@ -444,7 +446,7 @@ namespace TravelAgency.Data.Migrations
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Малък семеен хотел в новата част на Созопол. Намира се събсем близо до плажа.",
                             ImageUrl = "https://scontent.fsof1-1.fna.fbcdn.net/v/t1.6435-9/100680496_278314133535432_5456391328319406080_n.jpg?_nc_cat=111&cb=99be929b-3346023f&ccb=1-7&_nc_sid=730e14&_nc_ohc=RQpXwJhHdZ8AX_Zk1Ij&_nc_ht=scontent.fsof1-1.fna&oh=00_AfBao85ltJ0fFXEO_3zyFBC7IudFxDoxuQfOT-3Lzt8mtg&oe=64C4CE8C",
-                            IsActive = (byte)1,
+                            IsActive = true,
                             LocationId = 1,
                             Price = 100m,
                             RoomTypeId = 1,
@@ -461,7 +463,7 @@ namespace TravelAgency.Data.Migrations
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Хотел „Табанов бийч” е разположен в новата част на град Созопол. Намира се само на 60м. от плаж \"Хармани\", а в близост има много магазини, ресторанти, клубове и други развлечения..",
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/Z4Y7.jpg",
-                            IsActive = (byte)1,
+                            IsActive = true,
                             LocationId = 1,
                             Price = 120m,
                             RoomTypeId = 1,
@@ -478,7 +480,7 @@ namespace TravelAgency.Data.Migrations
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Хотел „Аполис” се намира на много тихо и спокойно място в новата част на града. Разположен е на 70 м от плаж Хармани. Той е уютен и луксозен хотел, с интересна архитектура.",
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/B7NF.jpg",
-                            IsActive = (byte)1,
+                            IsActive = true,
                             LocationId = 1,
                             Price = 120m,
                             RoomTypeId = 1,
@@ -495,7 +497,7 @@ namespace TravelAgency.Data.Migrations
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Аполония Резорт е изискан четиризвезден ваканционен комплекс от затворен тип, разположен на един от най- красивите плажове по българското черноморие - великолепния Царския плаж. Царският плаж е разположен между курортите Черноморец на север и Созопол на юг.",
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel///136/big/P1000721.JPG",
-                            IsActive = (byte)1,
+                            IsActive = true,
                             LocationId = 2,
                             Price = 120m,
                             RoomTypeId = 2,
@@ -512,7 +514,7 @@ namespace TravelAgency.Data.Migrations
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Хотел „Аркутино Фемили Ризорт “ се намира на южното Черноморие на 40 км от град Бургас, между Созопол и Приморско в местността Аркутино, която е част от резервата „Ропотамо“. Разположен е в непосредствена близост до един от най-красивите български плажове, между златисти пясъчни дюни, прочутото крайморско езеро Водните лилии и река Ропотамо.",
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG//67/big/DSC_0826.JPG",
-                            IsActive = (byte)1,
+                            IsActive = true,
                             LocationId = 3,
                             Price = 170m,
                             RoomTypeId = 2,
@@ -529,7 +531,7 @@ namespace TravelAgency.Data.Migrations
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Атия Ризорт е луксозен, апартаментен комплекс от затворен тип, състоящ се от две четири етажни сгради с капацитет от 23 апартамента. Апартаментите са от различен тип, напълно оборудвани с всичко необходимо за престоя на своите гости. Намира се в района на живописното черноморско градче Черноморец, на 400 м от центъра и на 300 м от златистия плаж. Хотелът разполага със собствен ресторант, където гостите ползват отстъпка.",
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG//67/big/DSC_0826.JPG",
-                            IsActive = (byte)1,
+                            IsActive = true,
                             LocationId = 2,
                             Price = 200m,
                             RoomTypeId = 3,

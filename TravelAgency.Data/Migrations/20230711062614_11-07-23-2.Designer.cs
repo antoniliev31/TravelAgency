@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelAgency.Data;
 
@@ -11,9 +12,10 @@ using TravelAgency.Data;
 namespace TravelAgency.Data.Migrations
 {
     [DbContext(typeof(TravelAgencyDbContext))]
-    partial class TravelAgencyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230711062614_11-07-23-2")]
+    partial class _1107232
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -256,15 +258,15 @@ namespace TravelAgency.Data.Migrations
                         {
                             Id = new Guid("dea12856-c198-4129-b3f3-b893d8395082"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ce731935-4fba-48da-bcf0-621dd0c41997",
+                            ConcurrencyStamp = "1e616129-cec6-4673-98ab-504646347d9a",
                             Email = "agent@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "agent@mail.com",
                             NormalizedUserName = "agent@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAENfDpOQVS2Fj9flsLIOdJeZPfR5GVwv05IhjiqvRBVI6PU/LzijUyLjHUNOhUXsPsw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMQWiFGPdzCiUc1dfjjuLNPq8VkOS7hJw9uXSg1KvJsxE09qlWWJldxEk/eKlne4QA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2b4615f5-3cb0-4e15-8ce4-f85c2c3e0093",
+                            SecurityStamp = "3d6190a9-b97b-48e4-b147-365055e06ac7",
                             TwoFactorEnabled = false,
                             UserName = "agent@mail.com"
                         },
@@ -272,15 +274,15 @@ namespace TravelAgency.Data.Migrations
                         {
                             Id = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "13ef4d4d-a840-46bd-be48-a8929f3b202b",
+                            ConcurrencyStamp = "c9ffae64-129d-42d7-9438-fbc84d831561",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIHnNTA3BgQnG0SUFqqGpgl1Ukoz6DmfIvrJHmvaCDM3frajQk5qoZeiuNgwkHe8Xw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIKnH58RcXG0hyDUfkVIxf1NceXndmd3lqlzDC5astKl9WEPZEZFMGrJ/v7czSx2kA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "abf158a4-5d9c-4921-96fd-a8edea01ca8a",
+                            SecurityStamp = "efd07bfb-929a-4635-ab31-367946a1ed52",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         });
@@ -384,7 +386,7 @@ namespace TravelAgency.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 7, 11, 9, 28, 58, 644, DateTimeKind.Local).AddTicks(2127));
+                        .HasDefaultValue(new DateTime(2023, 7, 11, 9, 26, 11, 929, DateTimeKind.Local).AddTicks(1303));
 
                     b.Property<string>("Description")
                         .IsRequired()

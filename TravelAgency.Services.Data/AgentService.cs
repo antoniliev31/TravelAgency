@@ -45,7 +45,7 @@ namespace TravelAgency.Services.Data
                 return false;
             }
 
-            return user.BookedHotels.Any();
+            return user.MyOrders.Any();
         }
 
         public async Task CreateAgentAsync(string userId, BecomeAgentFormModel model)

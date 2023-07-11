@@ -30,6 +30,10 @@ namespace TravelAgency.Data
 
         public DbSet<RoomType> RoomTypes { get; set; } = null!;
 
+        public DbSet<WishList> WishLists { get; set; } = null!;
+
+        public DbSet<OrderList> OrderLists { get; set; } = null!;
+
 
 
         

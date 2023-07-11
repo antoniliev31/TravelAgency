@@ -41,7 +41,7 @@
             queryModel.Hotels = serviceModel.Houses;
             queryModel.TotalHotels = serviceModel.TotalHotelsCount;
             queryModel.Categories = await this.categoryService.AllCategoryNamesAsync();
-            queryModel.Cities = await this.locationService.AllLocationNamesAsync();
+            queryModel.Locations = await this.locationService.AllLocationNamesAsync();
             // Todo Room
             // Todo Catering
 

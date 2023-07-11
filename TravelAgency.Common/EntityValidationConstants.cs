@@ -10,7 +10,7 @@
 
         public static class Hotel
         {
-            public const int TitleMinLength = 10;
+            public const int TitleMinLength = 3;
             public const int TitleMaxLength = 50;
 
             public const int StarMinValue = 1;

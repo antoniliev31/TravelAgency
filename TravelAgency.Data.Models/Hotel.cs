@@ -13,8 +13,8 @@
         {
             this.Id = Guid.NewGuid();
             this.Posts = new HashSet<Post>();
-            //this.UsersWhoLiked = new HashSet<ApplicationUser>();
-            //this.UsersWhoBooked = new HashSet<ApplicationUser>();
+            this.WishLists = new HashSet<WishList>();
+            this.OrderLists = new HashSet<OrderList>();
         }
 
         [Key]
@@ -65,9 +65,8 @@
         public decimal Price { get; set; }
 
 
-        [Required]
-        [DefaultValue(true)]
-        public bool IsActive { get; set; }
+        [Required]  
+        public byte IsActive { get; set; } = 1;
         
 
         [ForeignKey(nameof(Agent))]
@@ -78,8 +77,10 @@
         [ForeignKey(nameof(RoomType))]
         public int RoomTypeId { get; set; }
         public virtual RoomType RoomType { get; set; } = null!;
-
+        
 
         public virtual ICollection<Post> Posts { get; set; }
+        public virtual ICollection<WishList> WishLists { get; set; }
+        public virtual ICollection<OrderList> OrderLists { get; set; }
     }
 }
