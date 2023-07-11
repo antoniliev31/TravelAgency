@@ -15,6 +15,10 @@
                 .HasDefaultValue(DateTime.Now);
 
             builder
+                .Property(h => h.IsActive)
+                .HasDefaultValue(true);
+
+            builder
                 .HasOne(h => h.Location)
                 .WithMany(c => c.HotelsInThisLocation)
                 .HasForeignKey(h => h.LocationId)
@@ -50,7 +54,7 @@
                 ImageUrl = "https://scontent.fsof1-1.fna.fbcdn.net/v/t1.6435-9/100680496_278314133535432_5456391328319406080_n.jpg?_nc_cat=111&cb=99be929b-3346023f&ccb=1-7&_nc_sid=730e14&_nc_ohc=RQpXwJhHdZ8AX_Zk1Ij&_nc_ht=scontent.fsof1-1.fna&oh=00_AfBao85ltJ0fFXEO_3zyFBC7IudFxDoxuQfOT-3Lzt8mtg&oe=64C4CE8C",
                 Price = 100,
                 AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
-                IsActive = 1
+                IsActive = true
             };
 
             hotels.Add(hotel);
@@ -69,7 +73,7 @@
                 ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/Z4Y7.jpg",
                 Price = 120,
                 AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
-                IsActive = 1
+                IsActive = true
             };
 
             hotels.Add(hotel);
@@ -89,7 +93,7 @@
                 ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/B7NF.jpg",
                 Price = 120,
                 AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
-                IsActive = 1
+                IsActive = true
             };
 
             hotels.Add(hotel);
@@ -108,7 +112,7 @@
                 ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel///136/big/P1000721.JPG",
                 Price = 120,
                 AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
-                IsActive = 1
+                IsActive = true
             };
 
             hotels.Add(hotel);
@@ -127,7 +131,7 @@
                 ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG//67/big/DSC_0826.JPG",
                 Price = 170,
                 AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
-                IsActive = 1
+                IsActive = true
             };
 
             hotels.Add(hotel);
@@ -146,7 +150,7 @@
                 ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG//67/big/DSC_0826.JPG",
                 Price = 200,
                 AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
-                IsActive = 1
+                IsActive = true
             };
 
             hotels.Add(hotel);

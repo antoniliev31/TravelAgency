@@ -1,14 +1,13 @@
 ﻿@model HotelAllViewModel
 
 <div class="col-xl-auto">
-    <div class="card mb-md-5">
+    <div class="card mb-md-4">
         <div class="card-header text-center alert-primary"><h4><b>@Model.Location</b></h4></div>
         <img class="card-img-top" src="@Model.ImageUrl" alt="Hotel Image">
         <div class="card-body text-center">
             <h4>@Model.Title</h4>
             <h6><b>@Model.SubTitle</b></h6>
             <h6>Цена: <b>@($"{Model.Price:f0}") ЛВ.</b></h6>
-            @*<h6>(@(Model.IsRented ? "Rented" : "Not Rented"))</h6>*@
             <br />
             <a asp-controller="Hotel" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-success">Details</a>             
             @if (this.User.Identity?.IsAuthenticated ?? false)

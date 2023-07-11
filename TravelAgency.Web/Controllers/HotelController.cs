@@ -38,7 +38,7 @@
             AllHotelsFilteredAndPagesServiceModel serviceModel =
                 await this.hotelService.AllAsync(queryModel);
 
-            queryModel.Hotels = serviceModel.Houses;
+            queryModel.Hotels = serviceModel.Hotels;
             queryModel.TotalHotels = serviceModel.TotalHotelsCount;
             queryModel.Categories = await this.categoryService.AllCategoryNamesAsync();
             queryModel.Locations = await this.locationService.AllLocationNamesAsync();

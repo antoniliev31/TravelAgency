@@ -66,7 +66,7 @@
 
 
         [Required]  
-        public byte IsActive { get; set; } = 1;
+        public bool IsActive { get; set; }
         
 
         [ForeignKey(nameof(Agent))]

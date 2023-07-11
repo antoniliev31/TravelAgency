@@ -6,11 +6,11 @@
     {
         public AllHotelsFilteredAndPagesServiceModel()
         {
-            this.Houses = new HashSet<HotelAllViewModel>();
+            this.Hotels = new HashSet<HotelAllViewModel>();
         }
         
         public int TotalHotelsCount { get; set; }
 
-        public IEnumerable<HotelAllViewModel> Houses { get; set; }
+        public IEnumerable<HotelAllViewModel> Hotels { get; set; }
     }
 }

@@ -68,7 +68,7 @@ namespace TravelAgency.Services.Data
                 Price = formModel.Price,
                 AgentId = Guid.Parse(agentId),
                 RoomTypeId = formModel.RoomTypeId,
-                IsActive = 1
+                IsActive = true
             };
 
             await this.dbContext.Hotels.AddAsync(newHotel);
@@ -77,14 +77,14 @@ namespace TravelAgency.Services.Data
 
         public async Task<AllHotelsFilteredAndPagesServiceModel> AllAsync(AllHotelQueryModel queryModel)
         {
-            IQueryable<Hotel> housesQuery = this.dbContext
+            IQueryable<Hotel> hotelsQuery = this.dbContext
                 .Hotels
-                .Where(h => h.IsActive == 1)
+                .Where(h => h.IsActive)
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(queryModel.Category))
             {
-                housesQuery = housesQuery
+                hotelsQuery = hotelsQuery
                     .Where(h => h.Category.Name == queryModel.Category);
             }
 
@@ -92,7 +92,7 @@ namespace TravelAgency.Services.Data
             {
                 string wildCard = $"%{queryModel.SearchString.ToLower()}%";
 
-                housesQuery = housesQuery
+                hotelsQuery = hotelsQuery
                     .Where(h => EF.Functions.Like(h.Title, wildCard) ||
                                 EF.Functions.Like(h.Location.Name, wildCard) ||
                                 EF.Functions.Like(h.Description, wildCard));
@@ -100,31 +100,32 @@ namespace TravelAgency.Services.Data
 
             if (!string.IsNullOrWhiteSpace(queryModel.Location))
             {
-                housesQuery = housesQuery
+                hotelsQuery = hotelsQuery
                     .Where(h => h.Location.Name == queryModel.Location);
             }
 
-            housesQuery = queryModel.HouseSorting switch
+            hotelsQuery = queryModel.HotelSorting switch
             {
-                HotelSorting.Newest => housesQuery
+                HotelSorting.Newest => hotelsQuery
                     .OrderBy(h => h.CreatedOn),
-                HotelSorting.Oldest => housesQuery
+                HotelSorting.Oldest => hotelsQuery
                     .OrderByDescending(h => h.CreatedOn),
-                HotelSorting.CityAscending => housesQuery
+                HotelSorting.CityAscending => hotelsQuery
                     .OrderBy(h => h.Location),
-                HotelSorting.CityDescending => housesQuery
+                HotelSorting.CityDescending => hotelsQuery
                     .OrderByDescending(h => h.Location),
-                HotelSorting.PriceAscending => housesQuery
+                HotelSorting.PriceAscending => hotelsQuery
                     .OrderBy(h => h.Price),
-                HotelSorting.PriceDescending => housesQuery
+                HotelSorting.PriceDescending => hotelsQuery
                     .OrderByDescending(h => h.Price),
-                _ => housesQuery
+                _ => hotelsQuery
                     .OrderByDescending(h => h.Price)
             };
 
-            IEnumerable<HotelAllViewModel> allHouses = await housesQuery
-                .Skip((queryModel.CurrentPage - 1) * queryModel.HousesPerPage)
-                .Take(queryModel.HousesPerPage)
+            IEnumerable<HotelAllViewModel> allHotels = await hotelsQuery
+                .Where(h => h.IsActive)
+                .Skip((queryModel.CurrentPage - 1) * queryModel.HotelsPerPage)
+                .Take(queryModel.HotelsPerPage)
                 .Select(h => new HotelAllViewModel
                 {
                     Id = h.Id.ToString(),
@@ -139,12 +140,12 @@ namespace TravelAgency.Services.Data
                 })
                 .ToArrayAsync();
 
-            int totalHouses = housesQuery.Count();
+            int totalHouses = hotelsQuery.Count();
 
             return new AllHotelsFilteredAndPagesServiceModel
             {
                 TotalHotelsCount = totalHouses,
-                Houses = allHouses
+                Hotels = allHotels
             };
         }
     }

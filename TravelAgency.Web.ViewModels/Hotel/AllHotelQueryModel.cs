@@ -9,7 +9,7 @@
         public AllHotelQueryModel()
         {
             this.CurrentPage = DefaultPage;
-            this.HousesPerPage = EntitiesPerPage;
+            this.HotelsPerPage = EntitiesPerPage;
             this.Categories = new HashSet<string>();
             this.Hotels = new HashSet<HotelAllViewModel>();
             this.Locations = new HashSet<string>();
@@ -25,13 +25,13 @@
         public string? SearchString { get; set; }
 
         [Display(Name = "Подреди по")]
-        public HotelSorting HouseSorting { get; set; }
+        public HotelSorting HotelSorting { get; set; }
 
         [Display(Name = "Настояща страница")]
         public int CurrentPage { get; set; }
         
         [Display(Name = "Брой страници")]
-        public int HousesPerPage { get; set; }
+        public int HotelsPerPage { get; set; }
 
         [Display(Name = "Общо хотели")]
         public int TotalHotels { get; set; }
