@@ -12,6 +12,6 @@
 
         public string? Text { get; set; }
 
-        public List<PostViewModel>? PostsList{ get; set; }
+        
     }
 }

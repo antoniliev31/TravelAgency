@@ -3,31 +3,28 @@
 <div class="col-xl-auto">
     <div class="card mb-md-4">
         <div class="card-header text-center alert-primary"><h4><b>@Model.Location</b></h4></div>
-        <img class="card-img-top" src="@Model.ImageUrl" alt="Hotel Image">
-        <div class="card-body text-center">
+        <img class="card-img-top mb-0" src="@Model.ImageUrl" alt="Hotel Image">
+        <div class="card-body mt-0 text-center">
+            @{
+                int star = Model.Star;
+            }
+            @for (int i = 1; i <= star; i++)
+            {
+                <a class="star"></a>
+            }
             <h4>@Model.Title</h4>
             <h6><b>@Model.SubTitle</b></h6>
             <h6>Цена: <b>@($"{Model.Price:f0}") ЛВ.</b></h6>
             <br />
-            <a asp-controller="Hotel" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-success">Details</a>             
+            <a asp-controller="Hotel" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-success">Details</a>
             @if (this.User.Identity?.IsAuthenticated ?? false)
             {
                 <a asp-controller="Hotel" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
-                <a asp-controller="Hotel" asp-action="Delete" asp-routeid="@Model.Id"
-                   class="btn btn-danger">Delete</a>
+                <a asp-controller="Hotel" asp-action="Delete" asp-routeid="@Model.Id" class="btn btn-danger">Delete</a>
                 <p></p>
-                @*@if (!Model.IsRented)
-                {*@
-                    <form class="input-group-sm" asp-controller="Hotel" asp-action="Rent" asp-route-id="@Model.Id" method="post">
-                        <input class="btn btn-primary" type="submit" value="Rent" />
-                    </form>
-                @*}*@
-                @*else
-                {
-                    <form asp-controller="House" asp-action="Leave" asp-route-id="@Model.Id" method="post">
-                        <input class="btn btn-primary" type="submit" value="Leave" />
-                    </form>
-                }*@
+                <form class="input-group-sm" asp-controller="Hotel" asp-action="Rent" asp-route-id="@Model.Id" method="post">
+                    <input class="btn btn-primary" type="submit" value="Rent" />
+                </form>
             }
         </div>
     </div>

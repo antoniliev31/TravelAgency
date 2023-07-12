@@ -1,4 +1,4 @@
-﻿namespace TravelAgency.Web.ViewModels.House
+﻿namespace TravelAgency.Web.ViewModels.Hotel
 {
     using System.ComponentModel.DataAnnotations;
     using Enums;

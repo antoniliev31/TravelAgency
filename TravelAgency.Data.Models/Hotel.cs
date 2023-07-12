@@ -80,7 +80,9 @@
         
 
         public virtual ICollection<Post> Posts { get; set; }
+
         public virtual ICollection<WishList> WishLists { get; set; }
+
         public virtual ICollection<OrderList> OrderLists { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace TravelAgency.Web.ViewModels.House.Enums
+﻿namespace TravelAgency.Web.ViewModels.Hotel.Enums
 {
     public enum HotelSorting
     {

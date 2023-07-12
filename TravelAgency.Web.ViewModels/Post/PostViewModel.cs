@@ -1,4 +1,4 @@
-﻿namespace TravelAgency.Web.ViewModels.Home
+﻿namespace TravelAgency.Web.ViewModels.Post
 {
     public class PostViewModel
     {

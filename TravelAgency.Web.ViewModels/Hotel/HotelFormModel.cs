@@ -32,6 +32,7 @@
         public string Location { get; set; } = null!;
         
         [Range(StarMinValue, StarMaxValue)]
+        [Display(Name = "Category")]
         public int Star { get; set; }
 
         [Required]

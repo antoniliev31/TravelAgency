@@ -1,4 +1,4 @@
-﻿namespace TravelAgency.Web.ViewModels.House
+﻿namespace TravelAgency.Web.ViewModels.Hotel
 {
     using System.ComponentModel.DataAnnotations;
 
@@ -14,7 +14,7 @@
 
         public string Catering { get; set; } = null!;
 
-        public int Category { get; set; }
+        public string Category { get; set; } = null!;
 
         public string ImageUrl { get; set; } = null!;
 

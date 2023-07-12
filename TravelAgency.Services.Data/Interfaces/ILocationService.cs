@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using TravelAgency.Web.ViewModels.House;
+    using Web.ViewModels.Hotel;
 
     public interface ILocationService 
     {

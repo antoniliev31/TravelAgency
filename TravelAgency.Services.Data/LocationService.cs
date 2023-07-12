@@ -5,7 +5,7 @@
     using TravelAgency.Data;
     using TravelAgency.Data.Models;
 
-    using TravelAgency.Web.ViewModels.House;
+    using Web.ViewModels.Hotel;
 
 
     public class LocationService : ILocationService

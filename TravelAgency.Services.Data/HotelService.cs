@@ -1,17 +1,19 @@
-﻿using TravelAgency.Data.Models;
-using TravelAgency.Web.ViewModels.House;
-
+﻿
 namespace TravelAgency.Services.Data
 {
+    using System;
+
     using Microsoft.EntityFrameworkCore;
     using TravelAgency.Data;
 
+    using TravelAgency.Data.Models;
+    using Web.ViewModels.Hotel;
     using Interfaces;
     using Web.ViewModels.Home;
-    using System;
     using Models.House;
-    using Web.ViewModels.Hotel;
-    using Web.ViewModels.House.Enums;
+    using Web.ViewModels.Agent;
+    using Web.ViewModels.Hotel.Enums;
+    using Web.ViewModels.Post;
 
     public class HotelService : IHotelService
     {
@@ -22,7 +24,7 @@ namespace TravelAgency.Services.Data
             this.dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<IndexViewModel>> LastThreeHouseAsync()
+        public async Task<IEnumerable<IndexViewModel>> LastThreeAddedHotelAsync()
         {
             var lastThreeHouse = await this.dbContext
                 .Hotels
@@ -75,7 +77,7 @@ namespace TravelAgency.Services.Data
             await this.dbContext.SaveChangesAsync();
         }
 
-        public async Task<AllHotelsFilteredAndPagesServiceModel> AllAsync(AllHotelQueryModel queryModel)
+        public async Task<AllHotelsFilteredAndPagesServiceModel> AllHotelAsync(AllHotelQueryModel queryModel)
         {
             IQueryable<Hotel> hotelsQuery = this.dbContext
                 .Hotels
@@ -147,6 +149,138 @@ namespace TravelAgency.Services.Data
                 TotalHotelsCount = totalHouses,
                 Hotels = allHotels
             };
+        }
+
+        public async Task<IEnumerable<HotelAllViewModel>> AllHotelByAgentIdAsync(string agentId)
+        {
+            IEnumerable<HotelAllViewModel> allAgentHotel = await this.dbContext
+                .Hotels
+                .Where(h => h.IsActive)
+                .Where(h => h.AgentId == Guid.Parse(agentId))
+                .Select(h => new HotelAllViewModel
+                {
+                    Id = h.Id.ToString(),
+                    Title = h.Title,
+                    SubTitle = h.SubTitle,
+                    Location = h.Location.Name,
+                    Catering = h.CateringType.Name,
+                    Category = h.Category.Name,
+                    ImageUrl = h.ImageUrl,
+                    Price = h.Price,
+                    Star = h.Star,
+                    RoomType = h.RoomType.Name,
+                })
+                .ToArrayAsync();
+
+            return allAgentHotel;
+        }
+
+        public async Task<IEnumerable<HotelAllViewModel>> AllWishHotelByUserAsync(string userId)
+        {
+            IEnumerable<HotelAllViewModel> allWishHotelByAgent = await this.dbContext
+                .WishLists
+                .Where(h => h.Hotel.IsActive)
+                .Where(h => h.UserId == Guid.Parse(userId))
+                .Select(h => new HotelAllViewModel
+                {
+                    Id = h.Hotel.Id.ToString(),
+                    Title = h.Hotel.Title,
+                    SubTitle = h.Hotel.SubTitle,
+                    Location = h.Hotel.Location.Name,
+                    Catering = h.Hotel.CateringType.Name,
+                    Category = h.Hotel.Category.Name,
+                    ImageUrl = h.Hotel.ImageUrl,
+                    Price = h.Hotel.Price,
+                    Star = h.Hotel.Star,
+                    RoomType = h.Hotel.RoomType.Name
+                })
+                .ToArrayAsync();
+
+            return allWishHotelByAgent;
+        }
+
+        public async Task<IEnumerable<HotelAllViewModel>> AllOrderHotelByUserAsync(string userId)
+        {
+            IEnumerable<HotelAllViewModel> allOrderByUser = await this.dbContext
+                .OrderLists
+                .Where(h => h.Hotel.IsActive)
+                .Where(h => h.UserId == Guid.Parse(userId))
+                .Select(h => new HotelAllViewModel
+                {
+                    Id = h.Hotel.Id.ToString(),
+                    Title = h.Hotel.Title,
+                    SubTitle = h.Hotel.SubTitle,
+                    Location = h.Hotel.Location.Name,
+                    Catering = h.Hotel.CateringType.Name,
+                    Category = h.Hotel.Category.Name,
+                    ImageUrl = h.Hotel.ImageUrl,
+                    Price = h.Hotel.Price,
+                    Star = h.Hotel.Star,
+                    RoomType = h.Hotel.RoomType.Name
+                })
+                .ToArrayAsync();
+
+            return allOrderByUser;
+        }
+
+        public async Task<HotelDetailsViewModel?> GetHotelDetailsByAdAsync(string hotelId)
+        {
+            var hotel = await this.dbContext
+                .Hotels
+                .Include(h => h.Category)
+                .Include(h => h.Location)
+                .Include(h => h.CateringType)
+                .Include(h => h.RoomType)
+                .Include(h => h.Agent)
+                .ThenInclude(a => a.User)
+                .Include(h => h.Posts)
+                .FirstOrDefaultAsync(h => h.IsActive && h.Id.ToString() == hotelId);
+
+            if (hotel == null)
+            {
+                return null;
+            }
+
+            List<PostViewModel> posts = new List<PostViewModel>();
+
+            foreach (var post in hotel.Posts)
+            {
+                var user = await this.dbContext.Users.FindAsync(post.UserId);
+                var userName = user?.UserName ?? string.Empty;
+
+                PostViewModel p = new PostViewModel
+                {
+                    Id = post.Id,
+                    UserName = userName,
+                    Description = post.Content
+                };
+                posts.Add(p);
+            }
+
+            var viewModel = new HotelDetailsViewModel
+            {
+                Id = hotel.Id.ToString(),
+                Title = hotel.Title,
+                SubTitle = hotel.SubTitle,
+                Location = hotel.Location.Name,
+                Catering = hotel.CateringType.Name,
+                Category = hotel.Category.Name,
+                ImageUrl = hotel.ImageUrl,
+                Price = hotel.Price,
+                Star = hotel.Star,
+                RoomType = hotel.RoomType.Name,
+                Description = hotel.Description,
+                Agent = new AgentInfoOnHotelViewModel
+                {
+                    Email = hotel.Agent.User.Email,
+                    PhoneNumber = hotel.Agent.PhoneNumber
+                }
+            };
+
+            
+            viewModel.Posts = posts;
+
+            return viewModel;
         }
     }
 }

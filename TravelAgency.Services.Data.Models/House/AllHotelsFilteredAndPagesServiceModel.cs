@@ -1,6 +1,6 @@
 ﻿namespace TravelAgency.Services.Data.Models.House
 {
-    using Web.ViewModels.House;
+    using Web.ViewModels.Hotel;
 
     public class AllHotelsFilteredAndPagesServiceModel
     {

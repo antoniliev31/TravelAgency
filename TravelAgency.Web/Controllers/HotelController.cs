@@ -7,8 +7,6 @@
     using Services.Data.Models.House;
     using TravelAgency.Services.Data.Interfaces;
     using ViewModels.Hotel;
-    using ViewModels.House;
-
     using static Common.NotificationMessagesConstants;
 
     [Authorize]
@@ -36,7 +34,7 @@
         public async Task<IActionResult> All([FromQuery]AllHotelQueryModel queryModel)
         {
             AllHotelsFilteredAndPagesServiceModel serviceModel =
-                await this.hotelService.AllAsync(queryModel);
+                await this.hotelService.AllHotelAsync(queryModel);
 
             queryModel.Hotels = serviceModel.Hotels;
             queryModel.TotalHotels = serviceModel.TotalHotelsCount;
@@ -137,6 +135,41 @@
             }
 
             return this.RedirectToAction("All", "Hotel");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Mine()
+        {
+            List<HotelAllViewModel> myHotel = new List<HotelAllViewModel>();
+
+            string userId = this.User.GetId()!;
+
+            bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(userId);
+
+            if (isUserAgent)
+            {
+                string? agentId = await this.agentService.GetAgentIdByUserIdAsync(userId);
+
+                myHotel.AddRange(await this.hotelService.AllHotelByAgentIdAsync(agentId!));
+            }
+            
+            return this.View(myHotel);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(string id)
+        {
+            HotelDetailsViewModel? viewModel = await this.hotelService
+                .GetHotelDetailsByAdAsync(id);
+
+            if (viewModel == null)
+            {
+                this.TempData[ErrorMessage] = "Hotel with the provided id does not exist!";
+                return this.RedirectToAction("All", "Hotel");
+            }
+            return this.View(viewModel);
+
         }
     }
 }

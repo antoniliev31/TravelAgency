@@ -18,7 +18,7 @@
 
         public async Task<IActionResult> Index()
         {
-            IEnumerable<IndexViewModel> viewModel = await this._hotelService.LastThreeHouseAsync();
+            IEnumerable<IndexViewModel> viewModel = await this._hotelService.LastThreeAddedHotelAsync();
 
             return View(viewModel);
         }
