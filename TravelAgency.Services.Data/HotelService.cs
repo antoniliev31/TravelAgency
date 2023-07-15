@@ -1,11 +1,9 @@
-﻿
-namespace TravelAgency.Services.Data
+﻿namespace TravelAgency.Services.Data
 {
     using System;
-
     using Microsoft.EntityFrameworkCore;
+    
     using TravelAgency.Data;
-
     using TravelAgency.Data.Models;
     using Web.ViewModels.Hotel;
     using Interfaces;
@@ -13,7 +11,11 @@ namespace TravelAgency.Services.Data
     using Models.House;
     using Web.ViewModels.Agent;
     using Web.ViewModels.Hotel.Enums;
+    using Web.ViewModels.Image;
     using Web.ViewModels.Post;
+
+    using static Common.EntityValidationConstants;
+    using Hotel = TravelAgency.Data.Models.Hotel;
 
     public class HotelService : IHotelService
     {
@@ -34,9 +36,10 @@ namespace TravelAgency.Services.Data
                 {
                     Id = h.Id.ToString(),
                     Title = h.Title,
-                    ImageUrl = h.ImageUrl
+                    ImageUrl = h.Images.FirstOrDefault(i => i.IsMain)!.ImageUrl ?? h.Images.FirstOrDefault()!.ImageUrl
                 })
                 .ToListAsync();
+            
 
             Random random = new Random();
             foreach (var house in lastThreeHouse)
@@ -57,21 +60,27 @@ namespace TravelAgency.Services.Data
 
         public async Task CreateHotelAsync(HotelFormModel formModel, string agentId, int locationId)
         {
-            Hotel newHotel = new Hotel
+            Hotel newhotel = new Hotel
             {
                 Title = formModel.Title,
-                SubTitle = formModel.SubTitle,
                 LocationId = locationId,
                 Description = formModel.Description,
                 CategoryId = formModel.CategoryId,
                 CateringTypeId = formModel.CateringTypeId,
                 Star = formModel.Star,
-                ImageUrl = formModel.ImageUrl,
+                //Image = formModel.ImageUrl,
                 Price = formModel.Price,
                 AgentId = Guid.Parse(agentId),
                 RoomTypeId = formModel.RoomTypeId,
                 IsActive = true
             };
+            Hotel newHotel = new Hotel
+            {
+
+                
+            };
+
+
 
             await this.dbContext.Hotels.AddAsync(newHotel);
             await this.dbContext.SaveChangesAsync();
@@ -132,12 +141,11 @@ namespace TravelAgency.Services.Data
                 {
                     Id = h.Id.ToString(),
                     Title = h.Title,
-                    SubTitle = h.SubTitle,
                     Location = h.Location.Name,
                     Star = h.Star,
                     RoomType = h.RoomType.Name,
                     Catering = h.CateringType.Name,
-                    ImageUrl = h.ImageUrl,
+                    ImageUrl = h.Images.FirstOrDefault(i => i.IsMain)!.ImageUrl ?? "",
                     Price = h.Price
                 })
                 .ToArrayAsync();
@@ -161,11 +169,10 @@ namespace TravelAgency.Services.Data
                 {
                     Id = h.Id.ToString(),
                     Title = h.Title,
-                    SubTitle = h.SubTitle,
                     Location = h.Location.Name,
                     Catering = h.CateringType.Name,
                     Category = h.Category.Name,
-                    ImageUrl = h.ImageUrl,
+                    ImageUrl = h.Images.FirstOrDefault(i => i.IsMain)!.ImageUrl ?? "",
                     Price = h.Price,
                     Star = h.Star,
                     RoomType = h.RoomType.Name,
@@ -185,11 +192,10 @@ namespace TravelAgency.Services.Data
                 {
                     Id = h.Hotel.Id.ToString(),
                     Title = h.Hotel.Title,
-                    SubTitle = h.Hotel.SubTitle,
                     Location = h.Hotel.Location.Name,
                     Catering = h.Hotel.CateringType.Name,
                     Category = h.Hotel.Category.Name,
-                    ImageUrl = h.Hotel.ImageUrl,
+                    ImageUrl = h.Hotel.Images.FirstOrDefault(i => i.IsMain)!.ImageUrl ?? "",
                     Price = h.Hotel.Price,
                     Star = h.Hotel.Star,
                     RoomType = h.Hotel.RoomType.Name
@@ -209,11 +215,10 @@ namespace TravelAgency.Services.Data
                 {
                     Id = h.Hotel.Id.ToString(),
                     Title = h.Hotel.Title,
-                    SubTitle = h.Hotel.SubTitle,
                     Location = h.Hotel.Location.Name,
                     Catering = h.Hotel.CateringType.Name,
                     Category = h.Hotel.Category.Name,
-                    ImageUrl = h.Hotel.ImageUrl,
+                    ImageUrl = h.Hotel.Images.FirstOrDefault(i => i.IsMain)!.ImageUrl ?? "",
                     Price = h.Hotel.Price,
                     Star = h.Hotel.Star,
                     RoomType = h.Hotel.RoomType.Name
@@ -234,6 +239,7 @@ namespace TravelAgency.Services.Data
                 .Include(h => h.Agent)
                 .ThenInclude(a => a.User)
                 .Include(h => h.Posts)
+                .Include(h => h.Images)
                 .FirstOrDefaultAsync(h => h.IsActive && h.Id.ToString() == hotelId);
 
             if (hotel == null)
@@ -257,15 +263,27 @@ namespace TravelAgency.Services.Data
                 posts.Add(p);
             }
 
+            List<ImageViewModel> images = new List<ImageViewModel>();
+            foreach (var image in hotel.Images)
+            {
+                ImageViewModel im = new ImageViewModel()
+                {
+                    Id = image.Id,
+                    ImageUrl = image.ImageUrl,
+                    IsMain = image.IsMain
+                };
+
+                images.Add(im);
+            }
+
             var viewModel = new HotelDetailsViewModel
             {
                 Id = hotel.Id.ToString(),
                 Title = hotel.Title,
-                SubTitle = hotel.SubTitle,
                 Location = hotel.Location.Name,
                 Catering = hotel.CateringType.Name,
                 Category = hotel.Category.Name,
-                ImageUrl = hotel.ImageUrl,
+                //ImageUrl = hotel.Images.FirstOrDefault(i => i.IsMain)!.ImageUrl ?? "",
                 Price = hotel.Price,
                 Star = hotel.Star,
                 RoomType = hotel.RoomType.Name,
@@ -277,7 +295,7 @@ namespace TravelAgency.Services.Data
                 }
             };
 
-            
+            viewModel.Images = images;
             viewModel.Posts = posts;
 
             return viewModel;

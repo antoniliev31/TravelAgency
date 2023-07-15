@@ -31,7 +31,7 @@
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> All([FromQuery]AllHotelQueryModel queryModel)
+        public async Task<IActionResult> All([FromQuery] AllHotelQueryModel queryModel)
         {
             AllHotelsFilteredAndPagesServiceModel serviceModel =
                 await this.hotelService.AllHotelAsync(queryModel);
@@ -40,8 +40,6 @@
             queryModel.TotalHotels = serviceModel.TotalHotelsCount;
             queryModel.Categories = await this.categoryService.AllCategoryNamesAsync();
             queryModel.Locations = await this.locationService.AllLocationNamesAsync();
-            // Todo Room
-            // Todo Catering
 
 
             return this.View(queryModel);
@@ -108,7 +106,7 @@
             {
                 await this.locationService.CreateLocationAsync(model.Location);
             }
-            
+
             if (!this.ModelState.IsValid)
             {
                 model.Categories = await this.categoryService.AllCategoryesAsync();
@@ -117,7 +115,7 @@
 
                 return this.View(model);
             }
-            
+
             try
             {
                 string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
@@ -152,7 +150,7 @@
 
                 myHotel.AddRange(await this.hotelService.AllHotelByAgentIdAsync(agentId!));
             }
-            
+
             return this.View(myHotel);
         }
 

@@ -11,7 +11,7 @@
         Task CreateHotelAsync(HotelFormModel formModel, string agentId, int locationId);
 
         Task<AllHotelsFilteredAndPagesServiceModel> AllHotelAsync(AllHotelQueryModel queryModel);
-        
+
         Task<IEnumerable<HotelAllViewModel>> AllHotelByAgentIdAsync(string agentId);
 
         Task<IEnumerable<HotelAllViewModel>> AllWishHotelByUserAsync(string userId);

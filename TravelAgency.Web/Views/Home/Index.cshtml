@@ -14,7 +14,7 @@
         <p class="lead"> 
             @if (User.Identity?.IsAuthenticated ?? false) 
             { 
-                <a asp-controller="House" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add House</a> 
+                <a asp-controller="Hotel" asp-action="Add" class="btn btn-primary btn-lg" role="button">Add House</a> 
             } 
         </p> 
     </div> 
@@ -30,7 +30,7 @@
                 <img class="d-block w-100" style="height:500px" src="@house.ImageUrl" alt="@house.Title"> 
                 <div class="carousel-caption d-none d-md-block"> 
                     <h5> 
-                        <a class="btn btn-primary" asp-controller="House" aspaction="Details" 
+                        <a class="btn btn-primary" asp-controller="Hotel" aspaction="Details" 
                        asp-route-id="@house.Id"> @house.Title</a> 
                     </h5> 
                 </div> 

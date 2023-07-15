@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TravelAgency.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class _130723AddImageGalery : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -231,18 +231,16 @@ namespace TravelAgency.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    SubTitle = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
-                    LocationId = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
-                    CateringTypeId = table.Column<int>(type: "int", nullable: false),
                     Star = table.Column<int>(type: "int", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 7, 9, 17, 9, 49, 222, DateTimeKind.Local).AddTicks(7889)),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 7, 14, 17, 57, 40, 775, DateTimeKind.Local).AddTicks(1854)),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
+                    LocationId = table.Column<int>(type: "int", nullable: false),
                     AgentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RoomTypeId = table.Column<int>(type: "int", nullable: false)
+                    RoomTypeId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    CateringTypeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -280,23 +278,20 @@ namespace TravelAgency.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AplApplicationUserHotels",
+                name: "Images",
                 columns: table => new
                 {
-                    ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ImageUrl = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    IsMain = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     HotelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AplApplicationUserHotels", x => new { x.ApplicationUserId, x.HotelId });
+                    table.PrimaryKey("PK_Images", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AplApplicationUserHotels_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AplApplicationUserHotels_Hotels_HotelId",
+                        name: "FK_Images_Hotels_HotelId",
                         column: x => x.HotelId,
                         principalTable: "Hotels",
                         principalColumn: "Id",
@@ -304,48 +299,26 @@ namespace TravelAgency.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ApplicationUserHotel",
+                name: "OrderLists",
                 columns: table => new
                 {
-                    LikedHotelsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UsersWhoLikedId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    HotelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ApplicationUserHotel", x => new { x.LikedHotelsId, x.UsersWhoLikedId });
+                    table.PrimaryKey("PK_OrderLists", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ApplicationUserHotel_AspNetUsers_UsersWhoLikedId",
-                        column: x => x.UsersWhoLikedId,
+                        name: "FK_OrderLists_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ApplicationUserHotel_Hotels_LikedHotelsId",
-                        column: x => x.LikedHotelsId,
-                        principalTable: "Hotels",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ApplicationUserHotel1",
-                columns: table => new
-                {
-                    BookedHotelsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UsersWhoBookedId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ApplicationUserHotel1", x => new { x.BookedHotelsId, x.UsersWhoBookedId });
-                    table.ForeignKey(
-                        name: "FK_ApplicationUserHotel1_AspNetUsers_UsersWhoBookedId",
-                        column: x => x.UsersWhoBookedId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ApplicationUserHotel1_Hotels_BookedHotelsId",
-                        column: x => x.BookedHotelsId,
+                        name: "FK_OrderLists_Hotels_HotelId",
+                        column: x => x.HotelId,
                         principalTable: "Hotels",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -378,13 +351,39 @@ namespace TravelAgency.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "WishLists",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    HotelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WishLists", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WishLists_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_WishLists_Hotels_HotelId",
+                        column: x => x.HotelId,
+                        principalTable: "Hotels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"), 0, "7abcee83-16aa-4c4e-9d14-843c66ebb9d8", "guest@mail.com", false, false, null, "guest@mail.com", "guest@mail.com", "AQAAAAEAACcQAAAAEOYyTukWl6YrgRp76Kv62bPacA4RPliRav1fsJMksrOst/yCNrszIL3ZXCR3MyQ4Ug==", null, false, "f40056d6-00dd-441c-a283-eda8df2e1f98", false, "guest@mail.com" },
-                    { new Guid("dea12856-c198-4129-b3f3-b893d8395082"), 0, "548b9c29-bef9-4c66-bb5c-ec4ca835f5f6", "agent@mail.com", false, false, null, "agent@mail.com", "agent@mail.com", "AQAAAAEAACcQAAAAEPrik8fHc89DsvB4zzMMBJdutduDOXxYlbA4XBUmtQprQAvNSdDRUKvRiVDfYmDeRA==", null, false, "448fc011-a63a-4be2-b88f-0bcc6e89ca63", false, "agent@mail.com" }
+                    { new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"), 0, "ac9f7d21-f18f-4bc5-b201-fed566afd5b5", "guest@mail.com", false, false, null, "guest@mail.com", "guest@mail.com", "AQAAAAEAACcQAAAAEBJdAX43KqOAoQyU1/7Onh/P001BoWz0luGM93Nu5K80a/Z9vlh0iFuwDEQ4UlI/pw==", null, false, "ac5ce453-dfaa-49e2-bccb-5a83a94a41e8", false, "guest@mail.com" },
+                    { new Guid("dea12856-c198-4129-b3f3-b893d8395082"), 0, "8cf9b51d-739b-48d7-b57b-904105f58467", "agent@mail.com", false, false, null, "agent@mail.com", "agent@mail.com", "AQAAAAEAACcQAAAAEGzI5l5hIPUTZUH4AeXQx5kaeD8KPjIR4JcmeXTzapIKb5aGWD7N2oOJM6l/eNNd3Q==", null, false, "5cff1bd0-2cac-4140-929f-b22b72a2ed05", false, "agent@mail.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -438,15 +437,15 @@ namespace TravelAgency.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Hotels",
-                columns: new[] { "Id", "AgentId", "CategoryId", "CateringTypeId", "Description", "ImageUrl", "IsActive", "LocationId", "Price", "RoomTypeId", "Star", "SubTitle", "Title" },
+                columns: new[] { "Id", "AgentId", "CategoryId", "CateringTypeId", "Description", "IsActive", "LocationId", "Price", "RoomTypeId", "Star", "Title" },
                 values: new object[,]
                 {
-                    { new Guid("03a5df20-bd50-4d95-b674-00ec170b9212"), new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 1, 1, "Малък семеен хотел в новата част на Созопол. Намира се събсем близо до плажа.", "https://scontent.fsof1-1.fna.fbcdn.net/v/t1.6435-9/100680496_278314133535432_5456391328319406080_n.jpg?_nc_cat=111&cb=99be929b-3346023f&ccb=1-7&_nc_sid=730e14&_nc_ohc=RQpXwJhHdZ8AX_Zk1Ij&_nc_ht=scontent.fsof1-1.fna&oh=00_AfBao85ltJ0fFXEO_3zyFBC7IudFxDoxuQfOT-3Lzt8mtg&oe=64C4CE8C", false, 1, 100m, 1, 3, "Семеен хотел", "МОРСКА ЗВЕЗДА" },
-                    { new Guid("434a4b47-2dac-4ae7-9c3e-ae798703084c"), new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 3, 2, "Хотел „Аркутино Фемили Ризорт “ се намира на южното Черноморие на 40 км от град Бургас, между Созопол и Приморско в местността Аркутино, която е част от резервата „Ропотамо“. Разположен е в непосредствена близост до един от най-красивите български плажове, между златисти пясъчни дюни, прочутото крайморско езеро Водните лилии и река Ропотамо.", "https://store.crs.bg/seastar-2016/img_hotel/BG//67/big/DSC_0826.JPG", false, 3, 170m, 2, 4, "Апартаментен комплекс", "АРКУТИНО ФЕМИЛИ РЕСОРТ" },
-                    { new Guid("47335a79-9f0e-4a2b-8ad2-9b8457ec32aa"), new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 2, 2, "Аполония Резорт е изискан четиризвезден ваканционен комплекс от затворен тип, разположен на един от най- красивите плажове по българското черноморие - великолепния Царския плаж. Царският плаж е разположен между курортите Черноморец на север и Созопол на юг.", "https://store.crs.bg/seastar-2016/img_hotel///136/big/P1000721.JPG", false, 2, 120m, 2, 4, "Семеен хотел", "АПОЛОНИЯ РЕСОРТ" },
-                    { new Guid("492c853a-1a74-4c33-abe7-8c4397adf7f6"), new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 2, 2, "Хотел „Аполис” се намира на много тихо и спокойно място в новата част на града. Разположен е на 70 м от плаж Хармани. Той е уютен и луксозен хотел, с интересна архитектура.", "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/B7NF.jpg", false, 1, 120m, 1, 3, "Семеен хотел", "АПОЛИС" },
-                    { new Guid("81713a06-e127-4970-934e-88added77a49"), new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 3, 2, "Атия Ризорт е луксозен, апартаментен комплекс от затворен тип, състоящ се от две четири етажни сгради с капацитет от 23 апартамента. Апартаментите са от различен тип, напълно оборудвани с всичко необходимо за престоя на своите гости. Намира се в района на живописното черноморско градче Черноморец, на 400 м от центъра и на 300 м от златистия плаж. Хотелът разполага със собствен ресторант, където гостите ползват отстъпка.", "https://store.crs.bg/seastar-2016/img_hotel/BG//67/big/DSC_0826.JPG", false, 2, 200m, 3, 4, "Апартаментен комплекс", "АТИЯ РЕСОРТ" },
-                    { new Guid("91a6ce15-9413-4e04-8393-d48d651e09fc"), new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 1, 2, "Хотел „Табанов бийч” е разположен в новата част на град Созопол. Намира се само на 60м. от плаж \"Хармани\", а в близост има много магазини, ресторанти, клубове и други развлечения..", "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/Z4Y7.jpg", false, 1, 120m, 1, 3, "Семеен хотел", "ТАБАНОВ БИЙЧ" }
+                    { new Guid("03a5df20-bd50-4d95-b674-00ec170b9212"), new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 1, 1, "Хотел в новата част на Созопол. Намира се събсем близо до плажа.", true, 1, 100m, 1, 4, "ЛАГУНА БИЙЧ" },
+                    { new Guid("434a4b47-2dac-4ae7-9c3e-ae798703084c"), new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 3, 2, "Хотел „Аркутино Фемили Ризорт “ се намира на южното Черноморие на 40 км от град Бургас, между Созопол и Приморско в местността Аркутино, която е част от резервата „Ропотамо“. Разположен е в непосредствена близост до един от най-красивите български плажове, между златисти пясъчни дюни, прочутото крайморско езеро Водните лилии и река Ропотамо.", true, 3, 170m, 2, 4, "АРКУТИНО ФЕМИЛИ РЕЗОРТ" },
+                    { new Guid("47335a79-9f0e-4a2b-8ad2-9b8457ec32aa"), new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 2, 2, "Аполония Резорт е изискан четиризвезден ваканционен комплекс от затворен тип, разположен на един от най- красивите плажове по българското черноморие - великолепния Царския плаж. Царският плаж е разположен между курортите Черноморец на север и Созопол на юг.", true, 2, 120m, 2, 4, "АПОЛОНИЯ РЕЗОРТ" },
+                    { new Guid("492c853a-1a74-4c33-abe7-8c4397adf7f6"), new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 2, 2, "Хотел „Аполис” се намира на много тихо и спокойно място в новата част на града. Разположен е на 70 м от плаж Хармани. Той е уютен и луксозен хотел, с интересна архитектура.", true, 1, 120m, 1, 3, "АПОЛИС" },
+                    { new Guid("81713a06-e127-4970-934e-88added77a49"), new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 3, 2, "Аполония резорт е луксозен, апартаментен комплекс от затворен тип, състоящ се от две четири етажни сгради с капацитет от 23 апартамента. Апартаментите са от различен тип, напълно оборудвани с всичко необходимо за престоя на своите гости. Намира се в района на живописното черноморско градче Черноморец, на 400 м от центъра и на 300 м от златистия плаж. Хотелът разполага със собствен ресторант, където гостите ползват отстъпка.", true, 2, 200m, 3, 4, "АПОЛОНИЯ РЕЗОРТ" },
+                    { new Guid("91a6ce15-9413-4e04-8393-d48d651e09fc"), new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 1, 2, "Хотел „Табанов бийч” е разположен в новата част на град Созопол. Намира се само на 60м. от плаж \"Хармани\", а в близост има много магазини, ресторанти, клубове и други развлечения..", true, 1, 120m, 1, 3, "ТАБАНОВ БИЙЧ" }
                 });
 
             migrationBuilder.InsertData(
@@ -469,21 +468,6 @@ namespace TravelAgency.Data.Migrations
                 name: "IX_Agents_UserId",
                 table: "Agents",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AplApplicationUserHotels_HotelId",
-                table: "AplApplicationUserHotels",
-                column: "HotelId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ApplicationUserHotel_UsersWhoLikedId",
-                table: "ApplicationUserHotel",
-                column: "UsersWhoLikedId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ApplicationUserHotel1_UsersWhoBookedId",
-                table: "ApplicationUserHotel1",
-                column: "UsersWhoBookedId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -550,6 +534,21 @@ namespace TravelAgency.Data.Migrations
                 column: "RoomTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Images_HotelId",
+                table: "Images",
+                column: "HotelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderLists_HotelId",
+                table: "OrderLists",
+                column: "HotelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderLists_UserId",
+                table: "OrderLists",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Posts_HotelId",
                 table: "Posts",
                 column: "HotelId");
@@ -558,19 +557,20 @@ namespace TravelAgency.Data.Migrations
                 name: "IX_Posts_UserId",
                 table: "Posts",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WishLists_HotelId",
+                table: "WishLists",
+                column: "HotelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WishLists_UserId",
+                table: "WishLists",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "AplApplicationUserHotels");
-
-            migrationBuilder.DropTable(
-                name: "ApplicationUserHotel");
-
-            migrationBuilder.DropTable(
-                name: "ApplicationUserHotel1");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -587,7 +587,16 @@ namespace TravelAgency.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Images");
+
+            migrationBuilder.DropTable(
+                name: "OrderLists");
+
+            migrationBuilder.DropTable(
                 name: "Posts");
+
+            migrationBuilder.DropTable(
+                name: "WishLists");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

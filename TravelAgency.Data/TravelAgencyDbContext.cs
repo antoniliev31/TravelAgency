@@ -34,6 +34,8 @@ namespace TravelAgency.Data
 
         public DbSet<OrderList> OrderLists { get; set; } = null!;
 
+        public DbSet<Image> Images { get; set; } = null!;
+
 
 
         

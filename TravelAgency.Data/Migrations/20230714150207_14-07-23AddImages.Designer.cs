@@ -12,8 +12,8 @@ using TravelAgency.Data;
 namespace TravelAgency.Data.Migrations
 {
     [DbContext(typeof(TravelAgencyDbContext))]
-    [Migration("20230711093629_11-07-23-4")]
-    partial class _1107234
+    [Migration("20230714150207_14-07-23AddImages")]
+    partial class _140723AddImages
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -258,15 +258,15 @@ namespace TravelAgency.Data.Migrations
                         {
                             Id = new Guid("dea12856-c198-4129-b3f3-b893d8395082"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9e982c04-a4f2-4570-a142-e5b7977b1472",
+                            ConcurrencyStamp = "85a01249-a4c4-485a-92d3-a65680d317cc",
                             Email = "agent@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "agent@mail.com",
                             NormalizedUserName = "agent@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAENzfNKnD0y+AwxZlNMo2mzGYZAGhgnfc5YtRdvKxHxbaGr5UXQGSk+xITh6eswmlbA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJeh7UEWxHL8XBVhrsCb9DuEdSShis1cSD1N9ePmwl1ChG7KCbtThYMtJWAwqzaPbA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c232824e-0dfd-46fa-abaa-b8d6343f64ee",
+                            SecurityStamp = "e455a691-fb1a-45fa-819f-bde4d2d8843c",
                             TwoFactorEnabled = false,
                             UserName = "agent@mail.com"
                         },
@@ -274,15 +274,15 @@ namespace TravelAgency.Data.Migrations
                         {
                             Id = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c5ffffe9-7e41-4933-96bf-ac939283de69",
+                            ConcurrencyStamp = "f95f4632-08ed-41f1-bf5c-ae1d2df98a69",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKB5OccUNPHdk4ufamFRKnvtn45KSpJn8mueEXF4/UCPB/LzC5BjAZFh7BgsKnuMHg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOKJqz+eUu8R3qnZ4U1KLN3ZOtLWlXL2GWkrugITymFmbJqWsq249mQqlL7FojvzdQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3120800b-22a7-4ce7-b1ec-552c5d7ab823",
+                            SecurityStamp = "9d1789c9-8476-4a34-8d57-b420d7a2e459",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         });
@@ -386,17 +386,12 @@ namespace TravelAgency.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 7, 11, 12, 36, 27, 773, DateTimeKind.Local).AddTicks(1439));
+                        .HasDefaultValue(new DateTime(2023, 7, 14, 18, 2, 6, 398, DateTimeKind.Local).AddTicks(603));
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasMaxLength(2048)
-                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
@@ -414,10 +409,6 @@ namespace TravelAgency.Data.Migrations
 
                     b.Property<int>("Star")
                         .HasColumnType("int");
-
-                    b.Property<string>("SubTitle")
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -446,15 +437,13 @@ namespace TravelAgency.Data.Migrations
                             CategoryId = 1,
                             CateringTypeId = 1,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Малък семеен хотел в новата част на Созопол. Намира се събсем близо до плажа.",
-                            ImageUrl = "https://scontent.fsof1-1.fna.fbcdn.net/v/t1.6435-9/100680496_278314133535432_5456391328319406080_n.jpg?_nc_cat=111&cb=99be929b-3346023f&ccb=1-7&_nc_sid=730e14&_nc_ohc=RQpXwJhHdZ8AX_Zk1Ij&_nc_ht=scontent.fsof1-1.fna&oh=00_AfBao85ltJ0fFXEO_3zyFBC7IudFxDoxuQfOT-3Lzt8mtg&oe=64C4CE8C",
+                            Description = "Хотел в новата част на Созопол. Намира се събсем близо до плажа.",
                             IsActive = true,
                             LocationId = 1,
                             Price = 100m,
                             RoomTypeId = 1,
-                            Star = 3,
-                            SubTitle = "Семеен хотел",
-                            Title = "МОРСКА ЗВЕЗДА"
+                            Star = 4,
+                            Title = "ЛАГУНА БИЙЧ"
                         },
                         new
                         {
@@ -464,13 +453,11 @@ namespace TravelAgency.Data.Migrations
                             CateringTypeId = 2,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Хотел „Табанов бийч” е разположен в новата част на град Созопол. Намира се само на 60м. от плаж \"Хармани\", а в близост има много магазини, ресторанти, клубове и други развлечения..",
-                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/Z4Y7.jpg",
                             IsActive = true,
                             LocationId = 1,
                             Price = 120m,
                             RoomTypeId = 1,
                             Star = 3,
-                            SubTitle = "Семеен хотел",
                             Title = "ТАБАНОВ БИЙЧ"
                         },
                         new
@@ -481,13 +468,11 @@ namespace TravelAgency.Data.Migrations
                             CateringTypeId = 2,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Хотел „Аполис” се намира на много тихо и спокойно място в новата част на града. Разположен е на 70 м от плаж Хармани. Той е уютен и луксозен хотел, с интересна архитектура.",
-                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/B7NF.jpg",
                             IsActive = true,
                             LocationId = 1,
                             Price = 120m,
                             RoomTypeId = 1,
                             Star = 3,
-                            SubTitle = "Семеен хотел",
                             Title = "АПОЛИС"
                         },
                         new
@@ -498,14 +483,12 @@ namespace TravelAgency.Data.Migrations
                             CateringTypeId = 2,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Аполония Резорт е изискан четиризвезден ваканционен комплекс от затворен тип, разположен на един от най- красивите плажове по българското черноморие - великолепния Царския плаж. Царският плаж е разположен между курортите Черноморец на север и Созопол на юг.",
-                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel///136/big/P1000721.JPG",
                             IsActive = true,
                             LocationId = 2,
                             Price = 120m,
                             RoomTypeId = 2,
                             Star = 4,
-                            SubTitle = "Семеен хотел",
-                            Title = "АПОЛОНИЯ РЕСОРТ"
+                            Title = "АПОЛОНИЯ РЕЗОРТ"
                         },
                         new
                         {
@@ -515,14 +498,12 @@ namespace TravelAgency.Data.Migrations
                             CateringTypeId = 2,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Хотел „Аркутино Фемили Ризорт “ се намира на южното Черноморие на 40 км от град Бургас, между Созопол и Приморско в местността Аркутино, която е част от резервата „Ропотамо“. Разположен е в непосредствена близост до един от най-красивите български плажове, между златисти пясъчни дюни, прочутото крайморско езеро Водните лилии и река Ропотамо.",
-                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG//67/big/DSC_0826.JPG",
                             IsActive = true,
                             LocationId = 3,
                             Price = 170m,
                             RoomTypeId = 2,
                             Star = 4,
-                            SubTitle = "Апартаментен комплекс",
-                            Title = "АРКУТИНО ФЕМИЛИ РЕСОРТ"
+                            Title = "АРКУТИНО ФЕМИЛИ РЕЗОРТ"
                         },
                         new
                         {
@@ -531,15 +512,253 @@ namespace TravelAgency.Data.Migrations
                             CategoryId = 3,
                             CateringTypeId = 2,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Атия Ризорт е луксозен, апартаментен комплекс от затворен тип, състоящ се от две четири етажни сгради с капацитет от 23 апартамента. Апартаментите са от различен тип, напълно оборудвани с всичко необходимо за престоя на своите гости. Намира се в района на живописното черноморско градче Черноморец, на 400 м от центъра и на 300 м от златистия плаж. Хотелът разполага със собствен ресторант, където гостите ползват отстъпка.",
-                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG//67/big/DSC_0826.JPG",
+                            Description = "Аполония резорт е луксозен, апартаментен комплекс от затворен тип, състоящ се от две четири етажни сгради с капацитет от 23 апартамента. Апартаментите са от различен тип, напълно оборудвани с всичко необходимо за престоя на своите гости. Намира се в района на живописното черноморско градче Черноморец, на 400 м от центъра и на 300 м от златистия плаж. Хотелът разполага със собствен ресторант, където гостите ползват отстъпка.",
                             IsActive = true,
                             LocationId = 2,
                             Price = 200m,
                             RoomTypeId = 3,
                             Star = 4,
-                            SubTitle = "Апартаментен комплекс",
-                            Title = "АТИЯ РЕСОРТ"
+                            Title = "АПОЛОНИЯ РЕЗОРТ"
+                        });
+                });
+
+            modelBuilder.Entity("TravelAgency.Data.Models.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<Guid>("HotelId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("IsMain")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HotelId");
+
+                    b.ToTable("Images");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 5,
+                            HotelId = new Guid("03a5df20-bd50-4d95-b674-00ec170b9212"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/149/big/IMG_4383.jpg",
+                            IsMain = true
+                        },
+                        new
+                        {
+                            Id = 6,
+                            HotelId = new Guid("03a5df20-bd50-4d95-b674-00ec170b9212"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/149/big/IMG_4543.jpg",
+                            IsMain = false
+                        },
+                        new
+                        {
+                            Id = 7,
+                            HotelId = new Guid("03a5df20-bd50-4d95-b674-00ec170b9212"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/149/big/CRW_4025.jpg",
+                            IsMain = false
+                        },
+                        new
+                        {
+                            Id = 8,
+                            HotelId = new Guid("03a5df20-bd50-4d95-b674-00ec170b9212"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/149/big/CRW_4026.jpg",
+                            IsMain = false
+                        },
+                        new
+                        {
+                            Id = 9,
+                            HotelId = new Guid("03a5df20-bd50-4d95-b674-00ec170b9212"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/149/big/CRW_4033.jpg",
+                            IsMain = false
+                        },
+                        new
+                        {
+                            Id = 10,
+                            HotelId = new Guid("91a6ce15-9413-4e04-8393-d48d651e09fc"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/8/big/RXES.jpg",
+                            IsMain = true
+                        },
+                        new
+                        {
+                            Id = 11,
+                            HotelId = new Guid("91a6ce15-9413-4e04-8393-d48d651e09fc"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/8/big/DSC_0686.JPG",
+                            IsMain = false
+                        },
+                        new
+                        {
+                            Id = 12,
+                            HotelId = new Guid("91a6ce15-9413-4e04-8393-d48d651e09fc"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/8/big/DSC_0676.JPG",
+                            IsMain = false
+                        },
+                        new
+                        {
+                            Id = 13,
+                            HotelId = new Guid("91a6ce15-9413-4e04-8393-d48d651e09fc"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/8/big/DSC_0672.JPG",
+                            IsMain = false
+                        },
+                        new
+                        {
+                            Id = 14,
+                            HotelId = new Guid("91a6ce15-9413-4e04-8393-d48d651e09fc"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/8/big/DSC_0685.JPG",
+                            IsMain = false
+                        },
+                        new
+                        {
+                            Id = 15,
+                            HotelId = new Guid("492c853a-1a74-4c33-abe7-8c4397adf7f6"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/B7NF.jpg",
+                            IsMain = true
+                        },
+                        new
+                        {
+                            Id = 16,
+                            HotelId = new Guid("492c853a-1a74-4c33-abe7-8c4397adf7f6"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/Z4Y7.jpg",
+                            IsMain = false
+                        },
+                        new
+                        {
+                            Id = 17,
+                            HotelId = new Guid("492c853a-1a74-4c33-abe7-8c4397adf7f6"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/DSC_0114.JPG",
+                            IsMain = false
+                        },
+                        new
+                        {
+                            Id = 18,
+                            HotelId = new Guid("492c853a-1a74-4c33-abe7-8c4397adf7f6"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/DSC_0115.JPG",
+                            IsMain = false
+                        },
+                        new
+                        {
+                            Id = 19,
+                            HotelId = new Guid("492c853a-1a74-4c33-abe7-8c4397adf7f6"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/58MB.jpg",
+                            IsMain = false
+                        },
+                        new
+                        {
+                            Id = 20,
+                            HotelId = new Guid("47335a79-9f0e-4a2b-8ad2-9b8457ec32aa"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel///136/big/P1000721.JPG",
+                            IsMain = true
+                        },
+                        new
+                        {
+                            Id = 21,
+                            HotelId = new Guid("47335a79-9f0e-4a2b-8ad2-9b8457ec32aa"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel///136/big/P1000761.JPG",
+                            IsMain = false
+                        },
+                        new
+                        {
+                            Id = 22,
+                            HotelId = new Guid("47335a79-9f0e-4a2b-8ad2-9b8457ec32aa"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel///136/big/P1000760.JPG",
+                            IsMain = false
+                        },
+                        new
+                        {
+                            Id = 23,
+                            HotelId = new Guid("47335a79-9f0e-4a2b-8ad2-9b8457ec32aa"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel///136/big/P1000736.JPG",
+                            IsMain = false
+                        },
+                        new
+                        {
+                            Id = 24,
+                            HotelId = new Guid("47335a79-9f0e-4a2b-8ad2-9b8457ec32aa"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel///136/big/P1000718.JPG",
+                            IsMain = false
+                        },
+                        new
+                        {
+                            Id = 25,
+                            HotelId = new Guid("434a4b47-2dac-4ae7-9c3e-ae798703084c"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG//67/big/DSC_0826.JPG",
+                            IsMain = true
+                        },
+                        new
+                        {
+                            Id = 26,
+                            HotelId = new Guid("434a4b47-2dac-4ae7-9c3e-ae798703084c"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG//67/big/P8270161.JPG",
+                            IsMain = false
+                        },
+                        new
+                        {
+                            Id = 27,
+                            HotelId = new Guid("434a4b47-2dac-4ae7-9c3e-ae798703084c"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG//67/big/P8270157.JPG",
+                            IsMain = false
+                        },
+                        new
+                        {
+                            Id = 28,
+                            HotelId = new Guid("434a4b47-2dac-4ae7-9c3e-ae798703084c"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG//67/big/DSC_0883.JPG",
+                            IsMain = false
+                        },
+                        new
+                        {
+                            Id = 29,
+                            HotelId = new Guid("434a4b47-2dac-4ae7-9c3e-ae798703084c"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG//67/big/DSC_0882.JPG",
+                            IsMain = false
+                        },
+                        new
+                        {
+                            Id = 30,
+                            HotelId = new Guid("81713a06-e127-4970-934e-88added77a49"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8142/130/big/1.jpg",
+                            IsMain = true
+                        },
+                        new
+                        {
+                            Id = 31,
+                            HotelId = new Guid("81713a06-e127-4970-934e-88added77a49"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8142/130/big/_MG_7398.jpg",
+                            IsMain = false
+                        },
+                        new
+                        {
+                            Id = 32,
+                            HotelId = new Guid("81713a06-e127-4970-934e-88added77a49"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8142/130/big/_MG_7250.jpg",
+                            IsMain = false
+                        },
+                        new
+                        {
+                            Id = 33,
+                            HotelId = new Guid("81713a06-e127-4970-934e-88added77a49"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8142/130/big/_MG_7275.jpg",
+                            IsMain = false
+                        },
+                        new
+                        {
+                            Id = 34,
+                            HotelId = new Guid("81713a06-e127-4970-934e-88added77a49"),
+                            ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8142/130/big/3.jpg",
+                            IsMain = false
                         });
                 });
 
@@ -867,6 +1086,17 @@ namespace TravelAgency.Data.Migrations
                     b.Navigation("RoomType");
                 });
 
+            modelBuilder.Entity("TravelAgency.Data.Models.Image", b =>
+                {
+                    b.HasOne("TravelAgency.Data.Models.Hotel", "Hotel")
+                        .WithMany("Images")
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hotel");
+                });
+
             modelBuilder.Entity("TravelAgency.Data.Models.OrderList", b =>
                 {
                     b.HasOne("TravelAgency.Data.Models.Hotel", "Hotel")
@@ -940,6 +1170,8 @@ namespace TravelAgency.Data.Migrations
 
             modelBuilder.Entity("TravelAgency.Data.Models.Hotel", b =>
                 {
+                    b.Navigation("Images");
+
                     b.Navigation("OrderLists");
 
                     b.Navigation("Posts");

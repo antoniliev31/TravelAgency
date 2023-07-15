@@ -8,8 +8,6 @@
 
         public string Title { get; set; } = null!;
 
-        public string? SubTitle { get; set; }
-
         public string Location { get; set; } = null!;
 
         public string Catering { get; set; } = null!;
@@ -24,5 +22,6 @@
 
         public string RoomType { get; set; } = null!;
 
+        
     }
 }

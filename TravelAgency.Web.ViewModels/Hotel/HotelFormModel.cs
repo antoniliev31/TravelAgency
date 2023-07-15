@@ -3,7 +3,7 @@
     using System.ComponentModel.DataAnnotations;
     using Catering;
     using Room;
-    using TravelAgency.Web.ViewModels.Category;
+    using Category;
     using static Common.EntityValidationConstants.Hotel;
     using static Common.EntityValidationConstants.Category;
 
@@ -55,7 +55,7 @@
         [Required]
         [StringLength(ImageUrlMaxLength)]
         [Display(Name = "Image Link")]
-        public string ImageUrl { get; set; } = null!;
+        public string ImageUrl { get; set; }
 
         [Range(typeof(decimal), PricePerMonthMinValue, PricePerMonthMaxValue)]
         [Display(Name = "Total Price")]

@@ -76,15 +76,15 @@
                        asp-route-sorting="@((int)Model.HotelSorting)"><<</a>
                 </div>
                 
-                @*<div class="form-group">
-                    <label asp-for="HousesPerPage" style="font-weight: bold;"></label>
-                    <select asp-for="HousesPerPage" class="form-control">
+                <div class="form-group">
+                    <label asp-for="HotelsPerPage" style="font-weight: bold;"></label>
+                    <select asp-for="HotelsPerPage" class="form-control">
                         <option value="3">3</option>
                         <option value="6">6</option>
                         <option value="9">9</option>
                         </select>
 
-                </div>*@
+                </div>
 
                 @{
                     int maxPage = (int)Math.Ceiling((double)Model.TotalHotels / Model.HotelsPerPage);
