@@ -10,7 +10,6 @@
     {
         public Hotel()
         {
-            this.Id = Guid.NewGuid();
             this.Posts = new HashSet<Post>();
             this.WishLists = new HashSet<WishList>();
             this.OrderLists = new HashSet<OrderList>();
@@ -18,7 +17,7 @@
         }
 
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         
         [Required]
         [MaxLength(TitleMaxLength)]

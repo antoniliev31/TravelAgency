@@ -28,13 +28,13 @@
 
         public async Task<IEnumerable<IndexViewModel>> LastThreeAddedHotelAsync()
         {
-            var lastThreeHouse = await this.dbContext
+            var lastThreeHotel = await this.dbContext
                 .Hotels
                 .OrderByDescending(h => h.CreatedOn)
                 .Take(3)
                 .Select(h => new IndexViewModel
                 {
-                    Id = h.Id.ToString(),
+                    Id = h.Id,
                     Title = h.Title,
                     ImageUrl = h.Images.FirstOrDefault(i => i.IsMain)!.ImageUrl ?? h.Images.FirstOrDefault()!.ImageUrl
                 })
@@ -42,20 +42,20 @@
             
 
             Random random = new Random();
-            foreach (var house in lastThreeHouse)
+            foreach (var hotel in lastThreeHotel)
             {
                 var posts = await this.dbContext.Posts
-                    .Where(p => p.HotelId == Guid.Parse(house.Id))
+                    .Where(p => p.HotelId == hotel.Id)
                     .ToListAsync();
 
                 if (posts.Count > 0)
                 {
                     int randomIndex = random.Next(0, posts.Count);
-                    house.Text = posts[randomIndex].Content;
+                    hotel.Text = posts[randomIndex].Content;
                 }
             }
 
-            return lastThreeHouse;
+            return lastThreeHotel;
         }
 
         public async Task CreateHotelAsync(HotelFormModel formModel, string agentId, int locationId)

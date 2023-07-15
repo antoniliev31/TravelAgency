@@ -256,15 +256,15 @@ namespace TravelAgency.Data.Migrations
                         {
                             Id = new Guid("dea12856-c198-4129-b3f3-b893d8395082"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "85a01249-a4c4-485a-92d3-a65680d317cc",
+                            ConcurrencyStamp = "bdff8ece-fd4d-4784-bf16-542ecf135e55",
                             Email = "agent@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "agent@mail.com",
                             NormalizedUserName = "agent@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJeh7UEWxHL8XBVhrsCb9DuEdSShis1cSD1N9ePmwl1ChG7KCbtThYMtJWAwqzaPbA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHvMNZmpRgagfmLUoJE92PiNNNq9OtRI5Zup7yem+lF9rMDo1ZxY0kp95hvBKV0Hfg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e455a691-fb1a-45fa-819f-bde4d2d8843c",
+                            SecurityStamp = "dd39398a-455e-4429-8b3d-edd1335f7cf4",
                             TwoFactorEnabled = false,
                             UserName = "agent@mail.com"
                         },
@@ -272,15 +272,15 @@ namespace TravelAgency.Data.Migrations
                         {
                             Id = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f95f4632-08ed-41f1-bf5c-ae1d2df98a69",
+                            ConcurrencyStamp = "dc6ea2c2-5ac8-4412-b94b-1b8f091762e4",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOKJqz+eUu8R3qnZ4U1KLN3ZOtLWlXL2GWkrugITymFmbJqWsq249mQqlL7FojvzdQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKywNB+kmZIhXvpa8qnEU0CB3bP9cYib1JusD/4yffHolRGNkRflP4VaL2I0E4sJCw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9d1789c9-8476-4a34-8d57-b420d7a2e459",
+                            SecurityStamp = "136df49b-daa5-4092-8fb6-2549a6436cbb",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         });
@@ -368,9 +368,11 @@ namespace TravelAgency.Data.Migrations
 
             modelBuilder.Entity("TravelAgency.Data.Models.Hotel", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<Guid>("AgentId")
                         .HasColumnType("uniqueidentifier");
@@ -384,7 +386,7 @@ namespace TravelAgency.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 7, 14, 18, 2, 6, 398, DateTimeKind.Local).AddTicks(603));
+                        .HasDefaultValue(new DateTime(2023, 7, 15, 17, 52, 43, 247, DateTimeKind.Local).AddTicks(6168));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -430,7 +432,7 @@ namespace TravelAgency.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("03a5df20-bd50-4d95-b674-00ec170b9212"),
+                            Id = 1,
                             AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                             CategoryId = 1,
                             CateringTypeId = 1,
@@ -445,7 +447,7 @@ namespace TravelAgency.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("91a6ce15-9413-4e04-8393-d48d651e09fc"),
+                            Id = 2,
                             AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                             CategoryId = 1,
                             CateringTypeId = 2,
@@ -460,7 +462,7 @@ namespace TravelAgency.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("492c853a-1a74-4c33-abe7-8c4397adf7f6"),
+                            Id = 3,
                             AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                             CategoryId = 2,
                             CateringTypeId = 2,
@@ -475,7 +477,7 @@ namespace TravelAgency.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("47335a79-9f0e-4a2b-8ad2-9b8457ec32aa"),
+                            Id = 4,
                             AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                             CategoryId = 2,
                             CateringTypeId = 2,
@@ -490,7 +492,7 @@ namespace TravelAgency.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("434a4b47-2dac-4ae7-9c3e-ae798703084c"),
+                            Id = 5,
                             AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                             CategoryId = 3,
                             CateringTypeId = 2,
@@ -505,7 +507,7 @@ namespace TravelAgency.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("81713a06-e127-4970-934e-88added77a49"),
+                            Id = 6,
                             AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                             CategoryId = 3,
                             CateringTypeId = 2,
@@ -528,8 +530,8 @@ namespace TravelAgency.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<Guid>("HotelId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("HotelId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -551,210 +553,210 @@ namespace TravelAgency.Data.Migrations
                         new
                         {
                             Id = 5,
-                            HotelId = new Guid("03a5df20-bd50-4d95-b674-00ec170b9212"),
+                            HotelId = 1,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/149/big/IMG_4383.jpg",
                             IsMain = true
                         },
                         new
                         {
                             Id = 6,
-                            HotelId = new Guid("03a5df20-bd50-4d95-b674-00ec170b9212"),
+                            HotelId = 1,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/149/big/IMG_4543.jpg",
                             IsMain = false
                         },
                         new
                         {
                             Id = 7,
-                            HotelId = new Guid("03a5df20-bd50-4d95-b674-00ec170b9212"),
+                            HotelId = 1,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/149/big/CRW_4025.jpg",
                             IsMain = false
                         },
                         new
                         {
                             Id = 8,
-                            HotelId = new Guid("03a5df20-bd50-4d95-b674-00ec170b9212"),
+                            HotelId = 1,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/149/big/CRW_4026.jpg",
                             IsMain = false
                         },
                         new
                         {
                             Id = 9,
-                            HotelId = new Guid("03a5df20-bd50-4d95-b674-00ec170b9212"),
+                            HotelId = 1,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/149/big/CRW_4033.jpg",
                             IsMain = false
                         },
                         new
                         {
                             Id = 10,
-                            HotelId = new Guid("91a6ce15-9413-4e04-8393-d48d651e09fc"),
+                            HotelId = 2,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/8/big/RXES.jpg",
                             IsMain = true
                         },
                         new
                         {
                             Id = 11,
-                            HotelId = new Guid("91a6ce15-9413-4e04-8393-d48d651e09fc"),
+                            HotelId = 2,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/8/big/DSC_0686.JPG",
                             IsMain = false
                         },
                         new
                         {
                             Id = 12,
-                            HotelId = new Guid("91a6ce15-9413-4e04-8393-d48d651e09fc"),
+                            HotelId = 2,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/8/big/DSC_0676.JPG",
                             IsMain = false
                         },
                         new
                         {
                             Id = 13,
-                            HotelId = new Guid("91a6ce15-9413-4e04-8393-d48d651e09fc"),
+                            HotelId = 2,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/8/big/DSC_0672.JPG",
                             IsMain = false
                         },
                         new
                         {
                             Id = 14,
-                            HotelId = new Guid("91a6ce15-9413-4e04-8393-d48d651e09fc"),
+                            HotelId = 2,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/8/big/DSC_0685.JPG",
                             IsMain = false
                         },
                         new
                         {
                             Id = 15,
-                            HotelId = new Guid("492c853a-1a74-4c33-abe7-8c4397adf7f6"),
+                            HotelId = 3,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/B7NF.jpg",
                             IsMain = true
                         },
                         new
                         {
                             Id = 16,
-                            HotelId = new Guid("492c853a-1a74-4c33-abe7-8c4397adf7f6"),
+                            HotelId = 3,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/Z4Y7.jpg",
                             IsMain = false
                         },
                         new
                         {
                             Id = 17,
-                            HotelId = new Guid("492c853a-1a74-4c33-abe7-8c4397adf7f6"),
+                            HotelId = 3,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/DSC_0114.JPG",
                             IsMain = false
                         },
                         new
                         {
                             Id = 18,
-                            HotelId = new Guid("492c853a-1a74-4c33-abe7-8c4397adf7f6"),
+                            HotelId = 3,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/DSC_0115.JPG",
                             IsMain = false
                         },
                         new
                         {
                             Id = 19,
-                            HotelId = new Guid("492c853a-1a74-4c33-abe7-8c4397adf7f6"),
+                            HotelId = 3,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/58MB.jpg",
                             IsMain = false
                         },
                         new
                         {
                             Id = 20,
-                            HotelId = new Guid("47335a79-9f0e-4a2b-8ad2-9b8457ec32aa"),
+                            HotelId = 4,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel///136/big/P1000721.JPG",
                             IsMain = true
                         },
                         new
                         {
                             Id = 21,
-                            HotelId = new Guid("47335a79-9f0e-4a2b-8ad2-9b8457ec32aa"),
+                            HotelId = 4,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel///136/big/P1000761.JPG",
                             IsMain = false
                         },
                         new
                         {
                             Id = 22,
-                            HotelId = new Guid("47335a79-9f0e-4a2b-8ad2-9b8457ec32aa"),
+                            HotelId = 4,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel///136/big/P1000760.JPG",
                             IsMain = false
                         },
                         new
                         {
                             Id = 23,
-                            HotelId = new Guid("47335a79-9f0e-4a2b-8ad2-9b8457ec32aa"),
+                            HotelId = 4,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel///136/big/P1000736.JPG",
                             IsMain = false
                         },
                         new
                         {
                             Id = 24,
-                            HotelId = new Guid("47335a79-9f0e-4a2b-8ad2-9b8457ec32aa"),
+                            HotelId = 4,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel///136/big/P1000718.JPG",
                             IsMain = false
                         },
                         new
                         {
                             Id = 25,
-                            HotelId = new Guid("434a4b47-2dac-4ae7-9c3e-ae798703084c"),
+                            HotelId = 5,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG//67/big/DSC_0826.JPG",
                             IsMain = true
                         },
                         new
                         {
                             Id = 26,
-                            HotelId = new Guid("434a4b47-2dac-4ae7-9c3e-ae798703084c"),
+                            HotelId = 5,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG//67/big/P8270161.JPG",
                             IsMain = false
                         },
                         new
                         {
                             Id = 27,
-                            HotelId = new Guid("434a4b47-2dac-4ae7-9c3e-ae798703084c"),
+                            HotelId = 5,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG//67/big/P8270157.JPG",
                             IsMain = false
                         },
                         new
                         {
                             Id = 28,
-                            HotelId = new Guid("434a4b47-2dac-4ae7-9c3e-ae798703084c"),
+                            HotelId = 5,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG//67/big/DSC_0883.JPG",
                             IsMain = false
                         },
                         new
                         {
                             Id = 29,
-                            HotelId = new Guid("434a4b47-2dac-4ae7-9c3e-ae798703084c"),
+                            HotelId = 5,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG//67/big/DSC_0882.JPG",
                             IsMain = false
                         },
                         new
                         {
                             Id = 30,
-                            HotelId = new Guid("81713a06-e127-4970-934e-88added77a49"),
+                            HotelId = 6,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8142/130/big/1.jpg",
                             IsMain = true
                         },
                         new
                         {
                             Id = 31,
-                            HotelId = new Guid("81713a06-e127-4970-934e-88added77a49"),
+                            HotelId = 6,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8142/130/big/_MG_7398.jpg",
                             IsMain = false
                         },
                         new
                         {
                             Id = 32,
-                            HotelId = new Guid("81713a06-e127-4970-934e-88added77a49"),
+                            HotelId = 6,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8142/130/big/_MG_7250.jpg",
                             IsMain = false
                         },
                         new
                         {
                             Id = 33,
-                            HotelId = new Guid("81713a06-e127-4970-934e-88added77a49"),
+                            HotelId = 6,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8142/130/big/_MG_7275.jpg",
                             IsMain = false
                         },
                         new
                         {
                             Id = 34,
-                            HotelId = new Guid("81713a06-e127-4970-934e-88added77a49"),
+                            HotelId = 6,
                             ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8142/130/big/3.jpg",
                             IsMain = false
                         });
@@ -813,8 +815,8 @@ namespace TravelAgency.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<Guid>("HotelId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("HotelId")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -841,8 +843,8 @@ namespace TravelAgency.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<Guid>("HotelId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("HotelId")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -860,63 +862,63 @@ namespace TravelAgency.Data.Migrations
                         {
                             Id = 1,
                             Content = "Прекрасно преживяване в хотела! Уютна стая, отлично обслужване и изискан ресторант. Няма как да не се чувстваш приветливо посрещнат и релаксиран. Препоръчвам",
-                            HotelId = new Guid("03a5df20-bd50-4d95-b674-00ec170b9212"),
+                            HotelId = 1,
                             UserId = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e")
                         },
                         new
                         {
                             Id = 2,
                             Content = "Къщата за гости беше просто превъзходна! Прекарахме незабравим уикенд сред природата, в компанията на любезни домакини. Всичко беше перфектно - от удобствата до гледката. С удоволствие ще се върнем отново!",
-                            HotelId = new Guid("91a6ce15-9413-4e04-8393-d48d651e09fc"),
+                            HotelId = 2,
                             UserId = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e")
                         },
                         new
                         {
                             Id = 3,
                             Content = "Невероятно преживяване в този хотел. Спокойствие, лукс и безупречно обслужване. От момента на пристигането до заминаването си се чувствахме като VIP гости. Благодарим на персонала за прекрасния престой!",
-                            HotelId = new Guid("492c853a-1a74-4c33-abe7-8c4397adf7f6"),
+                            HotelId = 3,
                             UserId = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e")
                         },
                         new
                         {
                             Id = 4,
                             Content = "Хотелът ни очарова с уникален дизайн и стил. Всяка детайлна измислица беше внимателно изпълнена. Спяхме в комфортен легловия аранжимент и се насладихме на изисканата храна. Подгответе се за неповторимо изживяване!",
-                            HotelId = new Guid("47335a79-9f0e-4a2b-8ad2-9b8457ec32aa"),
+                            HotelId = 4,
                             UserId = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e")
                         },
                         new
                         {
                             Id = 5,
                             Content = "Къщата за гости беше уютна и пълна със сърце и душа. Гостоприемните домакини ни посрещнаха с топлина и готвената храна беше вкусна и автентична. Проведохме спокоен и релаксиращ уикенд в прекрасна обстановка.",
-                            HotelId = new Guid("434a4b47-2dac-4ae7-9c3e-ae798703084c"),
+                            HotelId = 5,
                             UserId = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e")
                         },
                         new
                         {
                             Id = 6,
                             Content = "Семейният ни престой в този хотел беше мечтан. Басейнът и игралната зала развълнуваха децата, докато спа-центърът ни предложи наистина релаксиращ опит. Отлична комбинация от забавление и отдих!",
-                            HotelId = new Guid("81713a06-e127-4970-934e-88added77a49"),
+                            HotelId = 6,
                             UserId = new Guid("dea12856-c198-4129-b3f3-b893d8395082")
                         },
                         new
                         {
                             Id = 7,
                             Content = "Избрахме тази къща за гости за нашата романтична почивка и не бихме могли да бъдем по-щастливи. Атмосферата беше магична, а гледката от терасата буквално откъсна дъха. Ще я препоръчаме на всички!",
-                            HotelId = new Guid("81713a06-e127-4970-934e-88added77a49"),
+                            HotelId = 1,
                             UserId = new Guid("dea12856-c198-4129-b3f3-b893d8395082")
                         },
                         new
                         {
                             Id = 8,
                             Content = "Хотелът беше прекрасно решение за нашия семеен отдих. Паркът и детските площадки зарадваха децата, а ресторантът ни предложи невероятни вкусове. Прекарахме незабравимо време с любимите си хора.",
-                            HotelId = new Guid("81713a06-e127-4970-934e-88added77a49"),
+                            HotelId = 2,
                             UserId = new Guid("dea12856-c198-4129-b3f3-b893d8395082")
                         },
                         new
                         {
                             Id = 9,
                             Content = "Невероятна къща за гости, вложена със стил и комфорт. Пълноценното оборудване и уютната атмосфера ни позволиха да се отпуснем напълно. Прекарахме прекрасна почивка сред природата.",
-                            HotelId = new Guid("81713a06-e127-4970-934e-88added77a49"),
+                            HotelId = 3,
                             UserId = new Guid("dea12856-c198-4129-b3f3-b893d8395082")
                         });
                 });
@@ -964,8 +966,8 @@ namespace TravelAgency.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<Guid>("HotelId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("HotelId")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");

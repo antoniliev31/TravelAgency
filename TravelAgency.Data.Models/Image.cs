@@ -20,7 +20,7 @@
 
 
         [ForeignKey(nameof(Hotel))]
-        public Guid HotelId { get; set; }
+        public int HotelId { get; set; }
         public virtual Hotel Hotel { get; set; } = null!;
     }
 }

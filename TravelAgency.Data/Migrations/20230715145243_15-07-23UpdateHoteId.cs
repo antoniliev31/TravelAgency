@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TravelAgency.Data.Migrations
 {
-    public partial class _130723AddImageGalery : Migration
+    public partial class _150723UpdateHoteId : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -229,11 +229,12 @@ namespace TravelAgency.Data.Migrations
                 name: "Hotels",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Star = table.Column<int>(type: "int", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 7, 14, 17, 57, 40, 775, DateTimeKind.Local).AddTicks(1854)),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 7, 15, 17, 52, 43, 247, DateTimeKind.Local).AddTicks(6168)),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     LocationId = table.Column<int>(type: "int", nullable: false),
@@ -285,7 +286,7 @@ namespace TravelAgency.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ImageUrl = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     IsMain = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
-                    HotelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    HotelId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -305,7 +306,7 @@ namespace TravelAgency.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    HotelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    HotelId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -332,7 +333,7 @@ namespace TravelAgency.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Content = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    HotelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    HotelId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -358,7 +359,7 @@ namespace TravelAgency.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    HotelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    HotelId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -382,8 +383,8 @@ namespace TravelAgency.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"), 0, "ac9f7d21-f18f-4bc5-b201-fed566afd5b5", "guest@mail.com", false, false, null, "guest@mail.com", "guest@mail.com", "AQAAAAEAACcQAAAAEBJdAX43KqOAoQyU1/7Onh/P001BoWz0luGM93Nu5K80a/Z9vlh0iFuwDEQ4UlI/pw==", null, false, "ac5ce453-dfaa-49e2-bccb-5a83a94a41e8", false, "guest@mail.com" },
-                    { new Guid("dea12856-c198-4129-b3f3-b893d8395082"), 0, "8cf9b51d-739b-48d7-b57b-904105f58467", "agent@mail.com", false, false, null, "agent@mail.com", "agent@mail.com", "AQAAAAEAACcQAAAAEGzI5l5hIPUTZUH4AeXQx5kaeD8KPjIR4JcmeXTzapIKb5aGWD7N2oOJM6l/eNNd3Q==", null, false, "5cff1bd0-2cac-4140-929f-b22b72a2ed05", false, "agent@mail.com" }
+                    { new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"), 0, "dc6ea2c2-5ac8-4412-b94b-1b8f091762e4", "guest@mail.com", false, false, null, "guest@mail.com", "guest@mail.com", "AQAAAAEAACcQAAAAEKywNB+kmZIhXvpa8qnEU0CB3bP9cYib1JusD/4yffHolRGNkRflP4VaL2I0E4sJCw==", null, false, "136df49b-daa5-4092-8fb6-2549a6436cbb", false, "guest@mail.com" },
+                    { new Guid("dea12856-c198-4129-b3f3-b893d8395082"), 0, "bdff8ece-fd4d-4784-bf16-542ecf135e55", "agent@mail.com", false, false, null, "agent@mail.com", "agent@mail.com", "AQAAAAEAACcQAAAAEHvMNZmpRgagfmLUoJE92PiNNNq9OtRI5Zup7yem+lF9rMDo1ZxY0kp95hvBKV0Hfg==", null, false, "dd39398a-455e-4429-8b3d-edd1335f7cf4", false, "agent@mail.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -440,12 +441,108 @@ namespace TravelAgency.Data.Migrations
                 columns: new[] { "Id", "AgentId", "CategoryId", "CateringTypeId", "Description", "IsActive", "LocationId", "Price", "RoomTypeId", "Star", "Title" },
                 values: new object[,]
                 {
-                    { new Guid("03a5df20-bd50-4d95-b674-00ec170b9212"), new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 1, 1, "Хотел в новата част на Созопол. Намира се събсем близо до плажа.", true, 1, 100m, 1, 4, "ЛАГУНА БИЙЧ" },
-                    { new Guid("434a4b47-2dac-4ae7-9c3e-ae798703084c"), new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 3, 2, "Хотел „Аркутино Фемили Ризорт “ се намира на южното Черноморие на 40 км от град Бургас, между Созопол и Приморско в местността Аркутино, която е част от резервата „Ропотамо“. Разположен е в непосредствена близост до един от най-красивите български плажове, между златисти пясъчни дюни, прочутото крайморско езеро Водните лилии и река Ропотамо.", true, 3, 170m, 2, 4, "АРКУТИНО ФЕМИЛИ РЕЗОРТ" },
-                    { new Guid("47335a79-9f0e-4a2b-8ad2-9b8457ec32aa"), new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 2, 2, "Аполония Резорт е изискан четиризвезден ваканционен комплекс от затворен тип, разположен на един от най- красивите плажове по българското черноморие - великолепния Царския плаж. Царският плаж е разположен между курортите Черноморец на север и Созопол на юг.", true, 2, 120m, 2, 4, "АПОЛОНИЯ РЕЗОРТ" },
-                    { new Guid("492c853a-1a74-4c33-abe7-8c4397adf7f6"), new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 2, 2, "Хотел „Аполис” се намира на много тихо и спокойно място в новата част на града. Разположен е на 70 м от плаж Хармани. Той е уютен и луксозен хотел, с интересна архитектура.", true, 1, 120m, 1, 3, "АПОЛИС" },
-                    { new Guid("81713a06-e127-4970-934e-88added77a49"), new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 3, 2, "Аполония резорт е луксозен, апартаментен комплекс от затворен тип, състоящ се от две четири етажни сгради с капацитет от 23 апартамента. Апартаментите са от различен тип, напълно оборудвани с всичко необходимо за престоя на своите гости. Намира се в района на живописното черноморско градче Черноморец, на 400 м от центъра и на 300 м от златистия плаж. Хотелът разполага със собствен ресторант, където гостите ползват отстъпка.", true, 2, 200m, 3, 4, "АПОЛОНИЯ РЕЗОРТ" },
-                    { new Guid("91a6ce15-9413-4e04-8393-d48d651e09fc"), new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 1, 2, "Хотел „Табанов бийч” е разположен в новата част на град Созопол. Намира се само на 60м. от плаж \"Хармани\", а в близост има много магазини, ресторанти, клубове и други развлечения..", true, 1, 120m, 1, 3, "ТАБАНОВ БИЙЧ" }
+                    { 1, new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 1, 1, "Хотел в новата част на Созопол. Намира се събсем близо до плажа.", true, 1, 100m, 1, 4, "ЛАГУНА БИЙЧ" },
+                    { 2, new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 1, 2, "Хотел „Табанов бийч” е разположен в новата част на град Созопол. Намира се само на 60м. от плаж \"Хармани\", а в близост има много магазини, ресторанти, клубове и други развлечения..", true, 1, 120m, 1, 3, "ТАБАНОВ БИЙЧ" },
+                    { 3, new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 2, 2, "Хотел „Аполис” се намира на много тихо и спокойно място в новата част на града. Разположен е на 70 м от плаж Хармани. Той е уютен и луксозен хотел, с интересна архитектура.", true, 1, 120m, 1, 3, "АПОЛИС" },
+                    { 4, new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 2, 2, "Аполония Резорт е изискан четиризвезден ваканционен комплекс от затворен тип, разположен на един от най- красивите плажове по българското черноморие - великолепния Царския плаж. Царският плаж е разположен между курортите Черноморец на север и Созопол на юг.", true, 2, 120m, 2, 4, "АПОЛОНИЯ РЕЗОРТ" },
+                    { 5, new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 3, 2, "Хотел „Аркутино Фемили Ризорт “ се намира на южното Черноморие на 40 км от град Бургас, между Созопол и Приморско в местността Аркутино, която е част от резервата „Ропотамо“. Разположен е в непосредствена близост до един от най-красивите български плажове, между златисти пясъчни дюни, прочутото крайморско езеро Водните лилии и река Ропотамо.", true, 3, 170m, 2, 4, "АРКУТИНО ФЕМИЛИ РЕЗОРТ" },
+                    { 6, new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 3, 2, "Аполония резорт е луксозен, апартаментен комплекс от затворен тип, състоящ се от две четири етажни сгради с капацитет от 23 апартамента. Апартаментите са от различен тип, напълно оборудвани с всичко необходимо за престоя на своите гости. Намира се в района на живописното черноморско градче Черноморец, на 400 м от центъра и на 300 м от златистия плаж. Хотелът разполага със собствен ресторант, където гостите ползват отстъпка.", true, 2, 200m, 3, 4, "АПОЛОНИЯ РЕЗОРТ" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "HotelId", "ImageUrl", "IsMain" },
+                values: new object[] { 5, 1, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/149/big/IMG_4383.jpg", true });
+
+            migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "HotelId", "ImageUrl" },
+                values: new object[,]
+                {
+                    { 6, 1, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/149/big/IMG_4543.jpg" },
+                    { 7, 1, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/149/big/CRW_4025.jpg" },
+                    { 8, 1, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/149/big/CRW_4026.jpg" },
+                    { 9, 1, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/149/big/CRW_4033.jpg" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "HotelId", "ImageUrl", "IsMain" },
+                values: new object[] { 10, 2, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/8/big/RXES.jpg", true });
+
+            migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "HotelId", "ImageUrl" },
+                values: new object[,]
+                {
+                    { 11, 2, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/8/big/DSC_0686.JPG" },
+                    { 12, 2, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/8/big/DSC_0676.JPG" },
+                    { 13, 2, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/8/big/DSC_0672.JPG" },
+                    { 14, 2, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/8/big/DSC_0685.JPG" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "HotelId", "ImageUrl", "IsMain" },
+                values: new object[] { 15, 3, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/B7NF.jpg", true });
+
+            migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "HotelId", "ImageUrl" },
+                values: new object[,]
+                {
+                    { 16, 3, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/Z4Y7.jpg" },
+                    { 17, 3, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/DSC_0114.JPG" },
+                    { 18, 3, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/DSC_0115.JPG" },
+                    { 19, 3, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/7/big/58MB.jpg" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "HotelId", "ImageUrl", "IsMain" },
+                values: new object[] { 20, 4, "https://store.crs.bg/seastar-2016/img_hotel///136/big/P1000721.JPG", true });
+
+            migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "HotelId", "ImageUrl" },
+                values: new object[,]
+                {
+                    { 21, 4, "https://store.crs.bg/seastar-2016/img_hotel///136/big/P1000761.JPG" },
+                    { 22, 4, "https://store.crs.bg/seastar-2016/img_hotel///136/big/P1000760.JPG" },
+                    { 23, 4, "https://store.crs.bg/seastar-2016/img_hotel///136/big/P1000736.JPG" },
+                    { 24, 4, "https://store.crs.bg/seastar-2016/img_hotel///136/big/P1000718.JPG" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "HotelId", "ImageUrl", "IsMain" },
+                values: new object[] { 25, 5, "https://store.crs.bg/seastar-2016/img_hotel/BG//67/big/DSC_0826.JPG", true });
+
+            migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "HotelId", "ImageUrl" },
+                values: new object[,]
+                {
+                    { 26, 5, "https://store.crs.bg/seastar-2016/img_hotel/BG//67/big/P8270161.JPG" },
+                    { 27, 5, "https://store.crs.bg/seastar-2016/img_hotel/BG//67/big/P8270157.JPG" },
+                    { 28, 5, "https://store.crs.bg/seastar-2016/img_hotel/BG//67/big/DSC_0883.JPG" },
+                    { 29, 5, "https://store.crs.bg/seastar-2016/img_hotel/BG//67/big/DSC_0882.JPG" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "HotelId", "ImageUrl", "IsMain" },
+                values: new object[] { 30, 6, "https://store.crs.bg/seastar-2016/img_hotel/BG/8142/130/big/1.jpg", true });
+
+            migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "HotelId", "ImageUrl" },
+                values: new object[,]
+                {
+                    { 31, 6, "https://store.crs.bg/seastar-2016/img_hotel/BG/8142/130/big/_MG_7398.jpg" },
+                    { 32, 6, "https://store.crs.bg/seastar-2016/img_hotel/BG/8142/130/big/_MG_7250.jpg" },
+                    { 33, 6, "https://store.crs.bg/seastar-2016/img_hotel/BG/8142/130/big/_MG_7275.jpg" },
+                    { 34, 6, "https://store.crs.bg/seastar-2016/img_hotel/BG/8142/130/big/3.jpg" }
                 });
 
             migrationBuilder.InsertData(
@@ -453,15 +550,15 @@ namespace TravelAgency.Data.Migrations
                 columns: new[] { "Id", "Content", "HotelId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "Прекрасно преживяване в хотела! Уютна стая, отлично обслужване и изискан ресторант. Няма как да не се чувстваш приветливо посрещнат и релаксиран. Препоръчвам", new Guid("03a5df20-bd50-4d95-b674-00ec170b9212"), new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e") },
-                    { 2, "Къщата за гости беше просто превъзходна! Прекарахме незабравим уикенд сред природата, в компанията на любезни домакини. Всичко беше перфектно - от удобствата до гледката. С удоволствие ще се върнем отново!", new Guid("91a6ce15-9413-4e04-8393-d48d651e09fc"), new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e") },
-                    { 3, "Невероятно преживяване в този хотел. Спокойствие, лукс и безупречно обслужване. От момента на пристигането до заминаването си се чувствахме като VIP гости. Благодарим на персонала за прекрасния престой!", new Guid("492c853a-1a74-4c33-abe7-8c4397adf7f6"), new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e") },
-                    { 4, "Хотелът ни очарова с уникален дизайн и стил. Всяка детайлна измислица беше внимателно изпълнена. Спяхме в комфортен легловия аранжимент и се насладихме на изисканата храна. Подгответе се за неповторимо изживяване!", new Guid("47335a79-9f0e-4a2b-8ad2-9b8457ec32aa"), new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e") },
-                    { 5, "Къщата за гости беше уютна и пълна със сърце и душа. Гостоприемните домакини ни посрещнаха с топлина и готвената храна беше вкусна и автентична. Проведохме спокоен и релаксиращ уикенд в прекрасна обстановка.", new Guid("434a4b47-2dac-4ae7-9c3e-ae798703084c"), new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e") },
-                    { 6, "Семейният ни престой в този хотел беше мечтан. Басейнът и игралната зала развълнуваха децата, докато спа-центърът ни предложи наистина релаксиращ опит. Отлична комбинация от забавление и отдих!", new Guid("81713a06-e127-4970-934e-88added77a49"), new Guid("dea12856-c198-4129-b3f3-b893d8395082") },
-                    { 7, "Избрахме тази къща за гости за нашата романтична почивка и не бихме могли да бъдем по-щастливи. Атмосферата беше магична, а гледката от терасата буквално откъсна дъха. Ще я препоръчаме на всички!", new Guid("81713a06-e127-4970-934e-88added77a49"), new Guid("dea12856-c198-4129-b3f3-b893d8395082") },
-                    { 8, "Хотелът беше прекрасно решение за нашия семеен отдих. Паркът и детските площадки зарадваха децата, а ресторантът ни предложи невероятни вкусове. Прекарахме незабравимо време с любимите си хора.", new Guid("81713a06-e127-4970-934e-88added77a49"), new Guid("dea12856-c198-4129-b3f3-b893d8395082") },
-                    { 9, "Невероятна къща за гости, вложена със стил и комфорт. Пълноценното оборудване и уютната атмосфера ни позволиха да се отпуснем напълно. Прекарахме прекрасна почивка сред природата.", new Guid("81713a06-e127-4970-934e-88added77a49"), new Guid("dea12856-c198-4129-b3f3-b893d8395082") }
+                    { 1, "Прекрасно преживяване в хотела! Уютна стая, отлично обслужване и изискан ресторант. Няма как да не се чувстваш приветливо посрещнат и релаксиран. Препоръчвам", 1, new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e") },
+                    { 2, "Къщата за гости беше просто превъзходна! Прекарахме незабравим уикенд сред природата, в компанията на любезни домакини. Всичко беше перфектно - от удобствата до гледката. С удоволствие ще се върнем отново!", 2, new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e") },
+                    { 3, "Невероятно преживяване в този хотел. Спокойствие, лукс и безупречно обслужване. От момента на пристигането до заминаването си се чувствахме като VIP гости. Благодарим на персонала за прекрасния престой!", 3, new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e") },
+                    { 4, "Хотелът ни очарова с уникален дизайн и стил. Всяка детайлна измислица беше внимателно изпълнена. Спяхме в комфортен легловия аранжимент и се насладихме на изисканата храна. Подгответе се за неповторимо изживяване!", 4, new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e") },
+                    { 5, "Къщата за гости беше уютна и пълна със сърце и душа. Гостоприемните домакини ни посрещнаха с топлина и готвената храна беше вкусна и автентична. Проведохме спокоен и релаксиращ уикенд в прекрасна обстановка.", 5, new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e") },
+                    { 6, "Семейният ни престой в този хотел беше мечтан. Басейнът и игралната зала развълнуваха децата, докато спа-центърът ни предложи наистина релаксиращ опит. Отлична комбинация от забавление и отдих!", 6, new Guid("dea12856-c198-4129-b3f3-b893d8395082") },
+                    { 7, "Избрахме тази къща за гости за нашата романтична почивка и не бихме могли да бъдем по-щастливи. Атмосферата беше магична, а гледката от терасата буквално откъсна дъха. Ще я препоръчаме на всички!", 1, new Guid("dea12856-c198-4129-b3f3-b893d8395082") },
+                    { 8, "Хотелът беше прекрасно решение за нашия семеен отдих. Паркът и детските площадки зарадваха децата, а ресторантът ни предложи невероятни вкусове. Прекарахме незабравимо време с любимите си хора.", 2, new Guid("dea12856-c198-4129-b3f3-b893d8395082") },
+                    { 9, "Невероятна къща за гости, вложена със стил и комфорт. Пълноценното оборудване и уютната атмосфера ни позволиха да се отпуснем напълно. Прекарахме прекрасна почивка сред природата.", 3, new Guid("dea12856-c198-4129-b3f3-b893d8395082") }
                 });
 
             migrationBuilder.CreateIndex(
