@@ -4,7 +4,6 @@
     using Microsoft.EntityFrameworkCore;
     
     using TravelAgency.Data;
-    using TravelAgency.Data.Models;
     using Web.ViewModels.Hotel;
     using Interfaces;
     using Web.ViewModels.Home;
@@ -58,9 +57,9 @@
             return lastThreeHotel;
         }
 
-        public async Task CreateHotelAsync(HotelFormModel formModel, string agentId, int locationId)
+        public async Task<int> CreateHotelAsync(HotelFormModel formModel, string agentId, int locationId)
         {
-            Hotel newhotel = new Hotel
+            Hotel newHotel = new Hotel
             {
                 Title = formModel.Title,
                 LocationId = locationId,
@@ -68,22 +67,16 @@
                 CategoryId = formModel.CategoryId,
                 CateringTypeId = formModel.CateringTypeId,
                 Star = formModel.Star,
-                //Image = formModel.ImageUrl,
                 Price = formModel.Price,
                 AgentId = Guid.Parse(agentId),
                 RoomTypeId = formModel.RoomTypeId,
                 IsActive = true
             };
-            Hotel newHotel = new Hotel
-            {
-
-                
-            };
-
-
 
             await this.dbContext.Hotels.AddAsync(newHotel);
             await this.dbContext.SaveChangesAsync();
+
+            return newHotel.Id;
         }
 
         public async Task<AllHotelsFilteredAndPagesServiceModel> AllHotelAsync(AllHotelQueryModel queryModel)
@@ -98,6 +91,7 @@
                 hotelsQuery = hotelsQuery
                     .Where(h => h.Category.Name == queryModel.Category);
             }
+            
 
             if (!string.IsNullOrWhiteSpace(queryModel.SearchString))
             {
@@ -114,6 +108,12 @@
                 hotelsQuery = hotelsQuery
                     .Where(h => h.Location.Name == queryModel.Location);
             }
+
+            if (queryModel.Star == 2 || queryModel.Star == 3 || queryModel.Star == 4 || queryModel.Star == 5)
+            {
+                hotelsQuery = hotelsQuery.Where(h => h.Star == queryModel.Star);
+            }
+            
 
             hotelsQuery = queryModel.HotelSorting switch
             {
@@ -172,7 +172,7 @@
                     Location = h.Location.Name,
                     Catering = h.CateringType.Name,
                     Category = h.Category.Name,
-                    ImageUrl = h.Images.FirstOrDefault(i => i.IsMain)!.ImageUrl ?? "",
+                    ImageUrl = h.Images.FirstOrDefault(i => i.IsMain)!.ImageUrl ?? h.Images.FirstOrDefault()!.ImageUrl,
                     Price = h.Price,
                     Star = h.Star,
                     RoomType = h.RoomType.Name,
@@ -228,7 +228,7 @@
             return allOrderByUser;
         }
 
-        public async Task<HotelDetailsViewModel?> GetHotelDetailsByAdAsync(string hotelId)
+        public async Task<HotelDetailsViewModel?> GetHotelDetailsByAdAsync(int Id)
         {
             var hotel = await this.dbContext
                 .Hotels
@@ -240,7 +240,7 @@
                 .ThenInclude(a => a.User)
                 .Include(h => h.Posts)
                 .Include(h => h.Images)
-                .FirstOrDefaultAsync(h => h.IsActive && h.Id.ToString() == hotelId);
+                .FirstOrDefaultAsync(h => h.IsActive && h.Id== Id);
 
             if (hotel == null)
             {
@@ -283,7 +283,6 @@
                 Location = hotel.Location.Name,
                 Catering = hotel.CateringType.Name,
                 Category = hotel.Category.Name,
-                //ImageUrl = hotel.Images.FirstOrDefault(i => i.IsMain)!.ImageUrl ?? "",
                 Price = hotel.Price,
                 Star = hotel.Star,
                 RoomType = hotel.RoomType.Name,
@@ -300,5 +299,25 @@
 
             return viewModel;
         }
+
+        public async Task<IEnumerable<int>> AllStarsAsync()
+        {
+            IEnumerable<int> allStarCategory = new List<int>()
+            {
+                2, 3, 4, 5
+            };
+
+            return allStarCategory;
+        }
+
+        public async Task<bool> HotelExistByIdAsync(int hotelId)
+        {
+            bool result = await this.dbContext
+                .Hotels
+                .AnyAsync(a => a.Id == hotelId);
+
+            return result;
+        }
+
     }
 }

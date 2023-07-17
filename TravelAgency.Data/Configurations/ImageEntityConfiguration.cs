@@ -324,7 +324,153 @@
             };
 
             images.Add(image);
-            
+
+
+            // Villa Dari
+
+            image = new Image
+            {
+                Id = 35,
+                ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/155/big/New%20Image.JPG",
+                IsMain = true,
+                HotelId = 7
+            };
+
+            images.Add(image);
+
+            image = new Image
+            {
+                Id = 36,
+                ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/155/big/DARI-2%20izgled.JPG",
+                HotelId = 7
+            };
+
+            images.Add(image);
+
+            image = new Image
+            {
+                Id = 37,
+                ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/155/big/DARI-staya.JPG",
+                HotelId = 7
+            };
+
+            images.Add(image);
+
+            image = new Image
+            {
+                Id = 38,
+                ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/155/big/DARI-%20NOMER%202.JPG",
+                HotelId = 7
+            };
+
+            images.Add(image);
+
+            image = new Image
+            {
+                Id = 39,
+                ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/155/big/DARI-%20NOMER%202.2.JPG",
+                HotelId = 7
+            };
+
+            images.Add(image);
+
+            // Horizont
+
+            image = new Image
+            {
+                Id = 40,
+                ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/33/big/CRW_4068.jpg",
+                IsMain = true,
+                HotelId = 8
+            };
+
+            images.Add(image);
+
+            image = new Image
+            {
+                Id = 41,
+                ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/33/big/150815_289__MG_5112.jpg",
+                HotelId = 8
+            };
+
+            images.Add(image);
+
+            image = new Image
+            {
+                Id = 42,
+                ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/33/big/150815_289__MG_5038-HDR.jpg",
+                HotelId = 8
+            };
+
+            images.Add(image);
+
+            image = new Image
+            {
+                Id = 43,
+                ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/33/big/IMG_4450.JPGg",
+                HotelId = 8
+            };
+
+            images.Add(image);
+
+            image = new Image
+            {
+                Id = 44,
+                ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/33/big/IMG_4495.JPG",
+                HotelId = 8
+            };
+
+            images.Add(image);
+
+
+            // Fiord
+
+            image = new Image
+            {
+                Id = 45,
+                ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/15/big/DSC_0063.JPG",
+                IsMain = true,
+                HotelId = 9
+            };
+
+            images.Add(image);
+
+            image = new Image
+            {
+                Id = 46,
+                ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/15/big/Hotel%20Fjord%20B1_6.jpg",
+                HotelId = 9
+            };
+
+            images.Add(image);
+
+            image = new Image
+            {
+                Id = 47,
+                ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/15/big/DSC_0063.JPG",
+                HotelId = 9
+            };
+
+            images.Add(image);
+
+            image = new Image
+            {
+                Id = 48,
+                ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/15/big/Hotel%20Fjord%20A_1.jpg",
+                HotelId = 9
+            };
+
+            images.Add(image);
+
+            image = new Image
+            {
+                Id = 49,
+                ImageUrl = "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/15/big/Hotel%20Fjord%20Sozopol%20breakfast-7.JPG",
+                HotelId = 9
+            };
+
+            images.Add(image);
+
 
 
             return images.ToArray();

@@ -7,6 +7,7 @@
     using Services.Data.Models.House;
     using TravelAgency.Services.Data.Interfaces;
     using ViewModels.Hotel;
+    using ViewModels.Post;
     using static Common.NotificationMessagesConstants;
 
     [Authorize]
@@ -18,8 +19,11 @@
         private readonly IHotelService hotelService;
         private readonly ICateringService cateringService;
         private readonly IRoomService roomService;
+        private readonly IImageService imageService;
+        private readonly IPostService postService;
+        
 
-        public HotelController(ICategoryService categoryService, IAgentService agentService, ILocationService locationService, IHotelService hotelService, ICateringService cateringService, IRoomService roomService)
+        public HotelController(ICategoryService categoryService, IAgentService agentService, ILocationService locationService, IHotelService hotelService, ICateringService cateringService, IRoomService roomService, IImageService imageService, IPostService postService)
         {
             this.categoryService = categoryService;
             this.agentService = agentService;
@@ -27,22 +31,26 @@
             this.hotelService = hotelService;
             this.roomService = roomService;
             this.cateringService = cateringService;
+            this.imageService = imageService;
+            this.postService = postService;
         }
 
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> All([FromQuery] AllHotelQueryModel queryModel)
         {
-            AllHotelsFilteredAndPagesServiceModel serviceModel =
-                await this.hotelService.AllHotelAsync(queryModel);
+            AllHotelsFilteredAndPagesServiceModel serviceModel = await this.hotelService.AllHotelAsync(queryModel);
 
             queryModel.Hotels = serviceModel.Hotels;
             queryModel.TotalHotels = serviceModel.TotalHotelsCount;
             queryModel.Categories = await this.categoryService.AllCategoryNamesAsync();
             queryModel.Locations = await this.locationService.AllLocationNamesAsync();
+            queryModel.Stars = await this.hotelService.AllStarsAsync();
 
 
             return this.View(queryModel);
+
+
         }
 
         [HttpGet]
@@ -121,7 +129,13 @@
                 string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
                 int cityId = await this.locationService.GetLocationId(model.Location);
 
-                await this.hotelService.CreateHotelAsync(model, agentId!, cityId);
+                int hotelId = await this.hotelService.CreateHotelAsync(model, agentId!, cityId); // Връщане на идентификационния номер на хотела
+
+                if (model.Images != null && model.Images.Any())
+                {
+                    await this.imageService.AddImagesAsync(model.Images, hotelId);
+                }
+
             }
             catch (Exception)
             {
@@ -156,10 +170,10 @@
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(int Id)
         {
             HotelDetailsViewModel? viewModel = await this.hotelService
-                .GetHotelDetailsByAdAsync(id);
+                .GetHotelDetailsByAdAsync(Id);
 
             if (viewModel == null)
             {
@@ -169,5 +183,41 @@
             return this.View(viewModel);
 
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddComment(int id, string comment)
+        {
+            if (string.IsNullOrEmpty(comment))
+            {
+                // Валидация на коментара - например, проверка за празен коментар
+                this.TempData[ErrorMessage] = "Please enter a comment.";
+                return this.RedirectToAction("Details", new { id = id });
+            }
+
+            // Получаване на текущия потребител
+            var currentUser = this.User.GetId()!;
+
+            // Проверка за съществуване на хотела с даденото id
+            var hotelExists = await this.hotelService.HotelExistByIdAsync(id);
+            if (!hotelExists)
+            {
+                this.TempData[ErrorMessage] = "Hotel not found.";
+                return this.RedirectToAction("All");
+            }
+
+            if (this.ModelState.IsValid)
+            {
+                var post = new PostFormModel()
+                {
+                    Content = comment,
+                    UserId = Guid.Parse(currentUser),
+                    HotelId = id
+                };
+                await this.postService.AddPostAsync(post);
+            }
+
+            return this.RedirectToAction("Details", new { id = id });
+        }
+
     }
 }

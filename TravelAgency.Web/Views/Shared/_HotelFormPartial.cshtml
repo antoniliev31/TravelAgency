@@ -7,12 +7,6 @@
                 <label asp-for="Title"></label>
                 <input asp-for="Title" class="form-control" placeholder="Title...">
                 <span asp-validation-for="Title" class="small text-danger"></span>
-                
-            </div>
-            <div class="form-group">
-                <label asp-for="SubTitle"></label>
-                <input asp-for="SubTitle" class="form-control" placeholder="SubTitle...">
-                <span asp-validation-for="SubTitle" class="small text-danger"></span>
             </div>
             <div class="form-group text-">
                 <label asp-for="Star" class="d-block"><span class="stars"></span></></label>
@@ -59,11 +53,43 @@
                 <textarea asp-for="Description" rows="4" class="form-control" placeholder="Two bedrooms..."></textarea>
                 <span asp-validation-for="Description" class="small text-danger"></span>
             </div>
-            @*<div class="form-group">
-                <label asp-for="Image"></label>
-                <input asp-for="Image" class="form-control" placeholder="Your fine URL here...">
-                <span asp-validation-for="Image" class="small text-danger"></span>
-            </div>*@
+
+            <div class="form-group">
+                <label asp-for="Images" class="control-label"></label>
+                @if (Model.Images.Count > 0)
+                {
+                    for (int i = 0; i < Model.Images.Count; i++)
+                    {
+                        <div class="input-group mb-3">
+                            <input asp-for="Images[i]" class="form-control" placeholder="Image URL...">
+                            <div class="input-group-append">
+                                @if (i == Model.Images.Count - 1)
+                                {
+                                    <button class="btn btn-outline-secondary" type="button" onclick="addImageField()">+</button>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-outline-secondary" type="button" onclick="removeImageField(this)">-</button>
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    Model.Images.Add(string.Empty);
+                    <div class="input-group mb-3">
+                        <input asp-for="Images[0]" class="form-control" placeholder="Image URL...">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" onclick="addImageField()">+</button>
+                        </div>
+                    </div>
+                }
+                <span asp-validation-for="Images" class="text-danger"></span>
+            </div>
+
+
+
             <div class="form-group">
                 <label asp-for="Price"></label>
                 <input asp-for="Price" class="form-control">                 

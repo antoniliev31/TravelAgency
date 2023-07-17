@@ -90,6 +90,7 @@
             @if (User.Identity?.IsAuthenticated ?? false)
             {
                 <form asp-controller="Hotel" asp-action="AddComment" method="post">
+                    <input type="hidden" name="id" value="@Model.Id" />
                     <div class="form-group mt-3">
                         <label for="comment">Нов коментар</label>
                         <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>

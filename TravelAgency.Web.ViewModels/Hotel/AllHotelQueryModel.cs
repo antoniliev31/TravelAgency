@@ -11,12 +11,16 @@
             this.CurrentPage = DefaultPage;
             this.HotelsPerPage = EntitiesPerPage;
             this.Categories = new HashSet<string>();
+            this.Stars = new HashSet<int>();
             this.Hotels = new HashSet<HotelAllViewModel>();
             this.Locations = new HashSet<string>();
         }
         
         [Display(Name = "Търси по категория")]
         public string? Category { get; set; }
+
+        [Display(Name = "Категория(звезди)")]
+        public int Star { get; set; }
 
         [Display(Name = "Търси по населено място")]
         public string? Location { get; set; }
@@ -30,7 +34,7 @@
         [Display(Name = "Настояща страница")]
         public int CurrentPage { get; set; }
         
-        [Display(Name = "Брой страници")]
+        [Display(Name = "Покажи на страница по:")]
         public int HotelsPerPage { get; set; }
 
         [Display(Name = "Общо хотели")]
@@ -40,8 +44,9 @@
 
         public IEnumerable<string> Locations { get; set; }
 
-        public IEnumerable<HotelAllViewModel> Hotels { get; set; }
+        public IEnumerable<int> Stars { get; set; }
 
+        public IEnumerable<HotelAllViewModel> Hotels { get; set; }
 
     }
 }

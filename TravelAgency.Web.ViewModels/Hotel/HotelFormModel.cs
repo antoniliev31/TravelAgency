@@ -18,48 +18,46 @@
         
         [Required]
         [StringLength(TitleMaxLength, MinimumLength = TitleMinLength)]
-        [Display(Name = "Hotel name")]
+        [Display(Name = "Име на хотела")]
         public string Title { get; set; } = null!;
-
         
-        [StringLength(SubTitleMaxLength, MinimumLength = SubTitleMinLength)]
-        [Display(Name = "Subtitle")]
-        public string? SubTitle { get; set; }
 
         [Required]
         [StringLength(CityMaxLength, MinimumLength = CityMinLength)]
-        [Display(Name = "Location")]
+        [Display(Name = "Населено място")]
         public string Location { get; set; } = null!;
         
         [Range(StarMinValue, StarMaxValue)]
-        [Display(Name = "Category")]
+        [Display(Name = "Категория (Звезди)")]
         public int Star { get; set; }
 
         [Required]
-        [Display(Name = "Category")]
+        [Display(Name = "Тип на хотела")]
         public int CategoryId { get; set; }
 
         [Required]
-        [Display(Name = "Room Type")]
+        [Display(Name = "Тип на стаята за настаняване")]
         public int RoomTypeId { get; set; }
 
         [Required]
         [Range(CateringTypeMinLength, CateringTypeMaxLength)]
-        [Display(Name = "Catering Type")]
+        [Display(Name = "Тип изхранване")]
         public int CateringTypeId { get; set; }
 
         [Required]
         [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength)]
+        [Display(Name = "Описание")]
         public string Description { get; set; } = null!;
 
         [Required]
-        [StringLength(ImageUrlMaxLength)]
-        [Display(Name = "Image Link")]
-        public string ImageUrl { get; set; }
+        [Display(Name = "Добавете линк към снимките на хотела, като започнете с главната")]
+        public List<string> Images { get; set; } = new List<string>();
 
-        [Range(typeof(decimal), PricePerMonthMinValue, PricePerMonthMaxValue)]
-        [Display(Name = "Total Price")]
+
+        [Range(typeof(decimal), PriceMinValue, PriceMaxValue)]
+        [Display(Name = "Цена")]
         public decimal Price { get; set; }
+
 
         [Required]
         public bool IsActive { get; set; }

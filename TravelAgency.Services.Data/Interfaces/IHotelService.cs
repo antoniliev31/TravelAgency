@@ -8,7 +8,7 @@
     {
         Task<IEnumerable<IndexViewModel>> LastThreeAddedHotelAsync();
 
-        Task CreateHotelAsync(HotelFormModel formModel, string agentId, int locationId);
+        Task<int> CreateHotelAsync(HotelFormModel formModel, string agentId, int locationId);
 
         Task<AllHotelsFilteredAndPagesServiceModel> AllHotelAsync(AllHotelQueryModel queryModel);
 
@@ -18,9 +18,11 @@
 
         Task<IEnumerable<HotelAllViewModel>> AllOrderHotelByUserAsync(string userId);
 
-        Task<HotelDetailsViewModel?> GetHotelDetailsByAdAsync(string hotelId);
+        Task<HotelDetailsViewModel?> GetHotelDetailsByAdAsync(int Id);
 
+        Task<IEnumerable<int>> AllStarsAsync();
 
+        public Task<bool> HotelExistByIdAsync(int hotelId);
     }
 
 }
