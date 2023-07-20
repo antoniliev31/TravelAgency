@@ -127,14 +127,17 @@
             try
             {
                 string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
+
                 int cityId = await this.locationService.GetLocationId(model.Location);
 
-                int hotelId = await this.hotelService.CreateHotelAsync(model, agentId!, cityId); // Връщане на идентификационния номер на хотела
+                int hotelId = await this.hotelService.CreateHotelAndReturnIdAsync(model, agentId!, cityId);
 
                 if (model.Images != null && model.Images.Any())
                 {
                     await this.imageService.AddImagesAsync(model.Images, hotelId);
                 }
+
+                return this.RedirectToAction("Details", "Hotel", new { id = hotelId });
 
             }
             catch (Exception)
@@ -146,7 +149,6 @@
                 return this.View(model);
             }
 
-            return this.RedirectToAction("All", "Hotel");
         }
         
         [HttpGet]
@@ -192,8 +194,6 @@
 
                 return RedirectToAction("Index", "Home");
             }
-
-           
 
         }
 

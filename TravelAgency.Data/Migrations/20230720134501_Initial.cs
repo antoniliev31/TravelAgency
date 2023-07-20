@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TravelAgency.Data.Migrations
 {
-    public partial class _150723UpdateHoteId : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -234,7 +234,7 @@ namespace TravelAgency.Data.Migrations
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Star = table.Column<int>(type: "int", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 7, 15, 17, 52, 43, 247, DateTimeKind.Local).AddTicks(6168)),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     LocationId = table.Column<int>(type: "int", nullable: false),
@@ -284,7 +284,7 @@ namespace TravelAgency.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ImageUrl = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
                     IsMain = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     HotelId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -383,8 +383,8 @@ namespace TravelAgency.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"), 0, "dc6ea2c2-5ac8-4412-b94b-1b8f091762e4", "guest@mail.com", false, false, null, "guest@mail.com", "guest@mail.com", "AQAAAAEAACcQAAAAEKywNB+kmZIhXvpa8qnEU0CB3bP9cYib1JusD/4yffHolRGNkRflP4VaL2I0E4sJCw==", null, false, "136df49b-daa5-4092-8fb6-2549a6436cbb", false, "guest@mail.com" },
-                    { new Guid("dea12856-c198-4129-b3f3-b893d8395082"), 0, "bdff8ece-fd4d-4784-bf16-542ecf135e55", "agent@mail.com", false, false, null, "agent@mail.com", "agent@mail.com", "AQAAAAEAACcQAAAAEHvMNZmpRgagfmLUoJE92PiNNNq9OtRI5Zup7yem+lF9rMDo1ZxY0kp95hvBKV0Hfg==", null, false, "dd39398a-455e-4429-8b3d-edd1335f7cf4", false, "agent@mail.com" }
+                    { new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"), 0, "cca9c1c8-7075-4d7f-b33d-a4986c99ed55", "guest@mail.com", false, false, null, "guest@mail.com", "guest@mail.com", "AQAAAAEAACcQAAAAEP7b81ost7krIoKCMoD7hFtGDLz0Zig2MGyn27iq4Xi5H31Bxe+zR0vNgTRiAMnOQQ==", null, false, "2f12a12d-501b-4dea-8e73-f80cf973e0ef", false, "guest@mail.com" },
+                    { new Guid("dea12856-c198-4129-b3f3-b893d8395082"), 0, "82bf331e-d842-4f0c-9640-0cdc7992a3a7", "agent@mail.com", false, false, null, "agent@mail.com", "agent@mail.com", "AQAAAAEAACcQAAAAEGLc76wiTg4yK19wsK8moJwRlkFEfw0YtHnPqjKACnZVxEwpslm1ftha8aNOJCyjhg==", null, false, "559b0979-9b02-4709-afec-35c4028dbe01", false, "agent@mail.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -446,7 +446,10 @@ namespace TravelAgency.Data.Migrations
                     { 3, new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 2, 2, "Хотел „Аполис” се намира на много тихо и спокойно място в новата част на града. Разположен е на 70 м от плаж Хармани. Той е уютен и луксозен хотел, с интересна архитектура.", true, 1, 120m, 1, 3, "АПОЛИС" },
                     { 4, new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 2, 2, "Аполония Резорт е изискан четиризвезден ваканционен комплекс от затворен тип, разположен на един от най- красивите плажове по българското черноморие - великолепния Царския плаж. Царският плаж е разположен между курортите Черноморец на север и Созопол на юг.", true, 2, 120m, 2, 4, "АПОЛОНИЯ РЕЗОРТ" },
                     { 5, new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 3, 2, "Хотел „Аркутино Фемили Ризорт “ се намира на южното Черноморие на 40 км от град Бургас, между Созопол и Приморско в местността Аркутино, която е част от резервата „Ропотамо“. Разположен е в непосредствена близост до един от най-красивите български плажове, между златисти пясъчни дюни, прочутото крайморско езеро Водните лилии и река Ропотамо.", true, 3, 170m, 2, 4, "АРКУТИНО ФЕМИЛИ РЕЗОРТ" },
-                    { 6, new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 3, 2, "Аполония резорт е луксозен, апартаментен комплекс от затворен тип, състоящ се от две четири етажни сгради с капацитет от 23 апартамента. Апартаментите са от различен тип, напълно оборудвани с всичко необходимо за престоя на своите гости. Намира се в района на живописното черноморско градче Черноморец, на 400 м от центъра и на 300 м от златистия плаж. Хотелът разполага със собствен ресторант, където гостите ползват отстъпка.", true, 2, 200m, 3, 4, "АПОЛОНИЯ РЕЗОРТ" }
+                    { 6, new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 3, 4, "Аполония резорт е луксозен, апартаментен комплекс от затворен тип, състоящ се от две четири етажни сгради с капацитет от 23 апартамента. Апартаментите са от различен тип, напълно оборудвани с всичко необходимо за престоя на своите гости. Намира се в района на живописното черноморско градче Черноморец, на 400 м от центъра и на 300 м от златистия плаж. Хотелът разполага със собствен ресторант, където гостите ползват отстъпка.", true, 2, 200m, 3, 4, "АТИЯ РЕЗОРТ" },
+                    { 7, new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 1, 1, "Къща за гости Дари се намира в новата част на античния град Созопол. Тя е разположена между два плажа на разстояние 5 - 6 минути от всеки плаж. Къщата се намира на тиха и спокойна улица, която дава възможност на туристите за пълноценна почивка. Къщата за гости разполага със самостоятелни стаи и апартаменти. Всички помещения са с тераса, санитарен възел, телевизор, хладилник, климатик и безплатен интернет.", true, 1, 100m, 1, 3, "ВИЛА ДАРИ" },
+                    { 8, new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 1, 3, "Разположен върху живописни скали на морския бряг в новата част на града, хотел „Фиорд” е идеален за мечтаната почивка. Плаж „Хармани” се намира на 60м. Хотелът разполага с еднакво обзаведени Двойни стаи от различен тип, различаващи се по площта си.", true, 1, 160m, 1, 3, "ХОРИЗОНТ" },
+                    { 9, new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"), 1, 3, "Разположен върху живописни скали на морския бряг в новата част на града, хотел „Фиорд” е идеален за мечтаната почивка. Плаж „Хармани” се намира на 60м. Хотелът разполага с еднакво обзаведени Двойни стаи от различен тип, различаващи се по площта си.", true, 1, 130m, 1, 3, "ФИОРД" }
                 });
 
             migrationBuilder.InsertData(
@@ -543,6 +546,58 @@ namespace TravelAgency.Data.Migrations
                     { 32, 6, "https://store.crs.bg/seastar-2016/img_hotel/BG/8142/130/big/_MG_7250.jpg" },
                     { 33, 6, "https://store.crs.bg/seastar-2016/img_hotel/BG/8142/130/big/_MG_7275.jpg" },
                     { 34, 6, "https://store.crs.bg/seastar-2016/img_hotel/BG/8142/130/big/3.jpg" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "HotelId", "ImageUrl", "IsMain" },
+                values: new object[] { 35, 7, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/155/big/New%20Image.JPG", true });
+
+            migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "HotelId", "ImageUrl" },
+                values: new object[,]
+                {
+                    { 36, 7, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/155/big/DARI-2%20izgled.JPG" },
+                    { 37, 7, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/155/big/DARI-staya.JPG" },
+                    { 38, 7, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/155/big/DARI-%20NOMER%202.JPG" },
+                    { 39, 7, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/155/big/DARI-%20NOMER%202.2.JPG" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "HotelId", "ImageUrl", "IsMain" },
+                values: new object[] { 40, 8, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/33/big/CRW_4068.jpg", true });
+
+            migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "HotelId", "ImageUrl" },
+                values: new object[,]
+                {
+                    { 41, 8, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/33/big/150815_289__MG_5112.jpg" },
+                    { 42, 8, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/33/big/150815_289__MG_5038-HDR.jpg" },
+                    { 43, 8, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/33/big/IMG_4450.JPGg" },
+                    { 44, 8, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/33/big/IMG_4495.JPG" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "HotelId", "ImageUrl", "IsMain" },
+                values: new object[] { 45, 9, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/15/big/DSC_0063.JPG", true });
+
+            migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "HotelId", "ImageUrl" },
+                values: new object[] { 46, 9, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/15/big/Hotel%20Fjord%20B1_6.jpg" });
+
+            migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "HotelId", "ImageUrl" },
+                values: new object[,]
+                {
+                    { 47, 9, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/15/big/DSC_0063.JPG" },
+                    { 48, 9, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/15/big/Hotel%20Fjord%20A_1.jpg" },
+                    { 49, 9, "https://store.crs.bg/seastar-2016/img_hotel/BG/8130/15/big/Hotel%20Fjord%20Sozopol%20breakfast-7.JPG" }
                 });
 
             migrationBuilder.InsertData(

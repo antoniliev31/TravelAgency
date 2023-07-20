@@ -59,7 +59,7 @@
             return lastThreeHotel;
         }
 
-        public async Task<int> CreateHotelAsync(HotelFormModel formModel, string agentId, int locationId)
+        public async Task<int> CreateHotelAndReturnIdAsync(HotelFormModel formModel, string agentId, int locationId)
         {
             Hotel newHotel = new Hotel
             {
@@ -120,9 +120,9 @@
             hotelsQuery = queryModel.HotelSorting switch
             {
                 HotelSorting.Newest => hotelsQuery
-                    .OrderBy(h => h.CreatedOn),
-                HotelSorting.Oldest => hotelsQuery
                     .OrderByDescending(h => h.CreatedOn),
+                HotelSorting.Oldest => hotelsQuery
+                    .OrderBy(h => h.CreatedOn),
                 HotelSorting.CityAscending => hotelsQuery
                     .OrderBy(h => h.Location),
                 HotelSorting.CityDescending => hotelsQuery

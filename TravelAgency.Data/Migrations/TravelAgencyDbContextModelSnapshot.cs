@@ -256,15 +256,15 @@ namespace TravelAgency.Data.Migrations
                         {
                             Id = new Guid("dea12856-c198-4129-b3f3-b893d8395082"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d6280dd3-a581-4130-ba1a-b128b5711282",
+                            ConcurrencyStamp = "82bf331e-d842-4f0c-9640-0cdc7992a3a7",
                             Email = "agent@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "agent@mail.com",
                             NormalizedUserName = "agent@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEQr/u/f9NYB2P9bM6xO6fYz4WyfNYj/x07kMrtz2K4ng6XJkNOvlfMe1N12GRPT5g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGLc76wiTg4yK19wsK8moJwRlkFEfw0YtHnPqjKACnZVxEwpslm1ftha8aNOJCyjhg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0df8df9c-e218-4c06-8c22-6f2a1deee940",
+                            SecurityStamp = "559b0979-9b02-4709-afec-35c4028dbe01",
                             TwoFactorEnabled = false,
                             UserName = "agent@mail.com"
                         },
@@ -272,15 +272,15 @@ namespace TravelAgency.Data.Migrations
                         {
                             Id = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9f7d2eb7-0195-4a5f-bf21-5850cde479cc",
+                            ConcurrencyStamp = "cca9c1c8-7075-4d7f-b33d-a4986c99ed55",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEChXeEgOvcryYr1ZJzihdoY8udVIPl15uitbGZuWV4pNjL7/6umnH65+7KCEeBmNJg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP7b81ost7krIoKCMoD7hFtGDLz0Zig2MGyn27iq4Xi5H31Bxe+zR0vNgTRiAMnOQQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "661c7f9b-3a51-4606-80e9-fa3fd782b840",
+                            SecurityStamp = "2f12a12d-501b-4dea-8e73-f80cf973e0ef",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         });
@@ -386,7 +386,7 @@ namespace TravelAgency.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 7, 15, 21, 1, 2, 486, DateTimeKind.Local).AddTicks(8965));
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -510,7 +510,7 @@ namespace TravelAgency.Data.Migrations
                             Id = 6,
                             AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                             CategoryId = 3,
-                            CateringTypeId = 2,
+                            CateringTypeId = 4,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Аполония резорт е луксозен, апартаментен комплекс от затворен тип, състоящ се от две четири етажни сгради с капацитет от 23 апартамента. Апартаментите са от различен тип, напълно оборудвани с всичко необходимо за престоя на своите гости. Намира се в района на живописното черноморско градче Черноморец, на 400 м от центъра и на 300 м от златистия плаж. Хотелът разполага със собствен ресторант, където гостите ползват отстъпка.",
                             IsActive = true,
@@ -518,7 +518,7 @@ namespace TravelAgency.Data.Migrations
                             Price = 200m,
                             RoomTypeId = 3,
                             Star = 4,
-                            Title = "АПОЛОНИЯ РЕЗОРТ"
+                            Title = "АТИЯ РЕЗОРТ"
                         },
                         new
                         {
@@ -580,8 +580,8 @@ namespace TravelAgency.Data.Migrations
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<bool>("IsMain")
                         .ValueGeneratedOnAdd()

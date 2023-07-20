@@ -31,7 +31,7 @@
         public int Star { get; set; }
         
         public DateTime CreatedOn { get; set; }
-        
+
         public decimal Price { get; set; }
         
         [Required]  
