@@ -11,7 +11,7 @@
         
 
         [Required]
-        [MaxLength(ImageMaxLength)]
+        [MaxLength(ImageUrlMaxLength)]
         public string ImageUrl { get; set; } = null!;
 
 

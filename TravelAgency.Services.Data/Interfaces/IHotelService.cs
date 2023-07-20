@@ -14,15 +14,17 @@
 
         Task<IEnumerable<HotelAllViewModel>> AllHotelByAgentIdAsync(string agentId);
 
-        Task<IEnumerable<HotelAllViewModel>> AllWishHotelByUserAsync(string userId);
-
-        Task<IEnumerable<HotelAllViewModel>> AllOrderHotelByUserAsync(string userId);
-
-        Task<HotelDetailsViewModel?> GetHotelDetailsByAdAsync(int Id);
+        Task<HotelDetailsViewModel?> GetHotelDetailsByAdAsync(int hotelId);
 
         Task<IEnumerable<int>> AllStarsAsync();
 
-        public Task<bool> HotelExistByIdAsync(int hotelId);
+        Task<bool> HotelExistByIdAsync(int hotelId);
+
+        Task<HotelFormModel> GetHotelForEditByIdAsync(int hotelId);
+
+        Task<bool> IsAgentWithIdOwnerOfHotelWithIdAsync(int hotelId, string agentId);
+
+        Task EditHotelByIdAndFormModelAsync(int hotelId, HotelFormModel model);
     }
 
 }

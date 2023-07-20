@@ -2,21 +2,21 @@
 
 @if (TempData.ContainsKey(ErrorMessage))
 {
-    <script>('@TempData[ErrorMessage]');</script>
+    <script>toastr.error('@TempData[ErrorMessage]');</script>
 }
 
 @if (TempData.ContainsKey(WarningMessage))
 {
-    <script>('@TempData[ErrorMessage]');</script>
+    <script>toastr.warning('@TempData[WarningMessage]');</script>
 }
 
 @if (TempData.ContainsKey(InformationMessage))
 {
-    <script>('@TempData[ErrorMessage]');</script>
+    <script>toastr.info('@TempData[InformationMessage]');</script>
 }
 
 @if (TempData.ContainsKey(SuccessMessage))
 {
-    <script>('@TempData[ErrorMessage]');</script>
+    <script>toastr.success('@TempData[SuccessMessage]');</script>
 }
 

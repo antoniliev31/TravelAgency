@@ -149,6 +149,60 @@
             return this.RedirectToAction("All", "Hotel");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, HotelFormModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                model.Categories = await this.categoryService.AllCategoryesAsync();
+                model.Caterings = await this.cateringService.AllCateringTypesAsync();
+                model.Rooms = await this.roomService.AllRoomTypeAsync();
+                return this.View(model);
+            }
+
+            bool hotelExist = await this.hotelService.HotelExistByIdAsync(id);
+
+            if (!hotelExist)
+            {
+                this.TempData[ErrorMessage] = "Hotel with the provided id does not exist!";
+                return this.RedirectToAction("All", "Hotel");
+            }
+
+            bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
+
+            if (!isUserAgent)
+            {
+                this.TempData[ErrorMessage] = "You must become an agent in order to edit hotel info";
+                return this.RedirectToAction("Become", "Agent");
+            }
+
+            string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
+
+            bool isAgentOwner = await this.hotelService.IsAgentWithIdOwnerOfHotelWithIdAsync(id, agentId!);
+
+            if (!isAgentOwner)
+            {
+                this.TempData[ErrorMessage] = "You must be the agent owner of the hotel you want to edit!";
+                return this.RedirectToAction("Mine", "Hotel");
+            }
+
+            try
+            {
+                await this.hotelService.EditHotelByIdAndFormModelAsync(id, model);
+                model.Categories = await this.categoryService.AllCategoryesAsync();
+                model.Caterings = await this.cateringService.AllCateringTypesAsync();
+                model.Rooms = await this.roomService.AllRoomTypeAsync();
+                return this.RedirectToAction("Details", "Hotel", new { id = id });
+            }
+            catch (Exception)
+            {
+                this.ModelState.AddModelError(string.Empty, "Unexpected error! Please try again later.");
+            }
+
+            return this.RedirectToAction("Details", "Hotel", new{id = id});
+        }
+
+
         [HttpGet]
         public async Task<IActionResult> Mine()
         {
@@ -170,16 +224,20 @@
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Details(int Id)
+        public async Task<IActionResult> Details(int id)
         {
-            HotelDetailsViewModel? viewModel = await this.hotelService
-                .GetHotelDetailsByAdAsync(Id);
+            bool hotelExist = await this.hotelService.HotelExistByIdAsync(id);
 
-            if (viewModel == null)
+            if (!hotelExist)
             {
                 this.TempData[ErrorMessage] = "Hotel with the provided id does not exist!";
                 return this.RedirectToAction("All", "Hotel");
             }
+
+            HotelDetailsViewModel? viewModel = await this.hotelService
+                .GetHotelDetailsByAdAsync(id);
+
+            
             return this.View(viewModel);
 
         }
@@ -189,15 +247,13 @@
         {
             if (string.IsNullOrEmpty(comment))
             {
-                // Валидация на коментара - например, проверка за празен коментар
+                
                 this.TempData[ErrorMessage] = "Please enter a comment.";
-                return this.RedirectToAction("Details", new { id = id });
+                return this.RedirectToAction("Details", new { id });
             }
 
-            // Получаване на текущия потребител
             var currentUser = this.User.GetId()!;
-
-            // Проверка за съществуване на хотела с даденото id
+            
             var hotelExists = await this.hotelService.HotelExistByIdAsync(id);
             if (!hotelExists)
             {
@@ -219,5 +275,50 @@
             return this.RedirectToAction("Details", new { id = id });
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            bool hotelExist = await this.hotelService.HotelExistByIdAsync(id);
+
+            if (!hotelExist)
+            {
+                this.TempData[ErrorMessage] = "Hotel with the provided id does not exist!";
+                return this.RedirectToAction("All", "Hotel");
+            }
+
+            bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
+
+            if (!isUserAgent)
+            {
+                this.TempData[ErrorMessage] = "You must become an agent in order to edit hotel info";
+
+                return this.RedirectToAction("Become", "Agent");
+            }
+
+            string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
+
+            bool isAgentOwner = await this.hotelService
+                .IsAgentWithIdOwnerOfHotelWithIdAsync(id, agentId!);
+
+            if (!isAgentOwner)
+            {
+                this.TempData[ErrorMessage] = "You must br the agent owner of the hotel yoy want to edit!";
+
+                return this.RedirectToAction("Mine", "Hotel");
+            }
+
+            HotelFormModel formModel = await this.hotelService
+                .GetHotelForEditByIdAsync(id);
+
+            formModel.Categories = await this.categoryService.AllCategoryesAsync();
+            formModel.Caterings = await this.cateringService.AllCateringTypesAsync();
+            formModel.Rooms = await this.roomService.AllRoomTypeAsync();
+            
+
+            return this.View(formModel);
+        }
+
+        
     }
 }

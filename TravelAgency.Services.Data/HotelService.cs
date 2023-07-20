@@ -8,6 +8,7 @@
     using Interfaces;
     using Web.ViewModels.Home;
     using Models.House;
+    using TravelAgency.Data.Models;
     using Web.ViewModels.Agent;
     using Web.ViewModels.Hotel.Enums;
     using Web.ViewModels.Image;
@@ -15,6 +16,7 @@
 
     using static Common.EntityValidationConstants;
     using Hotel = TravelAgency.Data.Models.Hotel;
+    using Image = TravelAgency.Data.Models.Image;
 
     public class HotelService : IHotelService
     {
@@ -228,9 +230,9 @@
             return allOrderByUser;
         }
 
-        public async Task<HotelDetailsViewModel?> GetHotelDetailsByAdAsync(int Id)
+        public async Task<HotelDetailsViewModel?> GetHotelDetailsByAdAsync(int id)
         {
-            var hotel = await this.dbContext
+            Hotel hotel = await this.dbContext
                 .Hotels
                 .Include(h => h.Category)
                 .Include(h => h.Location)
@@ -240,13 +242,9 @@
                 .ThenInclude(a => a.User)
                 .Include(h => h.Posts)
                 .Include(h => h.Images)
-                .FirstOrDefaultAsync(h => h.IsActive && h.Id== Id);
+                .FirstAsync(h => h.IsActive && h.Id== id);
 
-            if (hotel == null)
-            {
-                return null;
-            }
-
+            
             List<PostViewModel> posts = new List<PostViewModel>();
 
             foreach (var post in hotel.Posts)
@@ -314,10 +312,104 @@
         {
             bool result = await this.dbContext
                 .Hotels
+                .Where(h => h.IsActive)
                 .AnyAsync(a => a.Id == hotelId);
 
             return result;
         }
 
+        public async Task<HotelFormModel> GetHotelForEditByIdAsync(int id)
+        {
+            Hotel hotel = await this.dbContext
+                .Hotels
+                .Include(h => h.Category)
+                .Include(h => h.Location)
+                .Include(h => h.CateringType)
+                .Include(h => h.RoomType)
+                .Include(h => h.Posts)
+                .Include(h => h.Images)
+                .FirstAsync(h => h.IsActive && h.Id == id);
+
+            
+            return new HotelFormModel
+            {
+                Title = hotel.Title,
+                Location = hotel.Location.Name,
+                Star = hotel.Star,
+                CategoryId = hotel.CategoryId,
+                RoomTypeId = hotel.RoomTypeId,
+                CateringTypeId = hotel.CateringTypeId,
+                Description = hotel.Description,
+                Images = hotel.Images.Select(h => h.ImageUrl).ToList(),
+                Price = hotel.Price,
+                
+            };
+        }
+
+        public async Task<bool> IsAgentWithIdOwnerOfHotelWithIdAsync(int hotelId, string agentId)
+        {
+            var hotel = this.dbContext
+                .Hotels
+                .Where(h => h.IsActive)
+                .FirstOrDefault(h => h.Id == hotelId);
+
+            return hotel.AgentId.ToString() == agentId;
+        }
+
+        public async Task EditHotelByIdAndFormModelAsync(int hotelId, HotelFormModel model)
+        {
+            var hotel = await this.dbContext.Hotels
+                .Include(h => h.Location)
+                .Include(h => h.Images)
+                .FirstOrDefaultAsync(h => h.Id == hotelId && h.IsActive);
+
+            if (hotel != null)
+            {
+                hotel.Title = model.Title;
+                hotel.Location.Name = model.Location;
+                hotel.Star = model.Star;
+                hotel.CategoryId = model.CategoryId;
+                hotel.RoomTypeId = model.RoomTypeId;
+                hotel.CateringTypeId = model.CateringTypeId;
+                hotel.Description = model.Description;
+                hotel.Price = model.Price;
+
+                var imageUrls = model.Images;
+                var oldImages = hotel.Images.ToList();
+                
+                foreach (var oldImage in oldImages)
+                {
+                    if (!imageUrls.Contains(oldImage.ImageUrl))
+                    {
+                        hotel.Images.Remove(oldImage);
+                    }
+                }
+
+                List<Image> newImages = new List<Image>();
+
+                newImages = imageUrls.Select(imageUrl => new Image
+                {
+                    ImageUrl = imageUrl,
+                    IsMain = (hotel.Images.Count == 0), 
+                    HotelId = hotel.Id
+                }).ToList();
+
+                foreach (var newImage in newImages)
+                {
+                    if (!oldImages.Any(i => i.ImageUrl == newImage.ImageUrl))
+                    {
+                        hotel.Images.Add(newImage);
+                    }
+                }
+                
+                await this.dbContext.SaveChangesAsync();
+            }
+            else
+            {
+                throw new Exception("Hotel not found or not active.");
+            }
+        }
+
+        
     }
 }
