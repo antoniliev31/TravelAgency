@@ -2,13 +2,12 @@
 {
     using System;
     using Microsoft.EntityFrameworkCore;
-    
+
     using TravelAgency.Data;
     using Web.ViewModels.Hotel;
     using Interfaces;
     using Web.ViewModels.Home;
     using Models.House;
-    using TravelAgency.Data.Models;
     using Web.ViewModels.Agent;
     using Web.ViewModels.Hotel.Enums;
     using Web.ViewModels.Image;
@@ -40,7 +39,7 @@
                     ImageUrl = h.Images.FirstOrDefault(i => i.IsMain)!.ImageUrl ?? h.Images.FirstOrDefault()!.ImageUrl
                 })
                 .ToListAsync();
-            
+
 
             Random random = new Random();
             foreach (var hotel in lastThreeHotel)
@@ -93,7 +92,6 @@
                 hotelsQuery = hotelsQuery
                     .Where(h => h.Category.Name == queryModel.Category);
             }
-            
 
             if (!string.IsNullOrWhiteSpace(queryModel.SearchString))
             {
@@ -115,7 +113,6 @@
             {
                 hotelsQuery = hotelsQuery.Where(h => h.Star == queryModel.Star);
             }
-            
 
             hotelsQuery = queryModel.HotelSorting switch
             {
@@ -242,9 +239,9 @@
                 .ThenInclude(a => a.User)
                 .Include(h => h.Posts)
                 .Include(h => h.Images)
-                .FirstAsync(h => h.IsActive && h.Id== id);
+                .FirstAsync(h => h.IsActive && h.Id == id);
 
-            
+
             List<PostViewModel> posts = new List<PostViewModel>();
 
             foreach (var post in hotel.Posts)
@@ -330,7 +327,7 @@
                 .Include(h => h.Images)
                 .FirstAsync(h => h.IsActive && h.Id == id);
 
-            
+
             return new HotelFormModel
             {
                 Title = hotel.Title,
@@ -342,16 +339,16 @@
                 Description = hotel.Description,
                 Images = hotel.Images.Select(h => h.ImageUrl).ToList(),
                 Price = hotel.Price,
-                
+
             };
         }
 
         public async Task<bool> IsAgentWithIdOwnerOfHotelWithIdAsync(int hotelId, string agentId)
         {
-            var hotel = this.dbContext
+            var hotel = await this.dbContext
                 .Hotels
                 .Where(h => h.IsActive)
-                .FirstOrDefault(h => h.Id == hotelId);
+                .FirstOrDefaultAsync(h => h.Id == hotelId);
 
             return hotel.AgentId.ToString() == agentId;
         }
@@ -376,7 +373,7 @@
 
                 var imageUrls = model.Images;
                 var oldImages = hotel.Images.ToList();
-                
+
                 foreach (var oldImage in oldImages)
                 {
                     if (!imageUrls.Contains(oldImage.ImageUrl))
@@ -390,18 +387,18 @@
                 newImages = imageUrls.Select(imageUrl => new Image
                 {
                     ImageUrl = imageUrl,
-                    IsMain = (hotel.Images.Count == 0), 
+                    IsMain = (hotel.Images.Count == 0),
                     HotelId = hotel.Id
                 }).ToList();
 
                 foreach (var newImage in newImages)
                 {
-                    if (!oldImages.Any(i => i.ImageUrl == newImage.ImageUrl))
+                    if (oldImages.All(i => i.ImageUrl != newImage.ImageUrl))
                     {
                         hotel.Images.Add(newImage);
                     }
                 }
-                
+
                 await this.dbContext.SaveChangesAsync();
             }
             else
@@ -410,6 +407,36 @@
             }
         }
 
-        
+        public async Task<HotelForDeleteViewModel> GetHotelForDeleteByIdAsync(int hotelId)
+        {
+            Hotel hotel = await this.dbContext
+                .Hotels
+                .Include(h => h.Location)
+                .Include(h => h.Images)
+                .FirstAsync(h => h.IsActive && h.Id == hotelId);
+
+
+            return new HotelForDeleteViewModel
+            {
+                Title = hotel.Title,
+                Location = hotel.Location.Name,
+                Description = hotel.Description,
+                ImageUrl = hotel.Images.First().ImageUrl,
+                Price = hotel.Price,
+            };
+
+        }
+
+        public async Task DeleteHotelByIdAsync(int hotelId)
+        {
+            Hotel hotel = await this.dbContext
+                .Hotels
+                .Where(h => h.IsActive)
+                .FirstAsync(h => h.Id == hotelId);
+
+            hotel.IsActive = false;
+
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }

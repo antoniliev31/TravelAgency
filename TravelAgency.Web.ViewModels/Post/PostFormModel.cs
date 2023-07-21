@@ -2,14 +2,11 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     using static Common.EntityValidationConstants.Post;
-
-
+    
     public class PostFormModel
     {
-
         
         [Required]
         [MaxLength(PostMaxLength)]

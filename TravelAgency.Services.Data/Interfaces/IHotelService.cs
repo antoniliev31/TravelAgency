@@ -25,6 +25,10 @@
         Task<bool> IsAgentWithIdOwnerOfHotelWithIdAsync(int hotelId, string agentId);
 
         Task EditHotelByIdAndFormModelAsync(int hotelId, HotelFormModel model);
+
+        Task<HotelForDeleteViewModel> GetHotelForDeleteByIdAsync(int hotelId);
+
+        Task DeleteHotelByIdAsync(int hotelId);
     }
 
 }

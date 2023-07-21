@@ -1,7 +1,5 @@
 ﻿namespace TravelAgency.Web.ViewModels.Hotel
 {
-    using System.ComponentModel.DataAnnotations;
-
     public class HotelAllViewModel
     {
         public string Id { get; set; } = null!;
@@ -22,6 +20,5 @@
 
         public string RoomType { get; set; } = null!;
 
-        
     }
 }

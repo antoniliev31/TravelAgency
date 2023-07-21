@@ -46,10 +46,8 @@
             queryModel.Categories = await this.categoryService.AllCategoryNamesAsync();
             queryModel.Locations = await this.locationService.AllLocationNamesAsync();
             queryModel.Stars = await this.hotelService.AllStarsAsync();
-
-
+            
             return this.View(queryModel);
-
 
         }
 
@@ -136,7 +134,9 @@
                 {
                     await this.imageService.AddImagesAsync(model.Images, hotelId);
                 }
-
+                
+                this.TempData[SuccessMessage] = "Hotel was added successfully!";
+                
                 return this.RedirectToAction("Details", "Hotel", new { id = hotelId });
 
             }
@@ -151,6 +151,7 @@
 
         }
         
+
         [HttpGet]
         public async Task<IActionResult> Mine()
         {
@@ -169,6 +170,7 @@
 
             return this.View(myHotel);
         }
+
 
         [HttpGet]
         [AllowAnonymous]
@@ -196,6 +198,7 @@
             }
 
         }
+
 
         [HttpPost]
         public async Task<IActionResult> AddComment(int id, string comment)
@@ -253,8 +256,7 @@
 
             string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
 
-            bool isAgentOwner = await this.hotelService
-                .IsAgentWithIdOwnerOfHotelWithIdAsync(id, agentId!);
+            bool isAgentOwner = await this.hotelService.IsAgentWithIdOwnerOfHotelWithIdAsync(id, agentId!);
 
             if (!isAgentOwner)
             {
@@ -262,12 +264,11 @@
 
                 return this.RedirectToAction("Mine", "Hotel");
             }
-
-            HotelFormModel formModel = await this.hotelService
-                .GetHotelForEditByIdAsync(id);
-
+            
             try
             {
+                HotelFormModel formModel = await this.hotelService.GetHotelForEditByIdAsync(id);
+
                 formModel.Categories = await this.categoryService.AllCategoryesAsync();
                 formModel.Caterings = await this.cateringService.AllCateringTypesAsync();
                 formModel.Rooms = await this.roomService.AllRoomTypeAsync();
@@ -277,11 +278,11 @@
             catch (Exception)
             {
                 this.TempData[ErrorMessage] = "Unexpected error occurred! Please try again later!";
+                
                 return RedirectToAction("Index", "Home");
             }
             
         }
-
 
 
         [HttpPost]
@@ -334,9 +335,95 @@
                 this.ModelState.AddModelError(string.Empty, "Unexpected error! Please try again later.");
             }
 
+            this.TempData[SuccessMessage] = "Hotel was edited successfully!";
             return this.RedirectToAction("Details", "Hotel", new { id = id });
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            bool hotelExist = await this.hotelService.HotelExistByIdAsync(id);
+
+            if (!hotelExist)
+            {
+                this.TempData[ErrorMessage] = "Hotel with the provided id does not exist!";
+                return this.RedirectToAction("All", "Hotel");
+            }
+
+            bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
+
+            if (!isUserAgent)
+            {
+                this.TempData[ErrorMessage] = "You must become an agent in order to edit hotel info";
+                return this.RedirectToAction("Become", "Agent");
+            }
+
+            string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
+
+            bool isAgentOwner = await this.hotelService.IsAgentWithIdOwnerOfHotelWithIdAsync(id, agentId!);
+
+            if (!isAgentOwner)
+            {
+                this.TempData[ErrorMessage] = "You must be the agent owner of the hotel you want to edit!";
+                return this.RedirectToAction("Mine", "Hotel");
+            }
+
+            try
+            {
+                HotelForDeleteViewModel viewModel = await this.hotelService.GetHotelForDeleteByIdAsync(id);
+
+                return this.View(viewModel);
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred! Please try again later!";
+                return this.RedirectToAction("Index", "Home");
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id, HotelForDeleteViewModel model)
+        {
+            bool hotelExist = await this.hotelService.HotelExistByIdAsync(id);
+
+            if (!hotelExist)
+            {
+                this.TempData[ErrorMessage] = "Hotel with the provided id does not exist!";
+                return this.RedirectToAction("All", "Hotel");
+            }
+
+            bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
+
+            if (!isUserAgent)
+            {
+                this.TempData[ErrorMessage] = "You must become an agent in order to edit hotel info";
+                return this.RedirectToAction("Become", "Agent");
+            }
+
+            string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
+
+            bool isAgentOwner = await this.hotelService.IsAgentWithIdOwnerOfHotelWithIdAsync(id, agentId!);
+
+            if (!isAgentOwner)
+            {
+                this.TempData[ErrorMessage] = "You must be the agent owner of the hotel you want to edit!";
+                return this.RedirectToAction("Mine", "Hotel");
+            }
+
+            try
+            {
+                await this.hotelService.DeleteHotelByIdAsync(id);
+
+                this.TempData[WarningMessage] = "The hotel was successfully deleted!";
+                return this.RedirectToAction("Mine", "Hotel");
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred! Please try again later!";
+                return this.RedirectToAction("Delete", "Hotel", new { id = id });
+            }
+        }
     }
 }
