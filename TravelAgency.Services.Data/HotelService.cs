@@ -68,7 +68,7 @@
                 CategoryId = formModel.CategoryId,
                 CateringTypeId = formModel.CateringTypeId,
                 Star = formModel.Star,
-                Price = formModel.Price,
+                DoubleRoomPrice = formModel.Price,
                 AgentId = Guid.Parse(agentId),
                 RoomTypeId = formModel.RoomTypeId,
                 IsActive = true
@@ -125,11 +125,11 @@
                 HotelSorting.CityDescending => hotelsQuery
                     .OrderByDescending(h => h.Location),
                 HotelSorting.PriceAscending => hotelsQuery
-                    .OrderBy(h => h.Price),
+                    .OrderBy(h => h.DoubleRoomPrice),
                 HotelSorting.PriceDescending => hotelsQuery
-                    .OrderByDescending(h => h.Price),
+                    .OrderByDescending(h => h.DoubleRoomPrice),
                 _ => hotelsQuery
-                    .OrderByDescending(h => h.Price)
+                    .OrderByDescending(h => h.DoubleRoomPrice)
             };
 
             IEnumerable<HotelAllViewModel> allHotels = await hotelsQuery
@@ -145,7 +145,7 @@
                     RoomType = h.RoomType.Name,
                     Catering = h.CateringType.Name,
                     ImageUrl = h.Images.FirstOrDefault(i => i.IsMain)!.ImageUrl ?? "",
-                    Price = h.Price
+                    DoubleRoomPrice = h.DoubleRoomPrice
                 })
                 .ToArrayAsync();
 
@@ -172,7 +172,7 @@
                     Catering = h.CateringType.Name,
                     Category = h.Category.Name,
                     ImageUrl = h.Images.FirstOrDefault(i => i.IsMain)!.ImageUrl ?? h.Images.FirstOrDefault()!.ImageUrl,
-                    Price = h.Price,
+                    DoubleRoomPrice = h.DoubleRoomPrice,
                     Star = h.Star,
                     RoomType = h.RoomType.Name,
                 })
@@ -195,7 +195,7 @@
                     Catering = h.Hotel.CateringType.Name,
                     Category = h.Hotel.Category.Name,
                     ImageUrl = h.Hotel.Images.FirstOrDefault(i => i.IsMain)!.ImageUrl ?? "",
-                    Price = h.Hotel.Price,
+                    DoubleRoomPrice = h.Hotel.DoubleRoomPrice,
                     Star = h.Hotel.Star,
                     RoomType = h.Hotel.RoomType.Name
                 })
@@ -218,7 +218,7 @@
                     Catering = h.Hotel.CateringType.Name,
                     Category = h.Hotel.Category.Name,
                     ImageUrl = h.Hotel.Images.FirstOrDefault(i => i.IsMain)!.ImageUrl ?? "",
-                    Price = h.Hotel.Price,
+                    DoubleRoomPrice = h.Hotel.DoubleRoomPrice,
                     Star = h.Hotel.Star,
                     RoomType = h.Hotel.RoomType.Name
                 })
@@ -278,7 +278,7 @@
                 Location = hotel.Location.Name,
                 Catering = hotel.CateringType.Name,
                 Category = hotel.Category.Name,
-                Price = hotel.Price,
+                DoubleRoomPrice = hotel.DoubleRoomPrice,
                 Star = hotel.Star,
                 RoomType = hotel.RoomType.Name,
                 Description = hotel.Description,
@@ -338,7 +338,7 @@
                 CateringTypeId = hotel.CateringTypeId,
                 Description = hotel.Description,
                 Images = hotel.Images.Select(h => h.ImageUrl).ToList(),
-                Price = hotel.Price,
+                Price = hotel.DoubleRoomPrice,
 
             };
         }
@@ -369,7 +369,7 @@
                 hotel.RoomTypeId = model.RoomTypeId;
                 hotel.CateringTypeId = model.CateringTypeId;
                 hotel.Description = model.Description;
-                hotel.Price = model.Price;
+                hotel.DoubleRoomPrice = model.Price;
 
                 var imageUrls = model.Images;
                 var oldImages = hotel.Images.ToList();
@@ -422,7 +422,7 @@
                 Location = hotel.Location.Name,
                 Description = hotel.Description,
                 ImageUrl = hotel.Images.First().ImageUrl,
-                Price = hotel.Price,
+                Price = hotel.DoubleRoomPrice,
             };
 
         }

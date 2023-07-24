@@ -8,6 +8,8 @@
     {
         public string Description { get; set; } = null!;
 
+        public int LikeCount { get; set; }
+
         public AgentInfoOnHotelViewModel Agent { get; set; } = null!;
 
         public List<PostViewModel> Posts { get; set; } = new List<PostViewModel>();

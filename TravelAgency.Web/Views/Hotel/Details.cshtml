@@ -34,20 +34,19 @@
                 }
             </div>
 
-            @*<div class="image-like-container">
-                <img class="d-block w-100" src="@Model.ImageUrl" alt="Image">
+            <div class="image-like-container">
                 <div class="like-container">
                     <button class="like-button" onclick="likeHotel('@Model.Id')">
                         <span id="like-icon-@Model.Id" class="like-icon">❤️</span>
                     </button>
                     <span id="like-count-@Model.Id" class="like-count">@Model.LikeCount</span>
                 </div>
-            </div>*@
+            </div>
 
             <p>Намира се в: <b>@Model.Location</b></p>
-            <p>Цена: <b>@String.Format("{0:f2}", Model.Price) BGN</b></p>
-            <p>@Model.Description</p>
             <p>Категория: <b>@Model.Category</b></p>
+            <p>Цена: <b>@String.Format("{0:f2}", Model.DoubleRoomPrice) BGN</b></p>
+            <p>@Model.Description</p>
             <div class="d-flex align-items-center">
                 @if (this.User.Identity?.IsAuthenticated ?? false)
                 {

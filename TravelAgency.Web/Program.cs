@@ -64,6 +64,11 @@ namespace TravelAgency.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseStatusCodePagesWithReExecute("/Error/{0}");
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
             app.MapDefaultControllerRoute();
             app.MapRazorPages();
 

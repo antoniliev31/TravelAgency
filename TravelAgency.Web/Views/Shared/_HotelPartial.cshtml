@@ -14,7 +14,7 @@
             }
             <h4>@Model.Title</h4>
             <h6 class="fw-bold">@Model.Catering</h6>
-            <h6>Цена: <b>@($"{Model.Price:f0}") ЛВ.</b></h6>
+            <h6>Цена: <b>@($"{Model.DoubleRoomPrice:f0}") ЛВ.</b></h6>
             <br />
             <a asp-controller="Hotel" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-success">Details</a>
             @if (this.User.Identity?.IsAuthenticated ?? false)

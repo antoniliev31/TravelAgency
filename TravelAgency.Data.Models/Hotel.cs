@@ -32,7 +32,11 @@
         
         public DateTime CreatedOn { get; set; }
 
-        public decimal Price { get; set; }
+        public decimal DoubleRoomPrice { get; set; }
+
+        public decimal StudioRoomPrice { get; set; }
+
+        public decimal ApartmentRoomPrice { get; set; }
         
         [Required]  
         public bool IsActive { get; set; }
