@@ -29,6 +29,8 @@
         Task<HotelForDeleteViewModel> GetHotelForDeleteByIdAsync(int hotelId);
 
         Task DeleteHotelByIdAsync(int hotelId);
+
+        Task<HotelReservationViewModel> GetHotelForReservationByAdAsync(int hotelId);
     }
 
 }

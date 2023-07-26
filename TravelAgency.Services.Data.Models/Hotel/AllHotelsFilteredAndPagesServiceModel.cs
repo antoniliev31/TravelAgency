@@ -12,7 +12,6 @@
         public int TotalHotelsCount { get; set; }
 
 
-
         public IEnumerable<HotelAllViewModel> Hotels { get; set; }
     }
 }

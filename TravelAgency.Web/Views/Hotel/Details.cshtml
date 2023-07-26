@@ -63,11 +63,8 @@
                 {
                     <div class="d-flex">
                         <a class="btn btn-warning" asp-controller="Hotel" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-                        <a class="ml-2 btn btn-danger" asp-controller="Hotel" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
-                        <form class="ml-2" asp-controller="Hotel" asp-action="Rent" asp-route-id="@Model.Id" method="post">
-                            <input class="btn btn-primary" type="submit" value="Резервирай" />
-                        </form>
-                        
+                        <a class="btn btn-danger" asp-controller="Hotel" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+                        <a class="btn btn-info" asp-controller="Hotel" asp-action="Reservation" asp-route-id="@Model.Id">Резервирай</a>
                     </div>
                 }
             </div>

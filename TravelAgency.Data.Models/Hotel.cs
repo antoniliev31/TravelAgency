@@ -14,6 +14,7 @@
             this.WishLists = new HashSet<WishList>();
             this.OrderLists = new HashSet<OrderList>();
             this.Images = new HashSet<Image>();
+            this.RoomTypes = new HashSet<RoomType>();
         }
 
         [Key]
@@ -71,6 +72,6 @@
 
         public virtual ICollection<Image> Images { get; set; }
 
-
+        public virtual ICollection<RoomType> RoomTypes { get; set; }
     }
 }

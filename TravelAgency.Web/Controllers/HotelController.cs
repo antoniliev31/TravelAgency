@@ -219,7 +219,7 @@
                 };
                 await this.postService.AddPostAsync(post);
             }
-
+            this.TempData[SuccessMessage] = "You have successfully posted your comment.";
             return this.RedirectToAction("Details", new { id = id });
         }
 
@@ -463,6 +463,56 @@
                 return this.RedirectToAction("Details", "Hotel", new { id = id });
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Reservation(int id)
+        {
+            bool hotelExist = await this.hotelService.HotelExistByIdAsync(id);
+
+            if (!hotelExist)
+            {
+                this.TempData[ErrorMessage] = "Hotel with the provided id does not exist!";
+                return this.RedirectToAction("All", "Hotel");
+            }
+
+            try
+            {
+                HotelReservationViewModel? viewModel = await this.hotelService.GetHotelForReservationByAdAsync(id);
+
+                return this.View(viewModel);
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred! Please try again later!";
+
+                return RedirectToAction("Index", "Home");
+            }
+
+        }
+
+        //[HttpPost]
+        //public async Task<IActionResult> Reservation(ReservationViewModel viewModel)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        // Връщайте обратно към формата за резервация със запазените данни и покажете грешки, ако има такива.
+        //        return View(viewModel);
+        //    }
+
+        //    // Тук ще имате логиката за обработка на резервацията - например записване на резервацията в базата данни, изчисляване на общата цена и други операции, според нуждите на вашето приложение.
+
+        //    // След успешната резервация, може да добавите SuccessMessage в TempData и да пренасочите потребителя към друга страница, например страницата за потвърждение на резервацията.
+        //    TempData[SuccessMessage] = "Reservation successful!";
+        //    return RedirectToAction("ReservationConfirmation", new { hotelId = viewModel.HotelId });
+        //}
+
+
+
+        //private IActionResult GeneralError()
+        //{
+        //    this.TempData[ErrorMessage] = "Unexpected error occurred! Please try again later!";
+        //    return this.RedirectToAction()
+        //}
 
     }
 }
