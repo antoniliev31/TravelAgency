@@ -16,6 +16,10 @@
 
         public decimal DoubleRoomPrice { get; set; }
 
+        public decimal StudioPrice { get; set; }
+
+        public decimal ApartmentPrice { get; set; }
+
         public int Star { get; set; }
 
         public string RoomType { get; set; } = null!;

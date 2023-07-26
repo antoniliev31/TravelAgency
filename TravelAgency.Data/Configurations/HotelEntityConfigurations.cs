@@ -49,7 +49,6 @@
                 CategoryId = 1,
                 CateringTypeId = 1,
                 Star = 4,
-                RoomTypeId = 1,
                 DoubleRoomPrice = 100,
                 AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                 IsActive = true
@@ -66,7 +65,6 @@
                 CategoryId = 1,
                 CateringTypeId = 2,
                 Star = 3,
-                RoomTypeId = 1,
                 DoubleRoomPrice = 120,
                 AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                 IsActive = true
@@ -84,7 +82,6 @@
                 CategoryId = 2,
                 CateringTypeId = 2,
                 Star = 3,
-                RoomTypeId = 1,
                 DoubleRoomPrice = 120,
                 AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                 IsActive = true
@@ -101,7 +98,6 @@
                 CategoryId = 2,
                 CateringTypeId = 2,
                 Star = 4,
-                RoomTypeId = 2,
                 DoubleRoomPrice = 120,
                 AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                 IsActive = true
@@ -118,7 +114,6 @@
                 CategoryId = 3,
                 CateringTypeId = 2,
                 Star = 4,
-                RoomTypeId = 2,
                 DoubleRoomPrice = 170,
                 AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                 IsActive = true
@@ -135,7 +130,6 @@
                 CategoryId = 3,
                 CateringTypeId = 4,
                 Star = 4,
-                RoomTypeId = 3,
                 DoubleRoomPrice = 200,
                 AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                 IsActive = true
@@ -152,7 +146,6 @@
                 CategoryId = 1,
                 CateringTypeId = 1,
                 Star = 3,
-                RoomTypeId = 1,
                 DoubleRoomPrice = 100,
                 AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                 IsActive = true
@@ -169,7 +162,6 @@
                 CategoryId = 1,
                 CateringTypeId = 3,
                 Star = 3,
-                RoomTypeId = 1,
                 DoubleRoomPrice = 160,
                 AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                 IsActive = true
@@ -186,7 +178,6 @@
                 CategoryId = 1,
                 CateringTypeId = 3,
                 Star = 3,
-                RoomTypeId = 1,
                 DoubleRoomPrice = 130,
                 AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                 IsActive = true

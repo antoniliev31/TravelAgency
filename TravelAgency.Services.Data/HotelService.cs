@@ -68,9 +68,10 @@
                 CategoryId = formModel.CategoryId,
                 CateringTypeId = formModel.CateringTypeId,
                 Star = formModel.Star,
-                DoubleRoomPrice = formModel.Price,
+                DoubleRoomPrice = formModel.DoubleRoomPrice,
+                StudioRoomPrice = formModel.StudioPrice,
+                ApartmentRoomPrice = formModel.ApartmentPrice,
                 AgentId = Guid.Parse(agentId),
-                RoomTypeId = formModel.RoomTypeId,
                 IsActive = true
             };
 
@@ -142,10 +143,11 @@
                     Title = h.Title,
                     Location = h.Location.Name,
                     Star = h.Star,
-                    RoomType = h.RoomType.Name,
                     Catering = h.CateringType.Name,
                     ImageUrl = h.Images.FirstOrDefault(i => i.IsMain)!.ImageUrl ?? "",
-                    DoubleRoomPrice = h.DoubleRoomPrice
+                    DoubleRoomPrice = h.DoubleRoomPrice,
+                    StudioPrice = h.StudioRoomPrice,
+                    ApartmentPrice = h.ApartmentRoomPrice
                 })
                 .ToArrayAsync();
 
@@ -174,7 +176,8 @@
                     ImageUrl = h.Images.FirstOrDefault(i => i.IsMain)!.ImageUrl ?? h.Images.FirstOrDefault()!.ImageUrl,
                     DoubleRoomPrice = h.DoubleRoomPrice,
                     Star = h.Star,
-                    RoomType = h.RoomType.Name,
+                    StudioPrice = h.StudioRoomPrice,
+                    ApartmentPrice = h.ApartmentRoomPrice
                 })
                 .ToArrayAsync();
 
@@ -196,8 +199,9 @@
                     Category = h.Hotel.Category.Name,
                     ImageUrl = h.Hotel.Images.FirstOrDefault(i => i.IsMain)!.ImageUrl ?? "",
                     DoubleRoomPrice = h.Hotel.DoubleRoomPrice,
+                    StudioPrice = h.Hotel.StudioRoomPrice,
+                    ApartmentPrice = h.Hotel.ApartmentRoomPrice,
                     Star = h.Hotel.Star,
-                    RoomType = h.Hotel.RoomType.Name
                 })
                 .ToArrayAsync();
 
@@ -219,8 +223,9 @@
                     Category = h.Hotel.Category.Name,
                     ImageUrl = h.Hotel.Images.FirstOrDefault(i => i.IsMain)!.ImageUrl ?? "",
                     DoubleRoomPrice = h.Hotel.DoubleRoomPrice,
-                    Star = h.Hotel.Star,
-                    RoomType = h.Hotel.RoomType.Name
+                    StudioPrice = h.Hotel.StudioRoomPrice,
+                    ApartmentPrice = h.Hotel.ApartmentRoomPrice,
+                    Star = h.Hotel.Star
                 })
                 .ToArrayAsync();
 
@@ -234,11 +239,11 @@
                 .Include(h => h.Category)
                 .Include(h => h.Location)
                 .Include(h => h.CateringType)
-                .Include(h => h.RoomType)
                 .Include(h => h.Agent)
                 .ThenInclude(a => a.User)
                 .Include(h => h.Posts)
                 .Include(h => h.Images)
+                .Include(h => h.WishLists)
                 .FirstAsync(h => h.IsActive && h.Id == id);
 
 
@@ -279,9 +284,11 @@
                 Catering = hotel.CateringType.Name,
                 Category = hotel.Category.Name,
                 DoubleRoomPrice = hotel.DoubleRoomPrice,
+                StudioPrice = hotel.StudioRoomPrice,
+                ApartmentPrice = hotel.ApartmentRoomPrice,
                 Star = hotel.Star,
-                RoomType = hotel.RoomType.Name,
                 Description = hotel.Description,
+                LikeCount = hotel.WishLists.Count,
                 Agent = new AgentInfoOnHotelViewModel
                 {
                     Email = hotel.Agent.User.Email,
@@ -322,7 +329,6 @@
                 .Include(h => h.Category)
                 .Include(h => h.Location)
                 .Include(h => h.CateringType)
-                .Include(h => h.RoomType)
                 .Include(h => h.Posts)
                 .Include(h => h.Images)
                 .FirstAsync(h => h.IsActive && h.Id == id);
@@ -334,11 +340,12 @@
                 Location = hotel.Location.Name,
                 Star = hotel.Star,
                 CategoryId = hotel.CategoryId,
-                RoomTypeId = hotel.RoomTypeId,
                 CateringTypeId = hotel.CateringTypeId,
                 Description = hotel.Description,
                 Images = hotel.Images.Select(h => h.ImageUrl).ToList(),
-                Price = hotel.DoubleRoomPrice,
+                DoubleRoomPrice = hotel.DoubleRoomPrice,
+                StudioPrice = hotel.StudioRoomPrice,
+                ApartmentPrice = hotel.ApartmentRoomPrice,
 
             };
         }
@@ -366,10 +373,11 @@
                 hotel.Location.Name = model.Location;
                 hotel.Star = model.Star;
                 hotel.CategoryId = model.CategoryId;
-                hotel.RoomTypeId = model.RoomTypeId;
                 hotel.CateringTypeId = model.CateringTypeId;
                 hotel.Description = model.Description;
-                hotel.DoubleRoomPrice = model.Price;
+                hotel.DoubleRoomPrice = model.DoubleRoomPrice;
+                hotel.StudioRoomPrice = model.StudioPrice;
+                hotel.ApartmentRoomPrice = model.ApartmentPrice;
 
                 var imageUrls = model.Images;
                 var oldImages = hotel.Images.ToList();
@@ -438,5 +446,6 @@
 
             await this.dbContext.SaveChangesAsync();
         }
+
     }
 }

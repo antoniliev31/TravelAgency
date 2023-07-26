@@ -2,7 +2,7 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-8">
-            <h2>@Model.Title</h2>
+            <h2>@Model.Category @Model.Title - @Model.Location</h2>
             <div id="carouselExampleIndicators" class="carousel" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
@@ -35,17 +35,28 @@
             </div>
 
             <div class="image-like-container">
-                <div class="like-container">
-                    <button class="like-button" onclick="likeHotel('@Model.Id')">
+                <form asp-controller="Hotel" asp-action="Wish" asp-route-id="@Model.Id" method="post" class="text-end">
+                    <button class="like-button" type="submit">
                         <span id="like-icon-@Model.Id" class="like-icon">❤️</span>
                     </button>
                     <span id="like-count-@Model.Id" class="like-count">@Model.LikeCount</span>
-                </div>
+                </form>
             </div>
 
-            <p>Намира се в: <b>@Model.Location</b></p>
-            <p>Категория: <b>@Model.Category</b></p>
-            <p>Цена: <b>@String.Format("{0:f2}", Model.DoubleRoomPrice) BGN</b></p>
+
+            @if (Model.DoubleRoomPrice > 0)
+            {
+                <h6>Двойна стая: <b>@($"{Model.DoubleRoomPrice:f0}") ЛВ.</b></h6>
+            }
+            @if (Model.StudioPrice > 0)
+            {
+                <h6>Студио: <b>@($"{Model.StudioPrice:f0}") ЛВ.</b></h6>
+            }
+            @if (Model.ApartmentPrice > 0)
+            {
+                <h6>Апартамент: <b>@($"{Model.ApartmentPrice:f0}") ЛВ.</b></h6>
+            }
+            
             <p>@Model.Description</p>
             <div class="d-flex align-items-center">
                 @if (this.User.Identity?.IsAuthenticated ?? false)
@@ -54,11 +65,9 @@
                         <a class="btn btn-warning" asp-controller="Hotel" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
                         <a class="ml-2 btn btn-danger" asp-controller="Hotel" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
                         <form class="ml-2" asp-controller="Hotel" asp-action="Rent" asp-route-id="@Model.Id" method="post">
-                            <input class="btn btn-primary" type="submit" value="Rent" />
+                            <input class="btn btn-primary" type="submit" value="Резервирай" />
                         </form>
-                        <form class="ml-2" asp-controller="Hotel" asp-action="Leave" asp-route-id="@Model.Id" method="post">
-                            <input class="btn btn-primary" type="submit" value="Leave" />
-                        </form>
+                        
                     </div>
                 }
             </div>
@@ -102,7 +111,7 @@
 </div>
 
 @section Scripts {
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">*@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -113,4 +122,5 @@
             });
         });
     </script>
+
 }

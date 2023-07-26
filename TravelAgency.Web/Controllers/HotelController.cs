@@ -18,18 +18,18 @@
         private readonly ILocationService locationService;
         private readonly IHotelService hotelService;
         private readonly ICateringService cateringService;
-        private readonly IRoomService roomService;
         private readonly IImageService imageService;
         private readonly IPostService postService;
+        private readonly IWishService wishService;
         
 
-        public HotelController(ICategoryService categoryService, IAgentService agentService, ILocationService locationService, IHotelService hotelService, ICateringService cateringService, IRoomService roomService, IImageService imageService, IPostService postService)
+        public HotelController(ICategoryService categoryService, IAgentService agentService, ILocationService locationService, IHotelService hotelService, ICateringService cateringService, IWishService wishService, IImageService imageService, IPostService postService)
         {
             this.categoryService = categoryService;
             this.agentService = agentService;
             this.locationService = locationService;
             this.hotelService = hotelService;
-            this.roomService = roomService;
+            this.wishService = wishService;
             this.cateringService = cateringService;
             this.imageService = imageService;
             this.postService = postService;
@@ -67,7 +67,6 @@
             {
                 Categories = await this.categoryService.AllCategoryesAsync(),
                 Caterings = await this.cateringService.AllCateringTypesAsync(),
-                Rooms = await this.roomService.AllRoomTypeAsync()
             };
 
             return View(formModel);
@@ -99,13 +98,6 @@
                 this.ModelState.AddModelError(nameof(model.CateringTypeId), "Selected catering type not exist!");
             }
 
-            bool roomExist = await this.roomService.ExistByIdAsync(model.RoomTypeId);
-
-            if (!roomExist)
-            {
-                this.ModelState.AddModelError(nameof(model.RoomTypeId), "Selected room type not exist!");
-            }
-
             bool locationExist = await this.locationService.LocationExistByNameAsync(model.Location);
 
             if (!locationExist)
@@ -117,7 +109,6 @@
             {
                 model.Categories = await this.categoryService.AllCategoryesAsync();
                 model.Caterings = await this.cateringService.AllCateringTypesAsync();
-                model.Rooms = await this.roomService.AllRoomTypeAsync();
 
                 return this.View(model);
             }
@@ -145,7 +136,6 @@
                 this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to add your new house! Please try again later or contact administrator!");
                 model.Categories = await this.categoryService.AllCategoryesAsync();
                 model.Caterings = await this.cateringService.AllCateringTypesAsync();
-                model.Rooms = await this.roomService.AllRoomTypeAsync();
                 return this.View(model);
             }
 
@@ -271,7 +261,6 @@
 
                 formModel.Categories = await this.categoryService.AllCategoryesAsync();
                 formModel.Caterings = await this.cateringService.AllCateringTypesAsync();
-                formModel.Rooms = await this.roomService.AllRoomTypeAsync();
 
                 return this.View(formModel);
             }
@@ -292,7 +281,6 @@
             {
                 model.Categories = await this.categoryService.AllCategoryesAsync();
                 model.Caterings = await this.cateringService.AllCateringTypesAsync();
-                model.Rooms = await this.roomService.AllRoomTypeAsync();
                 return this.View(model);
             }
 
@@ -327,7 +315,7 @@
                 await this.hotelService.EditHotelByIdAndFormModelAsync(id, model);
                 model.Categories = await this.categoryService.AllCategoryesAsync();
                 model.Caterings = await this.cateringService.AllCateringTypesAsync();
-                model.Rooms = await this.roomService.AllRoomTypeAsync();
+                this.TempData[SuccessMessage] = "Hotel was edited successfully!";
                 return this.RedirectToAction("Details", "Hotel", new { id = id });
             }
             catch (Exception)
@@ -335,7 +323,6 @@
                 this.ModelState.AddModelError(string.Empty, "Unexpected error! Please try again later.");
             }
 
-            this.TempData[SuccessMessage] = "Hotel was edited successfully!";
             return this.RedirectToAction("Details", "Hotel", new { id = id });
         }
 
@@ -425,5 +412,57 @@
                 return this.RedirectToAction("Delete", "Hotel", new { id = id });
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Wish(int id)
+        {
+            string userId = this.User.GetId() ?? throw new InvalidOperationException("User not found.");
+
+            bool hotelExist = await this.hotelService.HotelExistByIdAsync(id);
+
+            if (!hotelExist)
+            {
+                this.TempData[ErrorMessage] = "Hotel with the provided id does not exist!";
+                return this.RedirectToAction("All", "Hotel");
+            }
+            
+            bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(userId);
+
+            if (isUserAgent)
+            {
+                string? agentId = await this.agentService.GetAgentIdByUserIdAsync(userId)!;
+                bool isAgentOwner = await this.hotelService.IsAgentWithIdOwnerOfHotelWithIdAsync(id, agentId);
+
+                if (isAgentOwner)
+                {
+                    this.TempData[ErrorMessage] = "You can't like your own hotels!";
+                    return this.RedirectToAction("Details", "Hotel", new { id = id });
+                }
+            }
+
+            try
+            {
+                bool isHotelInWishList = await this.wishService.IsHotelInWishListAsync(id, userId);
+
+                if (!isHotelInWishList)
+                {
+                    await this.wishService.AddHotelToWishListAsync(id, userId);
+                    this.TempData[SuccessMessage] = "You have successfully liked this hotel!";
+                }
+                else
+                {
+                    await this.wishService.RemoveHotelFromWishListAsync(id, userId);
+                    this.TempData[SuccessMessage] = "You have successfully removed this hotel!";
+                }
+
+                return this.RedirectToAction("Details", "Hotel", new { id = id });
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred! Please try again later!";
+                return this.RedirectToAction("Details", "Hotel", new { id = id });
+            }
+        }
+
     }
 }

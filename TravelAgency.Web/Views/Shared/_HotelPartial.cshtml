@@ -14,16 +14,23 @@
             }
             <h4>@Model.Title</h4>
             <h6 class="fw-bold">@Model.Catering</h6>
-            <h6>Цена: <b>@($"{Model.DoubleRoomPrice:f0}") ЛВ.</b></h6>
+            @if (Model.DoubleRoomPrice > 0)
+            {
+                <h6>Цена за двойна стая: <b>@($"{Model.DoubleRoomPrice:f0}") ЛВ.</b></h6>
+            }
             <br />
-            <a asp-controller="Hotel" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-success">Details</a>
+            <a asp-controller="Hotel" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-success">Виж повече</a>
+            <p></p>
             @if (this.User.Identity?.IsAuthenticated ?? false)
             {
+                <form class="input-group-sm" asp-controller="Hotel" asp-action="IWish" asp-route-id="@Model.Id" method="post">
+                    <input class="btn btn-primary" type="submit" value="Добави в любими" />
+                </form>
+                <p></p>
                 <a asp-controller="Hotel" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
                 <a asp-controller="Hotel" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
-                <p></p>
-                <form class="input-group-sm" asp-controller="Hotel" asp-action="IWish" asp-route-id="@Model.Id" method="post"><input class="btn btn-primary" type="submit" value="Любими" />
-                </form>
+                
+                
             }
         </div>
     </div>

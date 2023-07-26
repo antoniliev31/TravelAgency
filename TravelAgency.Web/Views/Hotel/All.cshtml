@@ -20,7 +20,7 @@
                 <div class="form-group">
                     <label asp-for="Category" style="font-weight: bold;"></label>
                     <select asp-for="Category" class="form-control">
-                        <option value="">Избери тип на хотела</option>
+                        <option value="">Всички</option>
                         @foreach (var category in Model.Categories)
                         {
                             <option value="@category">@category</option>
@@ -42,7 +42,7 @@
                 <div class="form-group">
                     <label asp-for="Location" style="font-weight: bold;"></label>
                     <select asp-for="Location" class="form-control">
-                        <option value="">Местоположение</option>
+                        <option value="">Навсякъде</option>
                         @foreach (var location in Model.Locations)
                         {
                             <option value="@location">@location</option>
@@ -134,8 +134,6 @@
                 }
             </div>
         </div>
-
-
 
     </div>
 </div>

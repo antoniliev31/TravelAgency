@@ -16,13 +16,13 @@
             this.Locations = new HashSet<string>();
         }
         
-        [Display(Name = "Търси по категория")]
+        [Display(Name = "Тип на хотела")]
         public string? Category { get; set; }
 
         [Display(Name = "Категория(звезди)")]
         public int Star { get; set; }
 
-        [Display(Name = "Търси по населено място")]
+        [Display(Name = "Местоположение")]
         public string? Location { get; set; }
 
         [Display(Name = "Търси по име")]

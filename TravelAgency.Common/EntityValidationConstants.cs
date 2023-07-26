@@ -16,9 +16,6 @@
             public const int StarMinValue = 1;
             public const int StarMaxValue = 5;
 
-            public const int SubTitleMinLength = 5;
-            public const int SubTitleMaxLength = 150;
-
             public const int CityMinLength = 4;
             public const int CityMaxLength = 50;
 

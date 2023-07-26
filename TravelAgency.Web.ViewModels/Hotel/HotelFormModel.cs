@@ -13,7 +13,6 @@
         {
             this.Categories = new HashSet<HotelSelectCategoryFormModel>();
             this.Caterings = new HashSet<HotelSelectCateringFormModel>();
-            this.Rooms = new HashSet<HotelSelectRoomFormModel>();
         }
         
         [Required]
@@ -36,12 +35,8 @@
         public int CategoryId { get; set; }
 
         [Required]
-        [Display(Name = "Тип на стаята за настаняване")]
-        public int RoomTypeId { get; set; }
-
-        [Required]
         [Range(CateringTypeMinLength, CateringTypeMaxLength)]
-        [Display(Name = "Тип изхранване")]
+        [Display(Name = "Изберете тип изхранването на гостите [B], [BB], [HB], [FB], [All]")]
         public int CateringTypeId { get; set; }
 
         [Required]
@@ -55,8 +50,16 @@
 
 
         [Range(typeof(decimal), PriceMinValue, PriceMaxValue)]
-        [Display(Name = "Цена")]
-        public decimal Price { get; set; }
+        [Display(Name = "Цена за двойна став")]
+        public decimal DoubleRoomPrice { get; set; }
+
+        [Range(typeof(decimal), PriceMinValue, PriceMaxValue)]
+        [Display(Name = "Цена за студио")]
+        public decimal StudioPrice { get; set; }
+
+        [Range(typeof(decimal), PriceMinValue, PriceMaxValue)]
+        [Display(Name = "Цена за апартамент")]
+        public decimal ApartmentPrice { get; set; }
 
 
         [Required]
@@ -67,6 +70,5 @@
 
         public IEnumerable<HotelSelectCateringFormModel> Caterings { get; set; }
 
-        public IEnumerable<HotelSelectRoomFormModel> Rooms { get; set; }
     }
 }

@@ -52,12 +52,6 @@
         public Guid AgentId { get; set; }
         public virtual Agent Agent { get; set; } = null!;
 
-
-        [ForeignKey(nameof(RoomType))]
-        public int RoomTypeId { get; set; }
-        public virtual RoomType RoomType { get; set; } = null!;
-
-
         [ForeignKey(nameof(Category))]
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; } = null!;
