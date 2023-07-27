@@ -478,6 +478,8 @@
             try
             {
                 HotelReservationViewModel? viewModel = await this.hotelService.GetHotelForReservationByAdAsync(id);
+                //viewModel.Categories = await this.categoryService.AllCategoryesAsync();
+                //viewModel.Caterings = await this.cateringService.AllCateringTypesAsync();
 
                 return this.View(viewModel);
             }

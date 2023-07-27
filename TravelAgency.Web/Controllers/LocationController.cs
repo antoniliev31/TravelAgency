@@ -5,11 +5,11 @@
 
     public class LocationController : Controller
     {
-        private readonly ILocationService _locationService;
+        private readonly ILocationService locationService;
 
         public LocationController(ILocationService locationService)
         {
-            this._locationService = locationService;
+            this.locationService = locationService;
         }
 
 

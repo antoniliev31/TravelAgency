@@ -43,7 +43,6 @@
         public bool IsActive { get; set; }
 
 
-
         [ForeignKey(nameof(Location))]
         public int LocationId { get; set; }
         public virtual Location Location { get; set; } = null!;

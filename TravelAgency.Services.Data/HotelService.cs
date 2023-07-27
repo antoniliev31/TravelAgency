@@ -454,13 +454,9 @@
                 .Include(h => h.Category)
                 .Include(h => h.Location)
                 .Include(h => h.CateringType)
-                .Include(h => h.Posts)
                 .Include(h => h.Images)
                 .Include(h => h.RoomTypes)
                 .FirstAsync(h => h.IsActive && h.Id == hotelId);
-
-            List<string> roomTypes = new List<string>();
-
 
 
             HotelReservationViewModel viewModel = new HotelReservationViewModel
@@ -469,18 +465,20 @@
                 Title = hotel.Title,
                 ImageUrl = hotel.Images.First(i => i.IsMain).ImageUrl,
                 Locatioin = hotel.Location.Name,
+                Category = hotel.Category.Name,
+                CateringType = hotel.CateringType.Name,
                 Star = hotel.Star,
                 АccommodationDate = DateTime.Today,
                 DepartureDate = DateTime.Today,
                 DoubleRoomPrice = hotel.DoubleRoomPrice,
                 StudioPrice = hotel.StudioRoomPrice,
                 ApartmentPrice = hotel.ApartmentRoomPrice,
-
+                RoomTypes = hotel.RoomTypes.Select(i => i.Name).ToList(),
             };
-
 
             return viewModel;
         }
+
 
     }
 }
