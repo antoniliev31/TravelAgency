@@ -23,9 +23,9 @@
             <p></p>
             @if (this.User.Identity?.IsAuthenticated ?? false)
             {
-                <form class="input-group-sm" asp-controller="Hotel" asp-action="IWish" asp-route-id="@Model.Id" method="post">
+                @*<form class="input-group-sm" asp-controller="Hotel" asp-action="IWish" asp-route-id="@Model.Id" method="post">
                     <input class="btn btn-primary" type="submit" value="Добави в любими" />
-                </form>
+                </form>*@
                 <p></p>
                 <a asp-controller="Hotel" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
                 <a asp-controller="Hotel" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>

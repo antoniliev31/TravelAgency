@@ -501,7 +501,7 @@
             {
                 await this.hotelService.AddReservation(id, viewModel, userId);
 
-                return RedirectToAction("Confirmation", new { id = id });
+                return RedirectToAction("Order", "User");
             }
             catch (Exception)
             {
@@ -519,5 +519,6 @@
             return this.RedirectToAction("Index", "Home");
         }
 
+        
     }
 }

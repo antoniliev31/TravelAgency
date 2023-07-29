@@ -1,0 +1,37 @@
+﻿@model UserAllReservation
+
+<div class="col-xl-auto">
+    <div class="card mb-md-4">
+        <div class="card-header text-center alert-primary">
+            <h4><b>@Model.Location</b></h4>
+        </div>
+        <img class="card-img-top mb-0" src="@Model.ImageUrl" alt="Hotel Image">
+        <div class="card-body mt-0 text-center">
+            @{
+                int star = Model.Star;
+            }
+            @for (int i = 1; i <= star; i++)
+            {
+                <a class="star"></a>
+            }
+            <h4>@Model.Title</h4>
+            <h6 class="fw-bold">@Model.CateringType</h6>
+            <h6>Тип стая: <b>@Model.RoomType</b></h6>
+            <h6>Дата на настаняване: <b>@Model.AccommodationDate.ToShortDateString()</b></h6>
+            <h6>Дата на напускане: <b>@Model.DepartureDate.ToShortDateString()</b></h6>
+            <h6>Брой нощувки: <b>@Model.NightsCount</b></h6>
+            <h6>Общо за плащане: <b>@($"{Model.TotalPrice:f2}") ЛВ.</b></h6>
+            <br />
+            <a asp-controller="Hotel" asp-action="Details" asp-route-id="@Model.HotelId" class="btn btn-success">Виж повече</a>
+            <p></p>
+            @*@if (this.User.Identity?.IsAuthenticated ?? false)
+            {
+                <form class="input-group-sm" asp-controller="Reservation" asp-action="Delete" asp-route-id="@Model.Id" method="post">
+                    <input class="btn btn-danger" type="submit" value="Изтрий резервация" />
+                </form>
+                <p></p>
+                <a asp-controller="Reservation" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Редактирай резервация</a>
+            }*@
+        </div>
+    </div>
+</div>

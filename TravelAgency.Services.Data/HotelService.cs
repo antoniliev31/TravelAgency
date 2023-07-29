@@ -489,7 +489,7 @@
 
             // Изчисляваме общата цена
             Decimal totalPrice = 0;
-            if (viewModel.SelectedRoomType == "Double")
+            if (viewModel.SelectedRoomType == "DoubleRoom")
             {
                 totalPrice = viewModel.DoubleRoomPrice * days;
             }
