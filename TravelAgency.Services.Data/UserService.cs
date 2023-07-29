@@ -19,7 +19,7 @@
         public async Task<List<UserAllReservation>> AllUserReservationAsync(string id)
         {
             var allOrders = await this.dbContext
-                .OrderLists
+                .Orders
                 .Where(o => o.UserId.ToString() == id)
                 .Select(r => new UserAllReservation
                 {

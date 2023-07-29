@@ -212,7 +212,7 @@
         public async Task<IEnumerable<HotelAllViewModel>> AllOrderHotelByUserAsync(string userId)
         {
             IEnumerable<HotelAllViewModel> allOrderByUser = await this.dbContext
-                .OrderLists
+                .Orders
                 .Where(h => h.Hotel.IsActive)
                 .Where(h => h.UserId == Guid.Parse(userId))
                 .Select(h => new HotelAllViewModel
@@ -516,7 +516,7 @@
                 TotalPrice = totalPrice
             };
 
-            dbContext.OrderLists.Add(order);
+            dbContext.Orders.Add(order);
             await dbContext.SaveChangesAsync();
         }
 
