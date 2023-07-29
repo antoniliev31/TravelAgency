@@ -3,10 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using TravelAgency.Web.ViewModels.Category;
-    using TravelAgency.Web.ViewModels.Catering;
 
-    public class HotelReservationViewModel : IValidatableObject
+    public class HotelForReservationViewModel : IValidatableObject
     {
         public int Id { get; set; }
 
@@ -14,19 +12,19 @@
 
         public string ImageUrl { get; set; } = null!;
 
-        public string Locatioin { get; set; } = null!;
+        public string Location { get; set; } = null!;
 
         public int Star { get; set; }
 
-        public string Category { get; set; }
+        public string Category { get; set; } = null!;
 
-        public string CateringType { get; set; }
+        public string CateringType { get; set; } = null!;
 
         public List<string> RoomTypes { get; set; }
 
         [Display(Name = "Дата на настаняване")]
         [DataType(DataType.Date)]
-        public DateTime АccommodationDate { get; set; }
+        public DateTime AccommodationDate { get; set; }
 
         [Display(Name = "Дата на напускане")]
         [DataType(DataType.Date)]
@@ -38,10 +36,16 @@
 
         public decimal ApartmentPrice { get; set; }
 
+        public string SelectedRoomType { get; set; } = null!;
+
+        public int NightsCount { get; set; }
+
+        public decimal TotalPrice { get; set; }
+        
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (АccommodationDate == null || DepartureDate == null)
+            if (AccommodationDate == null || DepartureDate == null)
             {
                 yield return ValidationResult.Success;
             }
@@ -49,7 +53,7 @@
             DateTime accommodationDate;
             DateTime departureDate;
 
-            if (DateTime.TryParse(АccommodationDate.ToString(), out accommodationDate) &&
+            if (DateTime.TryParse(AccommodationDate.ToString(), out accommodationDate) &&
                 DateTime.TryParse(DepartureDate.ToString(), out departureDate))
             {
                 DateTime minDate = DateTime.Today;
@@ -70,5 +74,6 @@
                 yield return new ValidationResult("Невалидни дати.");
             }
         }
+
     }
 }

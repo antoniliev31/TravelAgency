@@ -1,4 +1,4 @@
-﻿@model HotelReservationViewModel
+﻿@model HotelForReservationViewModel
 @{
     ViewData["Title"] = "RESERVATION";
 }
@@ -6,110 +6,144 @@
 <h2 class="text-center">@ViewData["Title"]</h2>
 
 <hr />
-<div class="row">
-    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6 text-lg-start">
-        <form method="post">
-            <h3 class="text-center">@Model.Locatioin</h3>
-
-            <h4 class="text-center">
-                @Model.Category @Model.Title @{
-                    int star = Model.Star;
-                }
-                @for (int i = 1; i <= star; i++)
-                {
-                    <a class="star"></a>
-                }
-            </h4>
-
-
-            <div class="img-fluid text-center">
-                <img class="d-block w-100" src="@Model.ImageUrl" alt="Image">
-            </div>
-
-            <h3 class="text-center">@Model.CateringType</h3>
-
-            @if (Model.DoubleRoomPrice > 0)
-            {
-                <h3>Двойна стая: <b>@($"{Model.DoubleRoomPrice:f0}") ЛВ.</b></h3>
-            }
-            @if (Model.StudioPrice > 0)
-            {
-                <h3>Студио: <b>@($"{Model.StudioPrice:f0}") ЛВ.</b></h3>
-            }
-            @if (Model.ApartmentPrice > 0)
-            {
-                <h3>Апартамент: <b>@($"{Model.ApartmentPrice:f0}") ЛВ.</b></h3>
-            }
-
-            <div class="modal-title">
-                <label asp-for="@Model.АccommodationDate"></label>
-                <input id="accommodationDateInput" asp-for="@Model.АccommodationDate" class="form-control" type="date" placeholder="Title...">
-                <span asp-validation-for="@Model.АccommodationDate" class="small text-danger"></span>
-            </div>
-
-            <div class="modal-title">
-                <label asp-for="@Model.DepartureDate"></label>
-                <input id="departureDateInput" asp-for="@Model.DepartureDate" class="form-control" type="date" placeholder="Title...">
-                <span asp-validation-for="@Model.DepartureDate" class="small text-danger"></span>
-            </div>
-
-            @if (Model.DoubleRoomPrice > 0 || Model.StudioPrice > 0 || Model.ApartmentPrice > 0)
-            {
+<form method="post" asp-action="Reservation">
+    <div class="row">
+        <div class="row">
+            <div class="col-12">
                 <h4 class="text-center">
-                    @if (Model.DoubleRoomPrice > 0 && Model.StudioPrice > 0 && Model.ApartmentPrice > 0)
-                    {
-                        <span>Моля изберете вида на помещението:</span>
+                    @{
+                        int star = Model.Star;
                     }
-                    else
+                    @for (int i = 1; i <= star; i++)
                     {
-                        <span>Ние предлагаме:</span>
+                        <a class="star"></a>
                     }
                 </h4>
-            }
+                <h4 class="text-center">
+                    @Model.Category @Model.Title
+                </h4>
+            </div>
+            <div class="col-md-6">
+                <img class="card-img-top" src="@Model.ImageUrl" alt="House Image">
 
-            <div class="form-check">
-                @if (Model.DoubleRoomPrice > 0)
-                {
-                    <input class="form-check-input" type="checkbox" id="doubleRoomCheckbox" name="RoomType" value="Double">
-                    <label class="form-check-label" for="doubleRoomCheckbox">Двойна стая</label>
-                }
+                <div class="form-group">
+                    <label asp-for="Location" class="control-label"></label>
+                    <input asp-for="Location" class="form-control" disabled="disabled"/>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CateringType" class="control-label"></label>
+                    <input asp-for="CateringType" class="form-control" disabled="disabled"/>
+                </div>
             </div>
-            <div class="form-check">
-                @if (Model.StudioPrice > 0)
-                {
-                    <input class="form-check-input" type="checkbox" id="studioCheckbox" name="RoomType" value="Studio">
-                    <label class="form-check-label" for="studioCheckbox">Студио</label>
-                }
-            </div>
-            <div class="form-check">
-                @if (Model.ApartmentPrice > 0)
-                {
-                    <input class="form-check-input" type="checkbox" id="apartmentCheckbox" name="RoomType" value="Apartment">
-                    <label class="form-check-label" for="apartmentCheckbox">Апартамент</label>
-                }
-            </div>
+            <div class="col-md-6">
+                <div class="form-group text-center text-danger">
+                    @if (Model.DoubleRoomPrice > 0 || Model.StudioPrice > 0 || Model.ApartmentPrice > 0)
+                    {
+                        @if (Model.DoubleRoomPrice > 0 && (Model.StudioPrice > 0 || Model.ApartmentPrice > 0) ||
+                             Model.StudioPrice > 0 && Model.ApartmentPrice > 0)
+                        {
+                            <span>Моля изберете вида на помещението:</span>
+                        }
+                        else
+                        {
+                            <span>Ние предлагаме:</span>
+                        }
+                    }
+                    <hr class="text-black"/>
+                </div>
+                <div class="form-check">
+                    @if (Model.DoubleRoomPrice > 0)
+                    {
+                        <input class="form-check-input" type="checkbox" id="doubleRoomCheckbox" name="SelectedRoomType" value="DoubleRoom" @(Model.DoubleRoomPrice <= 0 ? "disabled" : "")>
+                        <label class="form-check-label" for="doubleRoomCheckbox">Двойна стая: @Model.DoubleRoomPrice лв.</label>
+                    }
+                </div>
+                <!-- Включваме скрито поле за цената на двойната стая -->
+                <input type="hidden" name="DoubleRoomPrice" value="@Model.DoubleRoomPrice" />
+                <div class="form-check">
+                    @if (Model.StudioPrice > 0)
+                    {
+                        <input class="form-check-input" type="checkbox" id="studioCheckbox" name="SelectedRoomType" value="Studio" @(Model.StudioPrice <= 0 ? "disabled" : "")>
+                        <label class="form-check-label" for="studioCheckbox">Студио: @Model.StudioPrice лв.</label>
+                    }
+                </div>
+                <!-- Включваме скрито поле за цената на студио -->
+                <input type="hidden" name="StudioPrice" value="@Model.StudioPrice" />
+                <div class="form-check">
+                    @if (Model.ApartmentPrice > 0)
+                    {
+                        <input class="form-check-input" type="checkbox" id="apartmentCheckbox" name="SelectedRoomType" value="Apartment" @(Model.ApartmentPrice <= 0 ? "disabled" : "")>
+                        <label class="form-check-label" for="apartmentCheckbox">Апартамент: @Model.ApartmentPrice лв.</label>
+                    }
+                </div>
+                <!-- Включваме скрито поле за цената на апартамента -->
+                <input type="hidden" name="ApartmentPrice" value="@Model.ApartmentPrice" />
+                <hr/>
 
-            <div class="text-center">
-                <input class="btn btn-primary mt-3" type="submit" value="Резервирай" />
-            </div>
+                <div class="modal-title">
+                    <label asp-for="@Model.AccommodationDate"></label>
+                    <input id="accommodationDateInput" asp-for="@Model.AccommodationDate" class="form-control" type="date" placeholder="Title...">
+                    <span asp-validation-for="@Model.AccommodationDate" class="small text-danger"></span>
+                </div>
 
-        </form>
+                <div class="modal-title">
+                    <label asp-for="@Model.DepartureDate"></label>
+                    <input id="departureDateInput" asp-for="@Model.DepartureDate" class="form-control" type="date" placeholder="Title...">
+                    <span asp-validation-for="@Model.DepartureDate" class="small text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="nightsCount">Брой нощувки</label>
+                    <input id="nightsCount" @*asp-for="NightsCount"*@ class="form-control" readonly type="number" min="1" value="1" name="Days">
+                </div>
+
+                <div class="form-group">
+                    <label for="totalAmount">Обща сума</label>
+                    <input id="totalAmount" class="form-control" readonly name="TotalPrice">
+                </div>
+
+                <hr/>
+
+                @{
+                    var hasRoomTypeSelected = false;
+                    if (Model.DoubleRoomPrice > 0)
+                    {
+                        hasRoomTypeSelected = true;
+                    }
+                    else if (Model.StudioPrice > 0)
+                    {
+                        hasRoomTypeSelected = true;
+                    }
+                    else if (Model.ApartmentPrice > 0)
+                    {
+                        hasRoomTypeSelected = true;
+                    }
+                }
+
+                @if (!hasRoomTypeSelected)
+                {
+                    <div class="text-danger">Моля, изберете поне една възможност за настаняване.</div>
+                }
+
+                <input type="hidden" id="SelectedRoomTypeHidden" name="SelectedRoomType" value="">
+                <input type="hidden" id="AccommodationDateHidden" name="AccommodationDate" value="">
+                <input type="hidden" id="DepartureDateHidden" name="DepartureDate" value="">
+
+                <div class="form-group mt-2">
+                    <input class="btn btn-primary mt-3" type="submit" value="Резервирай"/>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</form>
 
 @section Scripts {
     <script>
         $(document).ready(function () {
-            
             $('#accommodationDateInput, #departureDateInput').click(function () {
-                
                 $('.dropdown-menu').removeClass('show');
             });
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            // Селекторите '#accommodationDateInput' и '#departureDateInput' избират съответните input елементи
+
             $('#accommodationDateInput, #departureDateInput').on('change', function () {
                 var currentDate = new Date();
                 var selectedDate = new Date($(this).val());
@@ -119,6 +153,141 @@
                     $(this).val('');
                 }
             });
+
+            // Датата за напускане на хотела +1 ден от текущата дата
+            $(document).ready(function () {
+                var currentDate = new Date();
+                var tomorrowDate = new Date(currentDate);
+                tomorrowDate.setDate(currentDate.getDate() + 1);
+
+                var tomorrowDateFormatted = formatDate(tomorrowDate);
+
+                $('#departureDateInput').val(tomorrowDateFormatted);
+            });
+
+            function formatDate(date) {
+                var day = date.getDate();
+                var month = date.getMonth() + 1;
+                var year = date.getFullYear();
+
+                if (day < 10) {
+                    day = '0' + day;
+                }
+
+                if (month < 10) {
+                    month = '0' + month;
+                }
+
+                return year + '-' + month + '-' + day;
+            }
+
+            $('input[name="SelectedRoomType"]').change(function () {
+                if ($(this).prop('checked')) {
+                    $('input[name="SelectedRoomType"]').not(this).prop('checked', false);
+                }
+            });
+
+            // Променливи за цените на помещенията
+            var doubleRoomPrice = @Model.DoubleRoomPrice;
+            var studioPrice = @Model.StudioPrice;
+            var apartmentPrice = @Model.ApartmentPrice;
+
+            // Функция за калкулация на броя нощувки
+            function calculateNightsCount() {
+                var accommodationDate = new Date($('#accommodationDateInput').val());
+                var departureDate = new Date($('#departureDateInput').val());
+
+                if (!isNaN(accommodationDate.getTime()) && !isNaN(departureDate.getTime())) {
+                    var timeDiff = Math.abs(departureDate.getTime() - accommodationDate.getTime());
+                    var nightsCount = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+                    $('#nightsCount').val(nightsCount);
+                }
+            }
+
+            // Калкулация на общата сума
+            function calculateTotalAmount() {
+                var selectedRoomType = $('input[name="SelectedRoomType"]:checked').val();
+                var nightsCount = parseInt($('#nightsCount').val());
+
+                var totalAmount = 0;
+
+                if (selectedRoomType === "DoubleRoom" && doubleRoomPrice > 0) {
+                    totalAmount = doubleRoomPrice * nightsCount;
+                } else if (selectedRoomType === "Studio" && studioPrice > 0) {
+                    totalAmount = studioPrice * nightsCount;
+                } else if (selectedRoomType === "Apartment" && apartmentPrice > 0) {
+                    totalAmount = apartmentPrice * nightsCount;
+                }
+
+                $('#totalAmount').val(totalAmount.toFixed(2) + ' ЛВ.');
+            }
+
+            // При промяна на типа на помещението или броя нощувки, пресмятаме общата сума
+            $('input[name="SelectedRoomType"], #nightsCount').change(function () {
+                calculateTotalAmount();
+            });
+
+            // При промяна на датите, пресмятаме броя нощувки и общата сума
+            $('#accommodationDateInput, #departureDateInput').change(function () {
+                calculateNightsCount();
+                calculateTotalAmount();
+            });
+
+            // При промяна на избора на помещение
+            $('#roomTypes').change(function () {
+                // Размаркираме всички опции
+                $('#roomTypes option').prop('selected', false);
+                // Маркираме избраната опция
+                $(this).find(':selected').prop('selected', true);
+            });
+
+            // Проверка дали е избрана поне една възможност за настаняване
+            function checkRoomTypeSelected() {
+                var selectedRoomType = $('input[name="SelectedRoomType"]:checked').val();
+                if (!selectedRoomType) {
+                    $('.text-danger-roomtype').text('Моля, изберете поне една възможност за настаняване.');
+                    return false;
+                } else {
+                    $('.text-danger-roomtype').text('');
+                    return true;
+                }
+            }
+
+            // При подаване на формата, проверяваме дали е избрана поне една възможност
+            $('form').submit(function () {
+                return checkRoomTypeSelected();
+            });
+
+            $(document).ready(function () {
+                // Функция за съхранение на избраните стойности при промяна на полетата
+                function saveSelectedValues() {
+                    var selectedRoomType = $('input[name="SelectedRoomType"]:checked').val();
+                    var accommodationDate = $('#accommodationDateInput').val();
+                    var departureDate = $('#departureDateInput').val();
+
+                    // Съхраняваме стойностите в скрити полета
+                    $('#SelectedRoomTypeHidden').val(selectedRoomType);
+                    $('#AccommodationDateHidden').val(accommodationDate);
+                    $('#DepartureDateHidden').val(departureDate);
+                }
+
+                // Съхраняваме избраните стойности при промяна на полетата
+                $('input[name="SelectedRoomType"]').change(function () {
+                    saveSelectedValues();
+                });
+
+                $('#accommodationDateInput, #departureDateInput').change(function () {
+                    saveSelectedValues();
+                });
+
+                // При подаване на формата, предаваме съхранените стойности към сървъра
+                $('form').submit(function () {
+                    saveSelectedValues();
+                    return true; // Позволява на формата да се изпрати към сървъра
+                });
+            });
         });
     </script>
 }
+

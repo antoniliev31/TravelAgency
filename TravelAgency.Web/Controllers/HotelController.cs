@@ -9,6 +9,7 @@
     using ViewModels.Hotel;
     using ViewModels.Post;
     using static Common.NotificationMessagesConstants;
+    using TravelAgency.Services.Data;
 
     [Authorize]
     public class HotelController : Controller
@@ -197,7 +198,7 @@
             {
                 
                 this.TempData[ErrorMessage] = "Please enter a comment.";
-                return this.RedirectToAction("Details", new { id });
+                return this.RedirectToAction("Details", new { id = id });
             }
 
             var currentUser = this.User.GetId()!;
@@ -477,10 +478,7 @@
 
             try
             {
-                HotelReservationViewModel? viewModel = await this.hotelService.GetHotelForReservationByAdAsync(id);
-                //viewModel.Categories = await this.categoryService.AllCategoryesAsync();
-                //viewModel.Caterings = await this.cateringService.AllCateringTypesAsync();
-
+                HotelForReservationViewModel? viewModel = await this.hotelService.GetHotelForReservationByAdAsync(id);
                 return this.View(viewModel);
             }
             catch (Exception)
@@ -492,29 +490,34 @@
 
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Reservation(ReservationViewModel viewModel)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        // Връщайте обратно към формата за резервация със запазените данни и покажете грешки, ако има такива.
-        //        return View(viewModel);
-        //    }
+        [HttpPost]
+        public async Task<IActionResult> Reservation(int id, HotelForReservationViewModel viewModel)
+        {
+            
+            string userId = this.User.GetId() ?? throw new InvalidOperationException("User not found.");
+            
 
-        //    // Тук ще имате логиката за обработка на резервацията - например записване на резервацията в базата данни, изчисляване на общата цена и други операции, според нуждите на вашето приложение.
+            try
+            {
+                await this.hotelService.AddReservation(id, viewModel, userId);
 
-        //    // След успешната резервация, може да добавите SuccessMessage в TempData и да пренасочите потребителя към друга страница, например страницата за потвърждение на резервацията.
-        //    TempData[SuccessMessage] = "Reservation successful!";
-        //    return RedirectToAction("ReservationConfirmation", new { hotelId = viewModel.HotelId });
-        //}
+                return RedirectToAction("Confirmation", new { id = id });
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred! Please try again later!";
+
+                return RedirectToAction("Index", "Home");
+            }
+        }
 
 
 
-        //private IActionResult GeneralError()
-        //{
-        //    this.TempData[ErrorMessage] = "Unexpected error occurred! Please try again later!";
-        //    return this.RedirectToAction()
-        //}
+        private IActionResult GeneralError()
+        {
+            this.TempData[ErrorMessage] = "Unexpected error occurred! Please try again later!";
+            return this.RedirectToAction("Index", "Home");
+        }
 
     }
 }

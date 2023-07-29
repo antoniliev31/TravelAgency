@@ -32,7 +32,7 @@ namespace TravelAgency.Data
 
         public DbSet<WishList> WishLists { get; set; } = null!;
 
-        public DbSet<OrderList> OrderLists { get; set; } = null!;
+        public DbSet<Order> OrderLists { get; set; } = null!;
 
         public DbSet<Image> Images { get; set; } = null!;
 

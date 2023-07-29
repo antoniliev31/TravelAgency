@@ -8,6 +8,7 @@
     using Interfaces;
     using Web.ViewModels.Home;
     using Models.House;
+    using TravelAgency.Data.Models;
     using Web.ViewModels.Agent;
     using Web.ViewModels.Hotel.Enums;
     using Web.ViewModels.Image;
@@ -447,7 +448,7 @@
             await this.dbContext.SaveChangesAsync();
         }
 
-        public async Task<HotelReservationViewModel> GetHotelForReservationByAdAsync(int hotelId)
+        public async Task<HotelForReservationViewModel> GetHotelForReservationByAdAsync(int hotelId)
         {
             Hotel hotel = await this.dbContext
                 .Hotels
@@ -459,16 +460,16 @@
                 .FirstAsync(h => h.IsActive && h.Id == hotelId);
 
 
-            HotelReservationViewModel viewModel = new HotelReservationViewModel
+            HotelForReservationViewModel viewModel = new HotelForReservationViewModel
             {
                 Id = hotel.Id,
                 Title = hotel.Title,
                 ImageUrl = hotel.Images.First(i => i.IsMain).ImageUrl,
-                Locatioin = hotel.Location.Name,
+                Location = hotel.Location.Name,
                 Category = hotel.Category.Name,
                 CateringType = hotel.CateringType.Name,
                 Star = hotel.Star,
-                АccommodationDate = DateTime.Today,
+                AccommodationDate = DateTime.Today,
                 DepartureDate = DateTime.Today,
                 DoubleRoomPrice = hotel.DoubleRoomPrice,
                 StudioPrice = hotel.StudioRoomPrice,
@@ -478,6 +479,48 @@
 
             return viewModel;
         }
+
+        
+        public async Task AddReservation(int id, HotelForReservationViewModel viewModel, string userId)
+        {
+            // Изчисляваме броя нощувки
+            TimeSpan timeSpan = viewModel.DepartureDate - viewModel.AccommodationDate;
+            int days = (int)timeSpan.TotalDays;
+
+            // Изчисляваме общата цена
+            Decimal totalPrice = 0;
+            if (viewModel.SelectedRoomType == "Double")
+            {
+                totalPrice = viewModel.DoubleRoomPrice * days;
+            }
+            else if (viewModel.SelectedRoomType == "Studio")
+            {
+                totalPrice = viewModel.StudioPrice * days;
+            }
+            else if (viewModel.SelectedRoomType == "Apartment")
+            {
+                totalPrice = viewModel.ApartmentPrice * days;
+            }
+
+            Order order = new Order
+            {
+                UserId = Guid.Parse(userId),
+                HotelId = id,
+                RoomType = viewModel.SelectedRoomType,
+                АccommodationDate = viewModel.AccommodationDate,
+                DepartureDate = viewModel.DepartureDate,
+                Days = days,
+                Price = viewModel.SelectedRoomType == "Double" ? viewModel.DoubleRoomPrice :
+                    viewModel.SelectedRoomType == "Studio" ? viewModel.StudioPrice :
+                    viewModel.SelectedRoomType == "Apartment" ? viewModel.ApartmentPrice : 0,
+                TotalPrice = totalPrice
+            };
+
+            dbContext.OrderLists.Add(order);
+            await dbContext.SaveChangesAsync();
+        }
+
+
 
 
     }

@@ -12,7 +12,7 @@
         {
             this.Posts = new HashSet<Post>();
             this.WishLists = new HashSet<WishList>();
-            this.OrderLists = new HashSet<OrderList>();
+            this.OrderLists = new HashSet<Order>();
             this.Images = new HashSet<Image>();
             this.RoomTypes = new HashSet<RoomType>();
         }
@@ -67,7 +67,7 @@
 
         public virtual ICollection<WishList> WishLists { get; set; }
 
-        public virtual ICollection<OrderList> OrderLists { get; set; }
+        public virtual ICollection<Order> OrderLists { get; set; }
 
         public virtual ICollection<Image> Images { get; set; }
 

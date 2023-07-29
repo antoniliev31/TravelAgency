@@ -30,7 +30,9 @@
 
         Task DeleteHotelByIdAsync(int hotelId);
 
-        Task<HotelReservationViewModel> GetHotelForReservationByAdAsync(int hotelId);
+        Task<HotelForReservationViewModel> GetHotelForReservationByAdAsync(int hotelId);
+
+        Task AddReservation(int id, HotelForReservationViewModel viewModel, string userId);
     }
 
 }
