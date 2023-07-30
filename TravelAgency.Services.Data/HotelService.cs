@@ -140,7 +140,7 @@
                 .Take(queryModel.HotelsPerPage)
                 .Select(h => new HotelAllViewModel
                 {
-                    Id = h.Id.ToString(),
+                    Id = h.Id,
                     Title = h.Title,
                     Location = h.Location.Name,
                     Star = h.Star,
@@ -169,7 +169,7 @@
                 .Where(h => h.AgentId == Guid.Parse(agentId))
                 .Select(h => new HotelAllViewModel
                 {
-                    Id = h.Id.ToString(),
+                    Id = h.Id,
                     Title = h.Title,
                     Location = h.Location.Name,
                     Catering = h.CateringType.Name,
@@ -193,7 +193,7 @@
                 .Where(h => h.UserId == Guid.Parse(userId))
                 .Select(h => new HotelAllViewModel
                 {
-                    Id = h.Hotel.Id.ToString(),
+                    Id = h.Hotel.Id,
                     Title = h.Hotel.Title,
                     Location = h.Hotel.Location.Name,
                     Catering = h.Hotel.CateringType.Name,
@@ -217,7 +217,7 @@
                 .Where(h => h.UserId == Guid.Parse(userId))
                 .Select(h => new HotelAllViewModel
                 {
-                    Id = h.Hotel.Id.ToString(),
+                    Id = h.Hotel.Id,
                     Title = h.Hotel.Title,
                     Location = h.Hotel.Location.Name,
                     Catering = h.Hotel.CateringType.Name,
@@ -279,7 +279,7 @@
 
             var viewModel = new HotelDetailsViewModel
             {
-                Id = hotel.Id.ToString(),
+                Id = hotel.Id,
                 Title = hotel.Title,
                 Location = hotel.Location.Name,
                 Catering = hotel.CateringType.Name,

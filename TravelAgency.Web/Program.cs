@@ -7,6 +7,7 @@ namespace TravelAgency.Web
     using TravelAgency.Services.Data.Interfaces;
     using Infrastructure.Extensions;
     using Infrastructure.ModelBinders;
+    using Microsoft.AspNetCore.Mvc;
 
     public class Program
     {
@@ -40,6 +41,7 @@ namespace TravelAgency.Web
                 .AddMvcOptions(opt =>
                 {
                     opt.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+                    opt.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
                 });
 
             WebApplication app = builder.Build();
@@ -57,7 +59,7 @@ namespace TravelAgency.Web
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            app.UseHttpsRedirection(); 
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -65,13 +67,21 @@ namespace TravelAgency.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
-            
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.MapDefaultControllerRoute();
-            app.MapRazorPages();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "Hotel Details",
+                    pattern: "/{controller}/{action}/{id}/{information}",
+                    defaults: new { controller = "Hotel", Action = "Details" });
+                endpoints.MapDefaultControllerRoute();
+                endpoints.MapRazorPages();
+            });
+
+            //app.MapDefaultControllerRoute();
+            //app.MapRazorPages();
 
             app.Run();
         }

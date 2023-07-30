@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-
+    using Interfaces;
     using static Common.EntityValidationConstants.Hotel;
     
 

@@ -73,5 +73,20 @@ namespace TravelAgency.Services.Data
 
             return agent.Id.ToString();
         }
+
+        public async Task<bool> HasHotelWithIdAsync(string userId, int hotelId)
+        {
+            Agent? agent = await this.dbContext
+                .Agents
+                .Include(a => a.OwnedHotel)
+                .FirstOrDefaultAsync(a => a.UserId.ToString() == userId);
+
+            if (agent == null)
+            {
+                return false;
+            }
+
+            return agent.OwnedHotel.Any(h => h.Id == hotelId);
+        }
     }
 }

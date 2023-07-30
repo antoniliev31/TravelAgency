@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 
 using TravelAgency.Services.Data.Interfaces;
 using Infrastructure.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using ViewModels.User;
 
+[Authorize]
 public class UserController : Controller
 {
     private readonly IUserService userService;

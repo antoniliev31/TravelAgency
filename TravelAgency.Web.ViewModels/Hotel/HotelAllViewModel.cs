@@ -1,8 +1,10 @@
 ﻿namespace TravelAgency.Web.ViewModels.Hotel
 {
-    public class HotelAllViewModel
+    using Interfaces;
+
+    public class HotelAllViewModel : IHotelModel
     {
-        public string Id { get; set; } = null!;
+        public int Id { get; set; }
 
         public string Title { get; set; } = null!;
 
