@@ -19,7 +19,7 @@ public class UserController : Controller
     [HttpGet]
     public async Task<IActionResult> Order()
     {
-        List<UserAllReservation> myOredr = new List<UserAllReservation>();
+        List<UserAllReservationViewModel> myOredr = new List<UserAllReservationViewModel>();
 
         string userId = this.User.GetId()!;
 

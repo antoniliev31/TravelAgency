@@ -6,6 +6,6 @@
 
     public interface IUserService
     {
-        Task<List<UserAllReservation>> AllUserReservationAsync(string id);
+        Task<List<UserAllReservationViewModel>> AllUserReservationAsync(string id);
     }
 }

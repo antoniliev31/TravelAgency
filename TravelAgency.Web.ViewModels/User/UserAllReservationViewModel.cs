@@ -3,7 +3,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.Xml.Linq;
 
-    public class UserAllReservation
+    public class UserAllReservationViewModel
     {
         public int Id { get; set; }
         

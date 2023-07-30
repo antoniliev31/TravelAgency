@@ -52,7 +52,8 @@ namespace TravelAgency.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Home/Error/500");
+                app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
                 app.UseHsts();
             }
 
@@ -64,7 +65,7 @@ namespace TravelAgency.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseStatusCodePagesWithReExecute("/Error/{0}");
+            
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

@@ -16,12 +16,12 @@
             this.dbContext = dbContext;
         }
 
-        public async Task<List<UserAllReservation>> AllUserReservationAsync(string id)
+        public async Task<List<UserAllReservationViewModel>> AllUserReservationAsync(string id)
         {
             var allOrders = await this.dbContext
                 .Orders
                 .Where(o => o.UserId.ToString() == id)
-                .Select(r => new UserAllReservation
+                .Select(r => new UserAllReservationViewModel
                 {
                     Id = 0,
                     Title = r.Hotel.Title,

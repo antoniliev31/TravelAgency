@@ -38,7 +38,6 @@ namespace TravelAgency.Data
 
 
 
-        
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

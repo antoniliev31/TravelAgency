@@ -9,7 +9,6 @@
     using ViewModels.Hotel;
     using ViewModels.Post;
     using static Common.NotificationMessagesConstants;
-    using TravelAgency.Services.Data;
 
     [Authorize]
     public class HotelController : Controller
@@ -493,13 +492,17 @@
         [HttpPost]
         public async Task<IActionResult> Reservation(int id, HotelForReservationViewModel viewModel)
         {
-            
-            string userId = this.User.GetId() ?? throw new InvalidOperationException("User not found.");
-            
+            bool hotelExist = await this.hotelService.HotelExistByIdAsync(id);
+
+            if (!hotelExist)
+            {
+                this.TempData[ErrorMessage] = "Hotel with the provided id does not exist!";
+                return this.RedirectToAction("All", "Hotel");
+            }
 
             try
             {
-                await this.hotelService.AddReservation(id, viewModel, userId);
+                await this.hotelService.AddReservation(id, viewModel, this.User.GetId()!);
 
                 return RedirectToAction("Order", "User");
             }

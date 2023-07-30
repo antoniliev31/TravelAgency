@@ -25,7 +25,7 @@
         {
             string? userId = this.User.GetId();
 
-            bool isAgent = await this.agentService.AgentExistByUserIdAsync(userId);
+            bool isAgent = await this.agentService.AgentExistByUserIdAsync(userId!);
 
             if (isAgent)
             {
@@ -71,7 +71,7 @@
             {
                 this.TempData[ErrorMessage] = "Yon must not have any active rents in order to become an agent!";
 
-                return this.RedirectToAction("Mine", "Home");
+                return this.RedirectToAction("Mine", "Hotel");
             }
 
             try
