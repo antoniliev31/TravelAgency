@@ -256,15 +256,15 @@ namespace TravelAgency.Data.Migrations
                         {
                             Id = new Guid("dea12856-c198-4129-b3f3-b893d8395082"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8ecd1847-4761-4c86-ba90-4cbdf7a8a5cd",
+                            ConcurrencyStamp = "ff37cc49-89b5-444c-808e-c4a7f12e1400",
                             Email = "agent@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "agent@mail.com",
                             NormalizedUserName = "agent@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAITKy8Zg69OrICUuVQgpRIhPbNtF5SFsEo0uJqGF5q86KZtLN2G33YTRJS4zO7Djg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECPnoYMIisxuwDO6LnbHTonD0DoNDB6PvAvm5gVFNZhtdVhHP+0JJa97VYd52ITeKw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "609f3a25-6d23-4c8a-8422-2f4339353df5",
+                            SecurityStamp = "f015edae-86e1-42fc-88f9-301d47bc4416",
                             TwoFactorEnabled = false,
                             UserName = "agent@mail.com"
                         },
@@ -272,15 +272,15 @@ namespace TravelAgency.Data.Migrations
                         {
                             Id = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b7b95957-a278-47a3-98ec-775aa6410934",
+                            ConcurrencyStamp = "2547e13b-507d-42d4-88f3-06f888d89e1c",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEG8f4eS/EyOAK/pcV8ToCehIqoubGJRB+X8HYvKw3WATu/mCCvrwEMV8DzMAggrQfQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOQuNUFCWqV1n8dTFVkVDwJgjA4Qb0bocRIrGAr87H0M431eb45zJ+HvmZm4nUcuVA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4ab128f0-c53b-4da8-8014-79e02c3f6b31",
+                            SecurityStamp = "aa892ebd-af3a-49cb-8a85-10f5ca34b3f4",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         });
@@ -366,6 +366,41 @@ namespace TravelAgency.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("TravelAgency.Data.Models.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("City");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Sozopol"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Primorsko"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Kiten"
+                        });
+                });
+
             modelBuilder.Entity("TravelAgency.Data.Models.Hotel", b =>
                 {
                     b.Property<int>("Id")
@@ -384,6 +419,9 @@ namespace TravelAgency.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("CateringTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CityId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
@@ -425,6 +463,8 @@ namespace TravelAgency.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("CateringTypeId");
+
+                    b.HasIndex("CityId");
 
                     b.HasIndex("LocationId");
 
@@ -1247,6 +1287,10 @@ namespace TravelAgency.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("TravelAgency.Data.Models.City", null)
+                        .WithMany("HotelInCity")
+                        .HasForeignKey("CityId");
+
                     b.HasOne("TravelAgency.Data.Models.Location", "Location")
                         .WithMany("HotelsInThisLocation")
                         .HasForeignKey("LocationId")
@@ -1349,6 +1393,11 @@ namespace TravelAgency.Data.Migrations
                     b.Navigation("MyPosts");
 
                     b.Navigation("MyWishLists");
+                });
+
+            modelBuilder.Entity("TravelAgency.Data.Models.City", b =>
+                {
+                    b.Navigation("HotelInCity");
                 });
 
             modelBuilder.Entity("TravelAgency.Data.Models.Hotel", b =>

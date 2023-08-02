@@ -12,7 +12,7 @@ using TravelAgency.Data;
 namespace TravelAgency.Data.Migrations
 {
     [DbContext(typeof(TravelAgencyDbContext))]
-    [Migration("20230720134501_Initial")]
+    [Migration("20230802024255_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -258,15 +258,15 @@ namespace TravelAgency.Data.Migrations
                         {
                             Id = new Guid("dea12856-c198-4129-b3f3-b893d8395082"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "82bf331e-d842-4f0c-9640-0cdc7992a3a7",
+                            ConcurrencyStamp = "ff37cc49-89b5-444c-808e-c4a7f12e1400",
                             Email = "agent@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "agent@mail.com",
                             NormalizedUserName = "agent@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGLc76wiTg4yK19wsK8moJwRlkFEfw0YtHnPqjKACnZVxEwpslm1ftha8aNOJCyjhg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECPnoYMIisxuwDO6LnbHTonD0DoNDB6PvAvm5gVFNZhtdVhHP+0JJa97VYd52ITeKw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "559b0979-9b02-4709-afec-35c4028dbe01",
+                            SecurityStamp = "f015edae-86e1-42fc-88f9-301d47bc4416",
                             TwoFactorEnabled = false,
                             UserName = "agent@mail.com"
                         },
@@ -274,15 +274,15 @@ namespace TravelAgency.Data.Migrations
                         {
                             Id = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cca9c1c8-7075-4d7f-b33d-a4986c99ed55",
+                            ConcurrencyStamp = "2547e13b-507d-42d4-88f3-06f888d89e1c",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "guest@mail.com",
                             NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEP7b81ost7krIoKCMoD7hFtGDLz0Zig2MGyn27iq4Xi5H31Bxe+zR0vNgTRiAMnOQQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOQuNUFCWqV1n8dTFVkVDwJgjA4Qb0bocRIrGAr87H0M431eb45zJ+HvmZm4nUcuVA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2f12a12d-501b-4dea-8e73-f80cf973e0ef",
+                            SecurityStamp = "aa892ebd-af3a-49cb-8a85-10f5ca34b3f4",
                             TwoFactorEnabled = false,
                             UserName = "guest@mail.com"
                         });
@@ -368,6 +368,41 @@ namespace TravelAgency.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("TravelAgency.Data.Models.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("City");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Sozopol"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Primorsko"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Kiten"
+                        });
+                });
+
             modelBuilder.Entity("TravelAgency.Data.Models.Hotel", b =>
                 {
                     b.Property<int>("Id")
@@ -379,10 +414,16 @@ namespace TravelAgency.Data.Migrations
                     b.Property<Guid>("AgentId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<decimal>("ApartmentRoomPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<int>("CateringTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CityId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
@@ -395,6 +436,9 @@ namespace TravelAgency.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<decimal>("DoubleRoomPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -403,14 +447,11 @@ namespace TravelAgency.Data.Migrations
                     b.Property<int>("LocationId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("RoomTypeId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Star")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("StudioRoomPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -425,9 +466,9 @@ namespace TravelAgency.Data.Migrations
 
                     b.HasIndex("CateringTypeId");
 
-                    b.HasIndex("LocationId");
+                    b.HasIndex("CityId");
 
-                    b.HasIndex("RoomTypeId");
+                    b.HasIndex("LocationId");
 
                     b.ToTable("Hotels");
 
@@ -436,135 +477,144 @@ namespace TravelAgency.Data.Migrations
                         {
                             Id = 1,
                             AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
+                            ApartmentRoomPrice = 0m,
                             CategoryId = 1,
                             CateringTypeId = 1,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Хотел в новата част на Созопол. Намира се събсем близо до плажа.",
+                            DoubleRoomPrice = 100m,
                             IsActive = true,
                             LocationId = 1,
-                            Price = 100m,
-                            RoomTypeId = 1,
                             Star = 4,
+                            StudioRoomPrice = 0m,
                             Title = "ЛАГУНА БИЙЧ"
                         },
                         new
                         {
                             Id = 2,
                             AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
+                            ApartmentRoomPrice = 0m,
                             CategoryId = 1,
                             CateringTypeId = 2,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Хотел „Табанов бийч” е разположен в новата част на град Созопол. Намира се само на 60м. от плаж \"Хармани\", а в близост има много магазини, ресторанти, клубове и други развлечения..",
+                            DoubleRoomPrice = 120m,
                             IsActive = true,
                             LocationId = 1,
-                            Price = 120m,
-                            RoomTypeId = 1,
                             Star = 3,
+                            StudioRoomPrice = 0m,
                             Title = "ТАБАНОВ БИЙЧ"
                         },
                         new
                         {
                             Id = 3,
                             AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
+                            ApartmentRoomPrice = 0m,
                             CategoryId = 2,
                             CateringTypeId = 2,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Хотел „Аполис” се намира на много тихо и спокойно място в новата част на града. Разположен е на 70 м от плаж Хармани. Той е уютен и луксозен хотел, с интересна архитектура.",
+                            DoubleRoomPrice = 120m,
                             IsActive = true,
                             LocationId = 1,
-                            Price = 120m,
-                            RoomTypeId = 1,
                             Star = 3,
+                            StudioRoomPrice = 0m,
                             Title = "АПОЛИС"
                         },
                         new
                         {
                             Id = 4,
                             AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
+                            ApartmentRoomPrice = 0m,
                             CategoryId = 2,
                             CateringTypeId = 2,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Аполония Резорт е изискан четиризвезден ваканционен комплекс от затворен тип, разположен на един от най- красивите плажове по българското черноморие - великолепния Царския плаж. Царският плаж е разположен между курортите Черноморец на север и Созопол на юг.",
+                            DoubleRoomPrice = 120m,
                             IsActive = true,
                             LocationId = 2,
-                            Price = 120m,
-                            RoomTypeId = 2,
                             Star = 4,
+                            StudioRoomPrice = 0m,
                             Title = "АПОЛОНИЯ РЕЗОРТ"
                         },
                         new
                         {
                             Id = 5,
                             AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
+                            ApartmentRoomPrice = 0m,
                             CategoryId = 3,
                             CateringTypeId = 2,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Хотел „Аркутино Фемили Ризорт “ се намира на южното Черноморие на 40 км от град Бургас, между Созопол и Приморско в местността Аркутино, която е част от резервата „Ропотамо“. Разположен е в непосредствена близост до един от най-красивите български плажове, между златисти пясъчни дюни, прочутото крайморско езеро Водните лилии и река Ропотамо.",
+                            DoubleRoomPrice = 170m,
                             IsActive = true,
                             LocationId = 3,
-                            Price = 170m,
-                            RoomTypeId = 2,
                             Star = 4,
+                            StudioRoomPrice = 0m,
                             Title = "АРКУТИНО ФЕМИЛИ РЕЗОРТ"
                         },
                         new
                         {
                             Id = 6,
                             AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
+                            ApartmentRoomPrice = 0m,
                             CategoryId = 3,
                             CateringTypeId = 4,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Аполония резорт е луксозен, апартаментен комплекс от затворен тип, състоящ се от две четири етажни сгради с капацитет от 23 апартамента. Апартаментите са от различен тип, напълно оборудвани с всичко необходимо за престоя на своите гости. Намира се в района на живописното черноморско градче Черноморец, на 400 м от центъра и на 300 м от златистия плаж. Хотелът разполага със собствен ресторант, където гостите ползват отстъпка.",
+                            DoubleRoomPrice = 200m,
                             IsActive = true,
                             LocationId = 2,
-                            Price = 200m,
-                            RoomTypeId = 3,
                             Star = 4,
+                            StudioRoomPrice = 0m,
                             Title = "АТИЯ РЕЗОРТ"
                         },
                         new
                         {
                             Id = 7,
                             AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
+                            ApartmentRoomPrice = 0m,
                             CategoryId = 1,
                             CateringTypeId = 1,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Къща за гости Дари се намира в новата част на античния град Созопол. Тя е разположена между два плажа на разстояние 5 - 6 минути от всеки плаж. Къщата се намира на тиха и спокойна улица, която дава възможност на туристите за пълноценна почивка. Къщата за гости разполага със самостоятелни стаи и апартаменти. Всички помещения са с тераса, санитарен възел, телевизор, хладилник, климатик и безплатен интернет.",
+                            DoubleRoomPrice = 100m,
                             IsActive = true,
                             LocationId = 1,
-                            Price = 100m,
-                            RoomTypeId = 1,
                             Star = 3,
+                            StudioRoomPrice = 0m,
                             Title = "ВИЛА ДАРИ"
                         },
                         new
                         {
                             Id = 8,
                             AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
+                            ApartmentRoomPrice = 0m,
                             CategoryId = 1,
                             CateringTypeId = 3,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Разположен върху живописни скали на морския бряг в новата част на града, хотел „Фиорд” е идеален за мечтаната почивка. Плаж „Хармани” се намира на 60м. Хотелът разполага с еднакво обзаведени Двойни стаи от различен тип, различаващи се по площта си.",
+                            DoubleRoomPrice = 160m,
                             IsActive = true,
                             LocationId = 1,
-                            Price = 160m,
-                            RoomTypeId = 1,
                             Star = 3,
+                            StudioRoomPrice = 0m,
                             Title = "ХОРИЗОНТ"
                         },
                         new
                         {
                             Id = 9,
                             AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
+                            ApartmentRoomPrice = 0m,
                             CategoryId = 1,
                             CateringTypeId = 3,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Разположен върху живописни скали на морския бряг в новата част на града, хотел „Фиорд” е идеален за мечтаната почивка. Плаж „Хармани” се намира на 60м. Хотелът разполага с еднакво обзаведени Двойни стаи от различен тип, различаващи се по площта си.",
+                            DoubleRoomPrice = 130m,
                             IsActive = true,
                             LocationId = 1,
-                            Price = 130m,
-                            RoomTypeId = 1,
                             Star = 3,
+                            StudioRoomPrice = 0m,
                             Title = "ФИОРД"
                         });
                 });
@@ -959,7 +1009,7 @@ namespace TravelAgency.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TravelAgency.Data.Models.OrderList", b =>
+            modelBuilder.Entity("TravelAgency.Data.Models.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -967,11 +1017,30 @@ namespace TravelAgency.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("Days")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DepartureDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("HotelId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("RoomType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("АccommodationDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -979,7 +1048,7 @@ namespace TravelAgency.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("OrderLists");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("TravelAgency.Data.Models.Post", b =>
@@ -1083,12 +1152,17 @@ namespace TravelAgency.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int?>("HotelId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HotelId");
 
                     b.ToTable("RoomTypes");
 
@@ -1215,16 +1289,14 @@ namespace TravelAgency.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("TravelAgency.Data.Models.City", null)
+                        .WithMany("HotelInCity")
+                        .HasForeignKey("CityId");
+
                     b.HasOne("TravelAgency.Data.Models.Location", "Location")
                         .WithMany("HotelsInThisLocation")
                         .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("TravelAgency.Data.Models.RoomType", "RoomType")
-                        .WithMany()
-                        .HasForeignKey("RoomTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Agent");
@@ -1234,8 +1306,6 @@ namespace TravelAgency.Data.Migrations
                     b.Navigation("CateringType");
 
                     b.Navigation("Location");
-
-                    b.Navigation("RoomType");
                 });
 
             modelBuilder.Entity("TravelAgency.Data.Models.Image", b =>
@@ -1249,7 +1319,7 @@ namespace TravelAgency.Data.Migrations
                     b.Navigation("Hotel");
                 });
 
-            modelBuilder.Entity("TravelAgency.Data.Models.OrderList", b =>
+            modelBuilder.Entity("TravelAgency.Data.Models.Order", b =>
                 {
                     b.HasOne("TravelAgency.Data.Models.Hotel", "Hotel")
                         .WithMany("OrderLists")
@@ -1287,6 +1357,13 @@ namespace TravelAgency.Data.Migrations
                     b.Navigation("Hotel");
                 });
 
+            modelBuilder.Entity("TravelAgency.Data.Models.RoomType", b =>
+                {
+                    b.HasOne("TravelAgency.Data.Models.Hotel", null)
+                        .WithMany("RoomTypes")
+                        .HasForeignKey("HotelId");
+                });
+
             modelBuilder.Entity("TravelAgency.Data.Models.WishList", b =>
                 {
                     b.HasOne("TravelAgency.Data.Models.Hotel", "Hotel")
@@ -1320,6 +1397,11 @@ namespace TravelAgency.Data.Migrations
                     b.Navigation("MyWishLists");
                 });
 
+            modelBuilder.Entity("TravelAgency.Data.Models.City", b =>
+                {
+                    b.Navigation("HotelInCity");
+                });
+
             modelBuilder.Entity("TravelAgency.Data.Models.Hotel", b =>
                 {
                     b.Navigation("Images");
@@ -1327,6 +1409,8 @@ namespace TravelAgency.Data.Migrations
                     b.Navigation("OrderLists");
 
                     b.Navigation("Posts");
+
+                    b.Navigation("RoomTypes");
 
                     b.Navigation("WishLists");
                 });

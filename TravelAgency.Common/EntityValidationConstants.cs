@@ -65,5 +65,14 @@
             public const int ImageUrlMinLength = 10;
             public const int ImageUrlMaxLength = 2048;
         }
+
+        public static class User
+        {
+            public const int FirstNameMinLength = 1;
+            public const int FirstNameMaxLength = 15;
+
+            public const int LastNameMinLength = 1;
+            public const int LastNameMaxLength = 15;
+        }
     }
 }

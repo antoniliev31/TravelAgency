@@ -20,8 +20,7 @@
                 .WithMany(h => h.WishLists)
                 .HasForeignKey(w => w.HotelId);
 
-            //builder.HasData(this.GeneratePosts());
-
+            
         }
     }
 }

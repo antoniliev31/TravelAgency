@@ -9,8 +9,11 @@ namespace TravelAgency.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder){
             
-
             builder.HasData(this.GenerateIdentityUser());
+            //builder.Property(u => u.FirstName)
+            //    .HasDefaultValue("Ivan");
+            //builder.Property(u => u.LastName)
+            //    .HasDefaultValue("Ivanov");
         }
 
         private ApplicationUser[] GenerateIdentityUser()
