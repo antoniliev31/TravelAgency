@@ -36,6 +36,11 @@ namespace TravelAgency.Web
 
             builder.Services.AddApplicationServices(typeof(IHotelService));
 
+            builder.Services.ConfigureApplicationCookie(cfg =>
+            {
+                cfg.LoginPath = "/User/Login";
+            });
+
             builder.Services
                 .AddControllersWithViews()
                 .AddMvcOptions(opt =>

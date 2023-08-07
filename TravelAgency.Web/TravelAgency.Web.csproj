@@ -29,4 +29,8 @@
     <ProjectReference Include="..\TravelAgency.Web.ViewModels\TravelAgency.Web.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Identity\Pages\Account\" />
+  </ItemGroup>
+
 </Project>
