@@ -21,9 +21,10 @@
         private readonly IImageService imageService;
         private readonly IPostService postService;
         private readonly IWishService wishService;
+        private readonly IUserService userService;
         
 
-        public HotelController(ICategoryService categoryService, IAgentService agentService, ILocationService locationService, IHotelService hotelService, ICateringService cateringService, IWishService wishService, IImageService imageService, IPostService postService)
+        public HotelController(ICategoryService categoryService, IAgentService agentService, ILocationService locationService, IHotelService hotelService, ICateringService cateringService, IWishService wishService, IImageService imageService, IPostService postService, IUserService userService)
         {
             this.categoryService = categoryService;
             this.agentService = agentService;
@@ -33,6 +34,7 @@
             this.cateringService = cateringService;
             this.imageService = imageService;
             this.postService = postService;
+            this.userService = userService;
         }
 
         [HttpGet]
@@ -177,7 +179,7 @@
             try
             {
                 HotelDetailsViewModel? viewModel = await this.hotelService.GetHotelDetailsByAdAsync(id);
-
+                viewModel.Agent.FullName = await userService.GetFullNameByEmailAsync(this.User.Identity?.Name!);
                 return this.View(viewModel);
             }
             catch (Exception)

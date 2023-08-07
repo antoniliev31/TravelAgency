@@ -17,6 +17,19 @@
             this.dbContext = dbContext;
         }
 
+        public async Task<string> GetFullNameByEmailAsync(string email)
+        {
+            ApplicationUser? user = await this.dbContext
+                .ApplicationUsers
+                .FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null)
+            {
+                return string.Empty;
+            }
+
+            return $"{user.FirstName} {user.LastName}";
+        }
+
         public async Task<List<UserAllReservationViewModel>> AllUserReservationAsync(string id)
         {
             var allOrders = await this.dbContext
@@ -43,16 +56,6 @@
 
             return allOrders;
         }
-
-        //public async Task CreateUser(RegisterFormModel model)
-        //{
-        //    ApplicationUser user = new ApplicationUser()
-        //    {
-        //        Email = model.Email,
-        //        FirstName = model.FirstName,
-        //        LastName = model.LastName
-        //    };
-            
-        //}
+        
     }
 }

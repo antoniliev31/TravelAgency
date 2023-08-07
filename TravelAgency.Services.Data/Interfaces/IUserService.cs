@@ -6,6 +6,8 @@
 
     public interface IUserService
     {
+        Task<string> GetFullNameByEmailAsync(string email);
+        
         Task<List<UserAllReservationViewModel>> AllUserReservationAsync(string id);
     }
 }

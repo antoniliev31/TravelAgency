@@ -2,9 +2,11 @@
 @using TravelAgency.Web.Infrastructure.Extensions
 @model HotelDetailsViewModel
 @inject IAgentService AgentService
+@inject IUserService UserService
 @{
     bool isUserAgent = await AgentService.AgentExistByUserIdAsync(this.User.GetId());
     bool isAgentOwner = await AgentService.HasHotelWithIdAsync(this.User.GetId(), Model.Id);
+    string userFulName = await UserService.GetFullNameByEmailAsync(this.User.Identity?.Name!);
 }
 
 <div class="container mt-4">
@@ -84,13 +86,14 @@
         </div>
 
         <div class="col-md-4">
-            <div class="card">
+            @*<div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Agent Info</h5>
+                    <p class="card-text">Name: @Model.Agent.FullName</p>
                     <p class="card-text">Email: @Model.Agent.Email</p>
                     <p class="card-text">Phone Number: @Model.Agent.PhoneNumber</p>
                 </div>
-            </div>
+            </div>*@
 
             <h5 class="card-title text-center">Коментари</h5>
             <div class="card mt-3">
@@ -98,7 +101,7 @@
                     @foreach (var post in Model.Posts)
                     {
                         <div class="card-text">
-                            <p class="text-dark fw-bold">Име: @post.UserName</p>
+                            <p class="text-dark fw-bold">@userFulName, написа:</p>
                             <p>@post.Description</p>
                         </div>
                     }

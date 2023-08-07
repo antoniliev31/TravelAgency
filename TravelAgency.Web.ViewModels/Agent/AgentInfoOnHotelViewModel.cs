@@ -5,6 +5,8 @@
 
     public class AgentInfoOnHotelViewModel
     {
+        public string FullName { get; set; } = null!;
+        
         [Display(Name = "e-mail:")]
         public string Email { get; set; } = null!;
 
