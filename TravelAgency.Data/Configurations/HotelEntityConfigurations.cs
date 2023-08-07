@@ -50,6 +50,7 @@
                 CateringTypeId = 1,
                 Star = 4,
                 DoubleRoomPrice = 100,
+                StudioRoomPrice = 150,
                 AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                 IsActive = true
             };
@@ -66,6 +67,7 @@
                 CateringTypeId = 2,
                 Star = 3,
                 DoubleRoomPrice = 120,
+                StudioRoomPrice = 150,
                 AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                 IsActive = true
             };
@@ -83,6 +85,7 @@
                 CateringTypeId = 2,
                 Star = 3,
                 DoubleRoomPrice = 120,
+                ApartmentRoomPrice = 200,
                 AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                 IsActive = true
             };

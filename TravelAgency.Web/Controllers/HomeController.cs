@@ -1,6 +1,5 @@
 ﻿namespace TravelAgency.Web.Controllers
 {
-    using System.Diagnostics;
     using Microsoft.AspNetCore.Mvc;
 
     using TravelAgency.Services.Data.Interfaces;
@@ -29,14 +28,15 @@
         {
             if (statusCode == 404 || statusCode == 400)
             {
-                return this.View("404");
+                return this.View("Error404");
             }
 
             if (statusCode == 401)
             {
-                return this.View("401");
+                return this.View("Error401");
             }
-            return View();
+
+            return this.View();
         }
     }
 }

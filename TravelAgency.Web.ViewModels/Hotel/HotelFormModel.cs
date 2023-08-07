@@ -50,7 +50,7 @@
 
 
         [Range(typeof(decimal), PriceMinValue, PriceMaxValue)]
-        [Display(Name = "Цена за двойна став")]
+        [Display(Name = "Цена за двойна стая")]
         public decimal DoubleRoomPrice { get; set; }
 
         [Range(typeof(decimal), PriceMinValue, PriceMaxValue)]

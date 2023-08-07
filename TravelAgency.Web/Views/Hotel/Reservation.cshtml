@@ -58,7 +58,7 @@
                         <label class="form-check-label" for="doubleRoomCheckbox">Двойна стая: @Model.DoubleRoomPrice лв.</label>
                     }
                 </div>
-                <!-- Включваме скрито поле за цената на двойната стая -->
+                
                 <input type="hidden" name="DoubleRoomPrice" value="@Model.DoubleRoomPrice" />
                 <div class="form-check">
                     @if (Model.StudioPrice > 0)
@@ -67,7 +67,7 @@
                         <label class="form-check-label" for="studioCheckbox">Студио: @Model.StudioPrice лв.</label>
                     }
                 </div>
-                <!-- Включваме скрито поле за цената на студио -->
+                
                 <input type="hidden" name="StudioPrice" value="@Model.StudioPrice" />
                 <div class="form-check">
                     @if (Model.ApartmentPrice > 0)
@@ -76,7 +76,7 @@
                         <label class="form-check-label" for="apartmentCheckbox">Апартамент: @Model.ApartmentPrice лв.</label>
                     }
                 </div>
-                <!-- Включваме скрито поле за цената на апартамента -->
+                
                 <input type="hidden" name="ApartmentPrice" value="@Model.ApartmentPrice" />
                 <hr/>
 
@@ -155,7 +155,7 @@
                 }
             });
 
-            // Датата за напускане на хотела +1 ден от текущата дата
+            
             $(document).ready(function () {
                 var currentDate = new Date();
                 var tomorrowDate = new Date(currentDate);
@@ -188,12 +188,12 @@
                 }
             });
 
-            // Променливи за цените на помещенията
+            
             var doubleRoomPrice = @Model.DoubleRoomPrice;
             var studioPrice = @Model.StudioPrice;
             var apartmentPrice = @Model.ApartmentPrice;
 
-            // Функция за калкулация на броя нощувки
+            
             function calculateNightsCount() {
                 var accommodationDate = new Date($('#accommodationDateInput').val());
                 var departureDate = new Date($('#departureDateInput').val());
@@ -206,7 +206,7 @@
                 }
             }
 
-            // Калкулация на общата сума
+            
             function calculateTotalAmount() {
                 var selectedRoomType = $('input[name="SelectedRoomType"]:checked').val();
                 var nightsCount = parseInt($('#nightsCount').val());
@@ -224,26 +224,26 @@
                 $('#totalAmount').val(totalAmount.toFixed(2) + ' ЛВ.');
             }
 
-            // При промяна на типа на помещението или броя нощувки, пресмятаме общата сума
+            
             $('input[name="SelectedRoomType"], #nightsCount').change(function () {
                 calculateTotalAmount();
             });
 
-            // При промяна на датите, пресмятаме броя нощувки и общата сума
+            
             $('#accommodationDateInput, #departureDateInput').change(function () {
                 calculateNightsCount();
                 calculateTotalAmount();
             });
 
-            // При промяна на избора на помещение
+            
             $('#roomTypes').change(function () {
-                // Размаркираме всички опции
+                
                 $('#roomTypes option').prop('selected', false);
-                // Маркираме избраната опция
+                
                 $(this).find(':selected').prop('selected', true);
             });
 
-            // Проверка дали е избрана поне една възможност за настаняване
+            
             function checkRoomTypeSelected() {
                 var selectedRoomType = $('input[name="SelectedRoomType"]:checked').val();
                 if (!selectedRoomType) {
@@ -255,25 +255,25 @@
                 }
             }
 
-            // При подаване на формата, проверяваме дали е избрана поне една възможност
+            
             $('form').submit(function () {
                 return checkRoomTypeSelected();
             });
 
             $(document).ready(function () {
-                // Функция за съхранение на избраните стойности при промяна на полетата
+                
                 function saveSelectedValues() {
                     var selectedRoomType = $('input[name="SelectedRoomType"]:checked').val();
                     var accommodationDate = $('#accommodationDateInput').val();
                     var departureDate = $('#departureDateInput').val();
 
-                    // Съхраняваме стойностите в скрити полета
+                    
                     $('#SelectedRoomTypeHidden').val(selectedRoomType);
                     $('#AccommodationDateHidden').val(accommodationDate);
                     $('#DepartureDateHidden').val(departureDate);
                 }
 
-                // Съхраняваме избраните стойности при промяна на полетата
+                
                 $('input[name="SelectedRoomType"]').change(function () {
                     saveSelectedValues();
                 });
@@ -282,10 +282,10 @@
                     saveSelectedValues();
                 });
 
-                // При подаване на формата, предаваме съхранените стойности към сървъра
+                
                 $('form').submit(function () {
                     saveSelectedValues();
-                    return true; // Позволява на формата да се изпрати към сървъра
+                    return true; 
                 });
             });
         });
