@@ -1,13 +1,16 @@
 namespace TravelAgency.Web
 {
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
 
     using Data;
-    using TravelAgency.Data.Models;
-    using TravelAgency.Services.Data.Interfaces;
+    using Data.Models;
+    using Services.Data.Interfaces;
     using Infrastructure.Extensions;
     using Infrastructure.ModelBinders;
-    using Microsoft.AspNetCore.Mvc;
+
+    using static Common.GeneralApplicationConstants;
 
     public class Program
     {
@@ -32,6 +35,7 @@ namespace TravelAgency.Web
                     options.Password.RequiredLength =
                         builder.Configuration.GetValue<int>("Identity:SignIn:RequiredLength");
                 })
+                .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<TravelAgencyDbContext>();
 
             builder.Services.AddApplicationServices(typeof(IHotelService));
@@ -71,6 +75,8 @@ namespace TravelAgency.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.SeedAdministrator(DevelopmentAdminEmail);
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

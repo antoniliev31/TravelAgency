@@ -56,6 +56,22 @@ namespace TravelAgency.Data.Configurations
 
             users.Add(user);
 
+            user = new ApplicationUser()
+            {
+                Id = Guid.Parse("949a14ed-2e82-4f5a-a684-a9c7e3ccb52e"),
+                FirstName = "Admin",
+                LastName = "Admin",
+                UserName = "admin@admin.com",
+                NormalizedUserName = "ADMIN@ADMIN.com",
+                Email = "admin@admin.com",
+                NormalizedEmail = "ADMIN@ADMIN.com",
+                SecurityStamp = Guid.NewGuid().ToString(),
+                ConcurrencyStamp = Guid.NewGuid().ToString()
+            };
+            user.PasswordHash = hasher.HashPassword(user, "123456");
+
+            users.Add(user);
+
             return users.ToArray();
         }
     }
