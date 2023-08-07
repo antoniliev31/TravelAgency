@@ -4,6 +4,7 @@
     using Interfaces;
     using Microsoft.EntityFrameworkCore;
     using TravelAgency.Data;
+    using TravelAgency.Data.Models;
     using Web.ViewModels.User;
 
     public class UserService : IUserService
@@ -43,6 +44,15 @@
             return allOrders;
         }
 
-
+        //public async Task CreateUser(RegisterFormModel model)
+        //{
+        //    ApplicationUser user = new ApplicationUser()
+        //    {
+        //        Email = model.Email,
+        //        FirstName = model.FirstName,
+        //        LastName = model.LastName
+        //    };
+            
+        //}
     }
 }
