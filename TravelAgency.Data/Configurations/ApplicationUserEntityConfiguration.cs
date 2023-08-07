@@ -10,10 +10,10 @@ namespace TravelAgency.Data.Configurations
         public void Configure(EntityTypeBuilder<ApplicationUser> builder){
             
             builder.HasData(this.GenerateIdentityUser());
-            //builder.Property(u => u.FirstName)
-            //    .HasDefaultValue("Ivan");
-            //builder.Property(u => u.LastName)
-            //    .HasDefaultValue("Ivanov");
+            builder.Property(u => u.FirstName)
+                .HasDefaultValue("Test");
+            builder.Property(u => u.LastName)
+                .HasDefaultValue("Test");
         }
 
         private ApplicationUser[] GenerateIdentityUser()
@@ -26,6 +26,8 @@ namespace TravelAgency.Data.Configurations
             user = new ApplicationUser()
             {
                 Id = Guid.Parse("dea12856-c198-4129-b3f3-b893d8395082"),
+                FirstName = "Ivan",
+                LastName = "Ivanov",
                 UserName = "agent@mail.com",
                 NormalizedUserName = "agent@mail.com",
                 Email = "agent@mail.com",
@@ -41,6 +43,8 @@ namespace TravelAgency.Data.Configurations
             user = new ApplicationUser()
             {
                 Id = Guid.Parse("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"),
+                FirstName = "Georgi",
+                LastName = "Georgiev",
                 UserName = "guest@mail.com",
                 NormalizedUserName = "guest@mail.com",
                 Email = "guest@mail.com",

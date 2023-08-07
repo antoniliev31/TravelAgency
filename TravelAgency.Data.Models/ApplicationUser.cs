@@ -16,13 +16,13 @@
             this.MyPosts = new HashSet<Post>();
         }
 
-        //[Required]
-        //[MaxLength(FirstNameMaxLength)]
-        //public string FirstName { get; set; } = null!;
+        [Required]
+        [MaxLength(FirstNameMaxLength)]
+        public string FirstName { get; set; } = null!;
 
-        //[Required]
-        //[MaxLength(LastNameMaxLength)]
-        //public string LastName { get; set; } = null!;
+        [Required]
+        [MaxLength(LastNameMaxLength)]
+        public string LastName { get; set; } = null!;
 
 
         public virtual ICollection<WishList> MyWishLists { get; set; }
