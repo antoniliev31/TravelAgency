@@ -107,18 +107,18 @@
                 @{
                     bool hasRoomTypeSelected = true;
                     
-                    //if (Model.DoubleRoomPrice > 0)
-                    //{
-                    //    hasRoomTypeSelected = true;
-                    //}
-                    //else if (Model.StudioPrice > 0)
-                    //{
-                    //    hasRoomTypeSelected = true;
-                    //}
-                    //else if (Model.ApartmentPrice > 0)
-                    //{
-                    //    hasRoomTypeSelected = true;
-                    //}
+                    if (Model.DoubleRoomPrice > 0)
+                    {
+                        hasRoomTypeSelected = true;
+                    }
+                    else if (Model.StudioPrice > 0)
+                    {
+                        hasRoomTypeSelected = true;
+                    }
+                    else if (Model.ApartmentPrice > 0)
+                    {
+                        hasRoomTypeSelected = true;
+                    }
                 }
 
                 @if (!hasRoomTypeSelected)

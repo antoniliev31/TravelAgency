@@ -4,6 +4,8 @@
 
     using TravelAgency.Services.Data.Interfaces;
     using ViewModels.Home;
+
+    using static Common.GeneralApplicationConstants;
     
 
     public class HomeController : Controller
@@ -17,6 +19,12 @@
 
         public async Task<IActionResult> Index()
         {
+            if (this.User.IsInRole(AdminRoleName))
+            {
+                return this.RedirectToAction("Index", "Home", new {Area = AdminAreaName});
+            }
+
+
             IEnumerable<IndexViewModel> viewModel = await this._hotelService.LastThreeAddedHotelAsync();
 
             return View(viewModel);

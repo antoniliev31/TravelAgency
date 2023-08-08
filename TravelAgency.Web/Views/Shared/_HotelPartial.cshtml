@@ -24,15 +24,15 @@
                 <h6>Цена за двойна стая: <b>@($"{Model.DoubleRoomPrice:f0}") ЛВ.</b></h6>
             }
             <br />
-            <a asp-controller="Hotel" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-success">Виж повече</a>
+            <a asp-area="" asp-controller="Hotel" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-success">Виж повече</a>
             <p></p>
             @if (this.User.Identity?.IsAuthenticated ?? false)
             {
                 <p></p>
                 if (isUserAdmin)
                 {
-                    <a asp-controller="Hotel" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
-                    <a asp-controller="Hotel" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+                    <a asp-area="" asp-controller="Hotel" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+                    <a asp-area="" asp-controller="Hotel" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
                 }
             }
         </div>

@@ -84,18 +84,25 @@ namespace TravelAgency.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllerRoute(
-            //        name: "Hotel Details",
-            //        pattern: "/{controller}/{action}/{id}/{information}",
-            //        defaults: new { controller = "Hotel", Action = "Details" });
-            //    endpoints.MapDefaultControllerRoute();
-            //    endpoints.MapRazorPages();
-            //});
+            app.UseEndpoints(config =>
+            {
+                config.MapControllerRoute(
+                    name: "areas",
+                    pattern: "/{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
 
-            app.MapDefaultControllerRoute();
-            app.MapRazorPages();
+                config.MapControllerRoute(
+                    name: "Hotel Details",
+                    pattern: "/{controller}/{action}/{id}/{information}",
+                    defaults: new { controller = "Hotel", Action = "Details" });
+
+                config.MapDefaultControllerRoute();
+
+                config.MapRazorPages();
+            });
+
+            //app.MapDefaultControllerRoute();
+            //app.MapRazorPages();
 
             app.Run();
         }

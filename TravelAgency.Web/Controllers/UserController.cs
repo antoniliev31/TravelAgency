@@ -46,11 +46,13 @@ public class UserController : Controller
         ApplicationUser user = new ApplicationUser()
         {
             FirstName = model.FirstName,
-            LastName = model.LastName
+            LastName = model.LastName,
+            PhoneNumber = model.PhoneNumber,
         };
 
         await this.userManager.SetEmailAsync(user, model.Email);
         await this.userManager.SetUserNameAsync(user, model.Email);
+
         IdentityResult result =
             await this.userManager.CreateAsync(user, model.Password);
 

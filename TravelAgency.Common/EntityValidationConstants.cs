@@ -70,6 +70,9 @@
 
             public const int LastNameMinLength = 1;
             public const int LastNameMaxLength = 15;
+
+            public const int PhoneNumberMaxLength = 10;
+            public const int PhoneNumberMinLength = 8;
         }
         
     }

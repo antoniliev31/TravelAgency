@@ -23,8 +23,7 @@
         [Required]
         [MaxLength(LastNameMaxLength)]
         public string LastName { get; set; } = null!;
-
-
+        
         public virtual ICollection<WishList> MyWishLists { get; set; }
 
         public virtual ICollection<Order> MyOrders { get; set; }
