@@ -12,5 +12,8 @@
         public const string AdminRoleName = "Administrator";
         public const string DevelopmentAdminEmail = "admin@admin.com";
 
+        public const string OnlineUsersCookieName = "OnlineUsers";
+        public const int LastActivityBeforeOfflineMinutes = 10;
+
     }
 }

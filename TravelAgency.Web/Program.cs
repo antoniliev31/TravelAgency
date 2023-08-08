@@ -84,6 +84,8 @@ namespace TravelAgency.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.EnableOnlineUsersChek();
+
             app.UseEndpoints(config =>
             {
                 config.MapControllerRoute(

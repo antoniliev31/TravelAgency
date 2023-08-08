@@ -13,6 +13,7 @@
             this.userService = userService;
         }
 
+        [Route("User/AllUsers")]
         public async Task<IActionResult> AllUsers()
         {
             IEnumerable<UserViewModel> viewModel = await this.userService.AllUserAsync();
