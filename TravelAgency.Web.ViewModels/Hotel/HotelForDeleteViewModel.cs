@@ -1,10 +1,6 @@
 ﻿namespace TravelAgency.Web.ViewModels.Hotel
 {
     using System.ComponentModel.DataAnnotations;
-    using Image;
-    using TravelAgency.Web.ViewModels.Category;
-    using TravelAgency.Web.ViewModels.Catering;
-    using TravelAgency.Web.ViewModels.Room;
 
     public class HotelForDeleteViewModel
     {

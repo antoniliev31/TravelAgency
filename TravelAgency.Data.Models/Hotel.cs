@@ -47,11 +47,7 @@
         public int LocationId { get; set; }
         public virtual Location Location { get; set; } = null!;
         
-
-        [ForeignKey(nameof(Agent))]
-        public Guid AgentId { get; set; }
-        public virtual Agent Agent { get; set; } = null!;
-
+        
         [ForeignKey(nameof(Category))]
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; } = null!;

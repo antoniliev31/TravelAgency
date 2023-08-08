@@ -68,7 +68,7 @@ namespace TravelAgency.Web
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection(); 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -76,7 +76,10 @@ namespace TravelAgency.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.SeedAdministrator(DevelopmentAdminEmail);
+            if (app.Environment.IsDevelopment())
+            {
+                app.SeedAdministrator(DevelopmentAdminEmail);
+            }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

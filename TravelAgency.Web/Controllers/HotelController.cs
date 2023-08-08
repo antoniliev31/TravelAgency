@@ -14,7 +14,6 @@
     public class HotelController : Controller
     {
         private readonly ICategoryService categoryService;
-        private readonly IAgentService agentService;
         private readonly ILocationService locationService;
         private readonly IHotelService hotelService;
         private readonly ICateringService cateringService;
@@ -22,12 +21,11 @@
         private readonly IPostService postService;
         private readonly IWishService wishService;
         private readonly IUserService userService;
-        
 
-        public HotelController(ICategoryService categoryService, IAgentService agentService, ILocationService locationService, IHotelService hotelService, ICateringService cateringService, IWishService wishService, IImageService imageService, IPostService postService, IUserService userService)
+
+        public HotelController(ICategoryService categoryService, ILocationService locationService, IHotelService hotelService, ICateringService cateringService, IWishService wishService, IImageService imageService, IPostService postService, IUserService userService)
         {
             this.categoryService = categoryService;
-            this.agentService = agentService;
             this.locationService = locationService;
             this.hotelService = hotelService;
             this.wishService = wishService;
@@ -48,7 +46,7 @@
             queryModel.Categories = await this.categoryService.AllCategoryNamesAsync();
             queryModel.Locations = await this.locationService.AllLocationNamesAsync();
             queryModel.Stars = await this.hotelService.AllStarsAsync();
-            
+
             return this.View(queryModel);
 
         }
@@ -56,13 +54,11 @@
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            bool isAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
-
-            if (!isAgent)
+            if (!this.User.IsAdmin())
             {
-                this.TempData[ErrorMessage] = "You must become an agent in order to add new house!";
+                this.TempData[ErrorMessage] = "You must be an admin to add new object!";
 
-                return this.RedirectToAction("Become", "Agent");
+                return this.RedirectToAction("Index", "Home");
             }
 
             HotelFormModel formModel = new HotelFormModel()
@@ -77,13 +73,11 @@
         [HttpPost]
         public async Task<IActionResult> Add(HotelFormModel model)
         {
-            bool isAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
-
-            if (!isAgent)
+            if (!this.User.IsAdmin())
             {
-                this.TempData[ErrorMessage] = "You must become an agent in order to add new house!";
+                this.TempData[ErrorMessage] = "You must be an admin to add new object!";
 
-                return this.RedirectToAction("Become", "Agent");
+                return this.RedirectToAction("Index", "Home");
             }
 
             bool categoryExist = await this.categoryService.ExistByIdAsync(model.CategoryId);
@@ -117,19 +111,17 @@
 
             try
             {
-                string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
-
                 int cityId = await this.locationService.GetLocationId(model.Location);
 
-                int hotelId = await this.hotelService.CreateHotelAndReturnIdAsync(model, agentId!, cityId);
+                int hotelId = await this.hotelService.CreateHotelAndReturnIdAsync(model, /*agentId!,*/ cityId);
 
                 if (model.Images != null && model.Images.Any())
                 {
                     await this.imageService.AddImagesAsync(model.Images, hotelId);
                 }
-                
+
                 this.TempData[SuccessMessage] = "Hotel was added successfully!";
-                
+
                 return this.RedirectToAction("Details", "Hotel", new { id = hotelId });
 
             }
@@ -143,26 +135,7 @@
 
         }
         
-
-        [HttpGet]
-        public async Task<IActionResult> Mine()
-        {
-            List<HotelAllViewModel> myHotel = new List<HotelAllViewModel>();
-
-            string userId = this.User.GetId()!;
-
-            bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(userId);
-
-            if (isUserAgent)
-            {
-                string? agentId = await this.agentService.GetAgentIdByUserIdAsync(userId);
-
-                myHotel.AddRange(await this.hotelService.AllHotelByAgentIdAsync(agentId!));
-            }
-
-            return this.View(myHotel);
-        }
-
+        
 
         [HttpGet]
         [AllowAnonymous]
@@ -179,7 +152,7 @@
             try
             {
                 HotelDetailsViewModel? viewModel = await this.hotelService.GetHotelDetailsByAdAsync(id);
-                viewModel.Agent.FullName = await userService.GetFullNameByEmailAsync(this.User.Identity?.Name!);
+                
                 return this.View(viewModel);
             }
             catch (Exception)
@@ -197,13 +170,13 @@
         {
             if (string.IsNullOrEmpty(comment))
             {
-                
+
                 this.TempData[ErrorMessage] = "Please enter a comment.";
                 return this.RedirectToAction("Details", new { id = id });
             }
 
             var currentUser = this.User.GetId()!;
-            
+
             var hotelExists = await this.hotelService.HotelExistByIdAsync(id);
             if (!hotelExists)
             {
@@ -237,25 +210,14 @@
                 return this.RedirectToAction("All", "Hotel");
             }
 
-            bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
-
-            if (!isUserAgent)
+            
+            if (!this.User.IsAdmin())
             {
-                this.TempData[ErrorMessage] = "You must become an agent in order to edit hotel info";
+                this.TempData[ErrorMessage] = "You must be an agent to edit hotel info";
 
-                return this.RedirectToAction("Become", "Agent");
+                return this.RedirectToAction("Index", "Home");
             }
 
-            string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
-
-            bool isAgentOwner = await this.hotelService.IsAgentWithIdOwnerOfHotelWithIdAsync(id, agentId!);
-
-            if (!isAgentOwner)
-            {
-                this.TempData[ErrorMessage] = "You must br the agent owner of the hotel yoy want to edit!";
-
-                return this.RedirectToAction("Mine", "Hotel");
-            }
             
             try
             {
@@ -269,10 +231,10 @@
             catch (Exception)
             {
                 this.TempData[ErrorMessage] = "Unexpected error occurred! Please try again later!";
-                
+
                 return RedirectToAction("Index", "Home");
             }
-            
+
         }
 
 
@@ -294,24 +256,14 @@
                 return this.RedirectToAction("All", "Hotel");
             }
 
-            bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
-
-            if (!isUserAgent)
+            
+            if (!this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must become an agent in order to edit hotel info";
-                return this.RedirectToAction("Become", "Agent");
+                return this.RedirectToAction("Index", "Home");
             }
 
-            string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
-
-            bool isAgentOwner = await this.hotelService.IsAgentWithIdOwnerOfHotelWithIdAsync(id, agentId!);
-
-            if (!isAgentOwner)
-            {
-                this.TempData[ErrorMessage] = "You must be the agent owner of the hotel you want to edit!";
-                return this.RedirectToAction("Mine", "Hotel");
-            }
-
+            
             try
             {
                 await this.hotelService.EditHotelByIdAndFormModelAsync(id, model);
@@ -340,24 +292,14 @@
                 return this.RedirectToAction("All", "Hotel");
             }
 
-            bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
-
-            if (!isUserAgent)
+            
+            if (!this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must become an agent in order to edit hotel info";
-                return this.RedirectToAction("Become", "Agent");
+                return this.RedirectToAction("Index", "Home");
             }
 
-            string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
-
-            bool isAgentOwner = await this.hotelService.IsAgentWithIdOwnerOfHotelWithIdAsync(id, agentId!);
-
-            if (!isAgentOwner)
-            {
-                this.TempData[ErrorMessage] = "You must be the agent owner of the hotel you want to edit!";
-                return this.RedirectToAction("Mine", "Hotel");
-            }
-
+            
             try
             {
                 HotelForDeleteViewModel viewModel = await this.hotelService.GetHotelForDeleteByIdAsync(id);
@@ -383,30 +325,20 @@
                 return this.RedirectToAction("All", "Hotel");
             }
 
-            bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(this.User.GetId()!);
-
-            if (!isUserAgent)
+            
+            if (!this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must become an agent in order to edit hotel info";
-                return this.RedirectToAction("Become", "Agent");
+                return this.RedirectToAction("Index", "Home");
             }
 
-            string? agentId = await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
-
-            bool isAgentOwner = await this.hotelService.IsAgentWithIdOwnerOfHotelWithIdAsync(id, agentId!);
-
-            if (!isAgentOwner)
-            {
-                this.TempData[ErrorMessage] = "You must be the agent owner of the hotel you want to edit!";
-                return this.RedirectToAction("Mine", "Hotel");
-            }
-
+            
             try
             {
                 await this.hotelService.DeleteHotelByIdAsync(id);
 
                 this.TempData[WarningMessage] = "The hotel was successfully deleted!";
-                return this.RedirectToAction("Mine", "Hotel");
+                return this.RedirectToAction("All", "Hotel");
             }
             catch (Exception)
             {
@@ -427,20 +359,14 @@
                 this.TempData[ErrorMessage] = "Hotel with the provided id does not exist!";
                 return this.RedirectToAction("All", "Hotel");
             }
+
             
-            bool isUserAgent = await this.agentService.AgentExistByUserIdAsync(userId);
-
-            if (isUserAgent)
+            if (this.User.IsAdmin())
             {
-                string? agentId = await this.agentService.GetAgentIdByUserIdAsync(userId)!;
-                bool isAgentOwner = await this.hotelService.IsAgentWithIdOwnerOfHotelWithIdAsync(id, agentId);
-
-                if (isAgentOwner)
-                {
-                    this.TempData[ErrorMessage] = "You can't like your own hotels!";
-                    return this.RedirectToAction("Details", "Hotel", new { id = id });
-                }
+                this.TempData[ErrorMessage] = "You can't like your own hotels!";
+                return this.RedirectToAction("Details", "Hotel", new { id = id });
             }
+
 
             try
             {
@@ -524,6 +450,6 @@
             return this.RedirectToAction("Index", "Home");
         }
 
-        
+
     }
 }

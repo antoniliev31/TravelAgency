@@ -9,7 +9,6 @@
     using Web.ViewModels.Home;
     using Models.House;
     using TravelAgency.Data.Models;
-    using Web.ViewModels.Agent;
     using Web.ViewModels.Hotel.Enums;
     using Web.ViewModels.Image;
     using Web.ViewModels.Post;
@@ -59,7 +58,7 @@
             return lastThreeHotel;
         }
 
-        public async Task<int> CreateHotelAndReturnIdAsync(HotelFormModel formModel, string agentId, int locationId)
+        public async Task<int> CreateHotelAndReturnIdAsync(HotelFormModel formModel, int locationId)
         {
             Hotel newHotel = new Hotel
             {
@@ -72,7 +71,6 @@
                 DoubleRoomPrice = formModel.DoubleRoomPrice,
                 StudioRoomPrice = formModel.StudioPrice,
                 ApartmentRoomPrice = formModel.ApartmentPrice,
-                AgentId = Guid.Parse(agentId),
                 IsActive = true
             };
 
@@ -161,30 +159,6 @@
             };
         }
 
-        public async Task<IEnumerable<HotelAllViewModel>> AllHotelByAgentIdAsync(string agentId)
-        {
-            IEnumerable<HotelAllViewModel> allAgentHotel = await this.dbContext
-                .Hotels
-                .Where(h => h.IsActive)
-                .Where(h => h.AgentId == Guid.Parse(agentId))
-                .Select(h => new HotelAllViewModel
-                {
-                    Id = h.Id,
-                    Title = h.Title,
-                    Location = h.Location.Name,
-                    Catering = h.CateringType.Name,
-                    Category = h.Category.Name,
-                    ImageUrl = h.Images.FirstOrDefault(i => i.IsMain)!.ImageUrl ?? h.Images.FirstOrDefault()!.ImageUrl,
-                    DoubleRoomPrice = h.DoubleRoomPrice,
-                    Star = h.Star,
-                    StudioPrice = h.StudioRoomPrice,
-                    ApartmentPrice = h.ApartmentRoomPrice
-                })
-                .ToArrayAsync();
-
-            return allAgentHotel;
-        }
-
         public async Task<IEnumerable<HotelAllViewModel>> AllWishHotelByUserAsync(string userId)
         {
             IEnumerable<HotelAllViewModel> allWishHotelByAgent = await this.dbContext
@@ -240,8 +214,7 @@
                 .Include(h => h.Category)
                 .Include(h => h.Location)
                 .Include(h => h.CateringType)
-                .Include(h => h.Agent)
-                .ThenInclude(a => a.User)
+                //.ThenInclude(a => a.User)
                 .Include(h => h.Posts)
                 .Include(h => h.Images)
                 .Include(h => h.WishLists)
@@ -258,6 +231,8 @@
                 PostViewModel p = new PostViewModel
                 {
                     Id = post.Id,
+                    FirstName = user.FirstName ?? string.Empty,
+                    LastName = user.LastName ?? string.Empty,
                     UserName = userName,
                     Description = post.Content
                 };
@@ -289,12 +264,7 @@
                 ApartmentPrice = hotel.ApartmentRoomPrice,
                 Star = hotel.Star,
                 Description = hotel.Description,
-                LikeCount = hotel.WishLists.Count,
-                Agent = new AgentInfoOnHotelViewModel
-                {
-                    Email = hotel.Agent.User.Email,
-                    PhoneNumber = hotel.Agent.PhoneNumber
-                }
+                LikeCount = hotel.WishLists.Count
             };
 
             viewModel.Images = images;
@@ -349,16 +319,6 @@
                 ApartmentPrice = hotel.ApartmentRoomPrice,
 
             };
-        }
-
-        public async Task<bool> IsAgentWithIdOwnerOfHotelWithIdAsync(int hotelId, string agentId)
-        {
-            var hotel = await this.dbContext
-                .Hotels
-                .Where(h => h.IsActive)
-                .FirstOrDefaultAsync(h => h.Id == hotelId);
-
-            return hotel.AgentId.ToString() == agentId;
         }
 
         public async Task EditHotelByIdAndFormModelAsync(int hotelId, HotelFormModel model)

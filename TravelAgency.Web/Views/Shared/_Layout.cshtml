@@ -1,11 +1,6 @@
 ﻿@using static TravelAgency.Common.GeneralApplicationConstants;
-@using TravelAgency.Services.Data.Interfaces
 @using TravelAgency.Web.Infrastructure.Extensions
 
-@inject IAgentService AgentService
-@{
-    bool isUserAgent = await AgentService.AgentExistByUserIdAsync(this.User.GetId());
-}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -38,10 +33,7 @@
                     </li>
                     @if (this.User.Identity?.IsAuthenticated ?? false)
                     {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Hotel" asp-action="Mine">Моите хотели</a>
-                        </li>
-                        if (isUserAgent)
+                        if (this.User.IsAdmin())
                         {
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Hotel" asp-action="Add">Добави хотел</a>

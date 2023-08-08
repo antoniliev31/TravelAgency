@@ -22,33 +22,17 @@ namespace TravelAgency.Data.Configurations
 
             ApplicationUser user;
             var hasher = new PasswordHasher<ApplicationUser>();
-
-            user = new ApplicationUser()
-            {
-                Id = Guid.Parse("dea12856-c198-4129-b3f3-b893d8395082"),
-                FirstName = "Ivan",
-                LastName = "Ivanov",
-                UserName = "agent@mail.com",
-                NormalizedUserName = "agent@mail.com",
-                Email = "agent@mail.com",
-                NormalizedEmail = "agent@mail.com",
-                SecurityStamp = Guid.NewGuid().ToString(),
-                ConcurrencyStamp = Guid.NewGuid().ToString()
-            };
-            user.PasswordHash = hasher.HashPassword(user, "123456");
             
-            users.Add(user);
-
 
             user = new ApplicationUser()
             {
                 Id = Guid.Parse("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"),
                 FirstName = "Georgi",
                 LastName = "Georgiev",
-                UserName = "guest@mail.com",
-                NormalizedUserName = "guest@mail.com",
-                Email = "guest@mail.com",
-                NormalizedEmail = "guest@mail.com",
+                UserName = "user@user.com",
+                NormalizedUserName = "USER@USER.com",
+                Email = "user@user.com",
+                NormalizedEmail = "user@user.com",
                 SecurityStamp = Guid.NewGuid().ToString(),
                 ConcurrencyStamp = Guid.NewGuid().ToString()
             };
@@ -59,8 +43,8 @@ namespace TravelAgency.Data.Configurations
             user = new ApplicationUser()
             {
                 Id = Guid.Parse("949a14ed-2e82-4f5a-a684-a9c7e3ccb52e"),
-                FirstName = "Admin",
-                LastName = "Admin",
+                FirstName = "Ivan",
+                LastName = "Ivanov",
                 UserName = "admin@admin.com",
                 NormalizedUserName = "ADMIN@ADMIN.com",
                 Email = "admin@admin.com",

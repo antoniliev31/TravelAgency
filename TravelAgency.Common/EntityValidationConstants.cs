@@ -30,12 +30,6 @@
             
         }
 
-        public static class Agent
-        {
-            public const int PhoneNumberMinLength = 7;
-            public const int PhoneNumberMaxLength = 15;
-        }
-
         public static class City
         {
             public const int CityMinLength = 5;

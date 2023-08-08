@@ -157,35 +157,6 @@ namespace TravelAgency.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("TravelAgency.Data.Models.Agent", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Agents");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
-                            PhoneNumber = "+359888888888",
-                            UserId = new Guid("dea12856-c198-4129-b3f3-b893d8395082")
-                        });
-                });
-
             modelBuilder.Entity("TravelAgency.Data.Models.ApplicationUser", b =>
                 {
                     b.Property<Guid>("Id")
@@ -268,55 +239,37 @@ namespace TravelAgency.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("dea12856-c198-4129-b3f3-b893d8395082"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "d2b3cbd0-86e2-4ab0-ad98-d29fd61fbe88",
-                            Email = "agent@mail.com",
-                            EmailConfirmed = false,
-                            FirstName = "Ivan",
-                            LastName = "Ivanov",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "agent@mail.com",
-                            NormalizedUserName = "agent@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAECAJXDKteAmZSG48LQvCd4wlwcTn8p5WIu5DD4IxcqB+fVs4EDexamqZ7ArqRhJcsA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "e3207924-43dd-487f-a651-17904a7c46c2",
-                            TwoFactorEnabled = false,
-                            UserName = "agent@mail.com"
-                        },
-                        new
-                        {
                             Id = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9a175447-f404-476d-bbbe-e2faf950a3b3",
-                            Email = "guest@mail.com",
+                            ConcurrencyStamp = "923fbd3a-1b6f-4ba6-8526-9dd58b0bdecb",
+                            Email = "user@user.com",
                             EmailConfirmed = false,
                             FirstName = "Georgi",
                             LastName = "Georgiev",
                             LockoutEnabled = false,
-                            NormalizedEmail = "guest@mail.com",
-                            NormalizedUserName = "guest@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGwH02njqJa48dK8Ha1BjfTY42Q53J+lDa1K2OYJFYXq+xsj6xpzqqGpaLObi6p6Cw==",
+                            NormalizedEmail = "user@user.com",
+                            NormalizedUserName = "USER@USER.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEH2//2ZcuRlxqxJQD7Qa4heiqFe31bAXf1ZJ4ZC26srUZMZrqyEVe9ZhukuMD5LuTw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "526eaf38-dec5-474e-89cc-38a38f6db5cf",
+                            SecurityStamp = "8096988a-4873-4fad-8670-328647b26708",
                             TwoFactorEnabled = false,
-                            UserName = "guest@mail.com"
+                            UserName = "user@user.com"
                         },
                         new
                         {
                             Id = new Guid("949a14ed-2e82-4f5a-a684-a9c7e3ccb52e"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "51a875b3-0cc7-4ebb-9b1c-9b971ffd0b3f",
+                            ConcurrencyStamp = "5820a8d3-f383-44a9-8e9d-ad515a606af5",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
-                            FirstName = "Admin",
-                            LastName = "Admin",
+                            FirstName = "Ivan",
+                            LastName = "Ivanov",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.com",
                             NormalizedUserName = "ADMIN@ADMIN.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEe7bZX4wJsrQh3IK4g52sJ/wyJhGXT10SqacYmocJTi9QtihCmALlw6EUc1+uFVxw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHmiB5uR1oqD9I2hfuUggkf2QC4GYTpvzI4iqY7pqZfLT+cmafn6btCBoSsDTCZX6g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "40624b22-a669-4a09-913e-b457063360b8",
+                            SecurityStamp = "d6cd7a62-b808-4f84-9da3-e24b9be6edfb",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         });
@@ -445,9 +398,6 @@ namespace TravelAgency.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<Guid>("AgentId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<decimal>("ApartmentRoomPrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -494,8 +444,6 @@ namespace TravelAgency.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AgentId");
-
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("CateringTypeId");
@@ -510,7 +458,6 @@ namespace TravelAgency.Data.Migrations
                         new
                         {
                             Id = 1,
-                            AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                             ApartmentRoomPrice = 0m,
                             CategoryId = 1,
                             CateringTypeId = 1,
@@ -526,7 +473,6 @@ namespace TravelAgency.Data.Migrations
                         new
                         {
                             Id = 2,
-                            AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                             ApartmentRoomPrice = 0m,
                             CategoryId = 1,
                             CateringTypeId = 2,
@@ -542,7 +488,6 @@ namespace TravelAgency.Data.Migrations
                         new
                         {
                             Id = 3,
-                            AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                             ApartmentRoomPrice = 200m,
                             CategoryId = 2,
                             CateringTypeId = 2,
@@ -558,7 +503,6 @@ namespace TravelAgency.Data.Migrations
                         new
                         {
                             Id = 4,
-                            AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                             ApartmentRoomPrice = 0m,
                             CategoryId = 2,
                             CateringTypeId = 2,
@@ -574,7 +518,6 @@ namespace TravelAgency.Data.Migrations
                         new
                         {
                             Id = 5,
-                            AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                             ApartmentRoomPrice = 0m,
                             CategoryId = 3,
                             CateringTypeId = 2,
@@ -590,7 +533,6 @@ namespace TravelAgency.Data.Migrations
                         new
                         {
                             Id = 6,
-                            AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                             ApartmentRoomPrice = 0m,
                             CategoryId = 3,
                             CateringTypeId = 4,
@@ -606,7 +548,6 @@ namespace TravelAgency.Data.Migrations
                         new
                         {
                             Id = 7,
-                            AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                             ApartmentRoomPrice = 0m,
                             CategoryId = 1,
                             CateringTypeId = 1,
@@ -622,7 +563,6 @@ namespace TravelAgency.Data.Migrations
                         new
                         {
                             Id = 8,
-                            AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                             ApartmentRoomPrice = 0m,
                             CategoryId = 1,
                             CateringTypeId = 3,
@@ -638,7 +578,6 @@ namespace TravelAgency.Data.Migrations
                         new
                         {
                             Id = 9,
-                            AgentId = new Guid("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                             ApartmentRoomPrice = 0m,
                             CategoryId = 1,
                             CateringTypeId = 3,
@@ -1153,28 +1092,28 @@ namespace TravelAgency.Data.Migrations
                             Id = 6,
                             Content = "Семейният ни престой в този хотел беше мечтан. Басейнът и игралната зала развълнуваха децата, докато спа-центърът ни предложи наистина релаксиращ опит. Отлична комбинация от забавление и отдих!",
                             HotelId = 6,
-                            UserId = new Guid("dea12856-c198-4129-b3f3-b893d8395082")
+                            UserId = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e")
                         },
                         new
                         {
                             Id = 7,
                             Content = "Избрахме тази къща за гости за нашата романтична почивка и не бихме могли да бъдем по-щастливи. Атмосферата беше магична, а гледката от терасата буквално откъсна дъха. Ще я препоръчаме на всички!",
                             HotelId = 1,
-                            UserId = new Guid("dea12856-c198-4129-b3f3-b893d8395082")
+                            UserId = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e")
                         },
                         new
                         {
                             Id = 8,
                             Content = "Хотелът беше прекрасно решение за нашия семеен отдих. Паркът и детските площадки зарадваха децата, а ресторантът ни предложи невероятни вкусове. Прекарахме незабравимо време с любимите си хора.",
                             HotelId = 2,
-                            UserId = new Guid("dea12856-c198-4129-b3f3-b893d8395082")
+                            UserId = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e")
                         },
                         new
                         {
                             Id = 9,
                             Content = "Невероятна къща за гости, вложена със стил и комфорт. Пълноценното оборудване и уютната атмосфера ни позволиха да се отпуснем напълно. Прекарахме прекрасна почивка сред природата.",
                             HotelId = 3,
-                            UserId = new Guid("dea12856-c198-4129-b3f3-b893d8395082")
+                            UserId = new Guid("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e")
                         });
                 });
 
@@ -1292,25 +1231,8 @@ namespace TravelAgency.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TravelAgency.Data.Models.Agent", b =>
-                {
-                    b.HasOne("TravelAgency.Data.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("TravelAgency.Data.Models.Hotel", b =>
                 {
-                    b.HasOne("TravelAgency.Data.Models.Agent", "Agent")
-                        .WithMany("OwnedHotel")
-                        .HasForeignKey("AgentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("TravelAgency.Data.Models.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
@@ -1332,8 +1254,6 @@ namespace TravelAgency.Data.Migrations
                         .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Agent");
 
                     b.Navigation("Category");
 
@@ -1415,11 +1335,6 @@ namespace TravelAgency.Data.Migrations
                     b.Navigation("ApplicationUser");
 
                     b.Navigation("Hotel");
-                });
-
-            modelBuilder.Entity("TravelAgency.Data.Models.Agent", b =>
-                {
-                    b.Navigation("OwnedHotel");
                 });
 
             modelBuilder.Entity("TravelAgency.Data.Models.ApplicationUser", b =>

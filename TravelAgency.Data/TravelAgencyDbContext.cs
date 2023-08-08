@@ -13,9 +13,7 @@ namespace TravelAgency.Data
             : base(options)
         {
         }
-        
-        public DbSet<Agent> Agents { get; set; } = null!;
-        
+
         public DbSet<ApplicationUser> ApplicationUsers { get; set; } = null!;
 
         public DbSet<Category> Categories { get; set; } = null!;
@@ -41,12 +39,12 @@ namespace TravelAgency.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            Assembly configAssembly = Assembly.GetAssembly(typeof(TravelAgencyDbContext)) ?? 
+            Assembly configAssembly = Assembly.GetAssembly(typeof(TravelAgencyDbContext)) ??
                                       Assembly.GetExecutingAssembly();
 
 
             builder.ApplyConfigurationsFromAssembly(configAssembly);
-            
+
             base.OnModelCreating(builder);
         }
     }

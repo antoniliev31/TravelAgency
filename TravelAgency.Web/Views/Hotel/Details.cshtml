@@ -1,11 +1,9 @@
 ﻿@using TravelAgency.Services.Data.Interfaces
 @using TravelAgency.Web.Infrastructure.Extensions
 @model HotelDetailsViewModel
-@inject IAgentService AgentService
 @inject IUserService UserService
 @{
-    bool isUserAgent = await AgentService.AgentExistByUserIdAsync(this.User.GetId());
-    bool isAgentOwner = await AgentService.HasHotelWithIdAsync(this.User.GetId(), Model.Id);
+    bool isUserAdmin = this.User.IsAdmin();
     string userFulName = await UserService.GetFullNameByEmailAsync(this.User.Identity?.Name!);
 }
 
@@ -71,29 +69,32 @@
             <div class="d-flex align-items-center">
                 @if (this.User.Identity?.IsAuthenticated ?? false)
                 {
-                    @if(isUserAgent && isAgentOwner)
+                    @if (isUserAdmin)
                     {
                         <div class="d-flex">
                             <a class="btn btn-warning" asp-controller="Hotel" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
                             <a class="btn btn-danger" asp-controller="Hotel" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
                         </div>
                     }
-                    <div class="d-flex">
-                        <a class="btn btn-info" asp-controller="Hotel" asp-action="Reservation" asp-route-id="@Model.Id">Резервирай</a>
-                    </div>
+                    
                 }
+                
+                <div class="d-flex">
+                    <a class="btn btn-info" asp-controller="Hotel" asp-action="Reservation" asp-route-id="@Model.Id">Резервирай</a>
+                </div>
+                
             </div>
         </div>
 
         <div class="col-md-4">
-            @*<div class="card">
+            <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Agent Info</h5>
-                    <p class="card-text">Name: @Model.Agent.FullName</p>
-                    <p class="card-text">Email: @Model.Agent.Email</p>
-                    <p class="card-text">Phone Number: @Model.Agent.PhoneNumber</p>
+                    <h5 class="card-title">Contact Info</h5>
+                    @*<p class="card-text">Name: @Model.User.FullName</p>
+                    <p class="card-text">Email: @Model.User.Email</p>
+                    <p class="card-text">Phone Number: @Model.User.PhoneNumber</p>*@
                 </div>
-            </div>*@
+            </div>
 
             <h5 class="card-title text-center">Коментари</h5>
             <div class="card mt-3">
@@ -101,7 +102,7 @@
                     @foreach (var post in Model.Posts)
                     {
                         <div class="card-text">
-                            <p class="text-dark fw-bold">@userFulName, написа:</p>
+                            <p class="text-dark fw-bold">@post.FirstName @post.LastName, написа:</p>
                             <p>@post.Description</p>
                         </div>
                     }

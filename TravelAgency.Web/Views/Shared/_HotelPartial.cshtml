@@ -1,10 +1,8 @@
 ﻿@using TravelAgency.Services.Data.Interfaces
 @using TravelAgency.Web.Infrastructure.Extensions
 @model HotelAllViewModel
-@inject IAgentService AgentService
 @{
-    bool isUserAgent = await AgentService.AgentExistByUserIdAsync(this.User.GetId());
-    bool isAgentOwner = await AgentService.HasHotelWithIdAsync(this.User.GetId(), Model.Id);
+    bool isUserAdmin = this.User.IsAdmin();
 }
 
 <div class="col-xl-auto">
@@ -30,11 +28,8 @@
             <p></p>
             @if (this.User.Identity?.IsAuthenticated ?? false)
             {
-                @*<form class="input-group-sm" asp-controller="Hotel" asp-action="IWish" asp-route-id="@Model.Id" method="post">
-                    <input class="btn btn-primary" type="submit" value="Добави в любими" />
-                </form>*@
                 <p></p>
-                if (isUserAgent && isAgentOwner)
+                if (isUserAdmin)
                 {
                     <a asp-controller="Hotel" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
                     <a asp-controller="Hotel" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>

@@ -78,7 +78,7 @@ namespace TravelAgency.Data.Configurations
             {
                 Id = 6,
                 Content = "Семейният ни престой в този хотел беше мечтан. Басейнът и игралната зала развълнуваха децата, докато спа-центърът ни предложи наистина релаксиращ опит. Отлична комбинация от забавление и отдих!",
-                UserId = Guid.Parse("dea12856-c198-4129-b3f3-b893d8395082"),
+                UserId = Guid.Parse("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"),
                 HotelId = 6
             };
             posts.Add(post);
@@ -87,7 +87,7 @@ namespace TravelAgency.Data.Configurations
             {
                 Id = 7,
                 Content = "Избрахме тази къща за гости за нашата романтична почивка и не бихме могли да бъдем по-щастливи. Атмосферата беше магична, а гледката от терасата буквално откъсна дъха. Ще я препоръчаме на всички!",
-                UserId = Guid.Parse("dea12856-c198-4129-b3f3-b893d8395082"),
+                UserId = Guid.Parse("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"),
                 HotelId = 1
             };
             posts.Add(post);
@@ -96,7 +96,7 @@ namespace TravelAgency.Data.Configurations
             {
                 Id = 8,
                 Content = "Хотелът беше прекрасно решение за нашия семеен отдих. Паркът и детските площадки зарадваха децата, а ресторантът ни предложи невероятни вкусове. Прекарахме незабравимо време с любимите си хора.",
-                UserId = Guid.Parse("dea12856-c198-4129-b3f3-b893d8395082"),
+                UserId = Guid.Parse("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"),
                 HotelId = 2
             };
             posts.Add(post);
@@ -105,7 +105,7 @@ namespace TravelAgency.Data.Configurations
             {
                 Id = 9,
                 Content = "Невероятна къща за гости, вложена със стил и комфорт. Пълноценното оборудване и уютната атмосфера ни позволиха да се отпуснем напълно. Прекарахме прекрасна почивка сред природата.",
-                UserId = Guid.Parse("dea12856-c198-4129-b3f3-b893d8395082"),
+                UserId = Guid.Parse("6d5800ce-d726-4fc8-83d9-d6b3ac1f591e"),
                 HotelId = 3
             };
             posts.Add(post);
