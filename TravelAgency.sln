@@ -34,6 +34,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAgency.Services.Data.Models", "TravelAgency.Services.Data.Models\TravelAgency.Services.Data.Models.csproj", "{B58FE41D-C521-4940-A21A-ACEA1E841B73}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B0CF16A8-F12A-48A0-AD3A-A778AA5E81F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAgency.Services.Tests", "TravelAgency.Services.Tests\TravelAgency.Services.Tests.csproj", "{6DFCD398-647A-4AD0-82FA-A1B90C41154A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +76,10 @@ Global
 		{B58FE41D-C521-4940-A21A-ACEA1E841B73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B58FE41D-C521-4940-A21A-ACEA1E841B73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B58FE41D-C521-4940-A21A-ACEA1E841B73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DFCD398-647A-4AD0-82FA-A1B90C41154A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DFCD398-647A-4AD0-82FA-A1B90C41154A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DFCD398-647A-4AD0-82FA-A1B90C41154A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DFCD398-647A-4AD0-82FA-A1B90C41154A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +93,7 @@ Global
 		{459A7929-EFC9-4610-ABBC-15C03453A1D3} = {FD9D7CB5-E88E-4826-A2E5-6C6A0A6A0DC1}
 		{245B344F-1F1D-40B2-9FFB-B5454582518A} = {0361F014-BAE8-48C0-B589-C2039BB81A6E}
 		{B58FE41D-C521-4940-A21A-ACEA1E841B73} = {FD9D7CB5-E88E-4826-A2E5-6C6A0A6A0DC1}
+		{6DFCD398-647A-4AD0-82FA-A1B90C41154A} = {B0CF16A8-F12A-48A0-AD3A-A778AA5E81F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E5C13A4C-1874-48A0-BCFB-4F7857510851}

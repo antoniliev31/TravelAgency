@@ -4,11 +4,14 @@
     using Microsoft.AspNetCore.Authorization;
 
     using Infrastructure.Extensions;
+    using Microsoft.Extensions.Caching.Memory;
     using Services.Data.Models.House;
     using TravelAgency.Services.Data.Interfaces;
     using ViewModels.Hotel;
     using ViewModels.Post;
+
     using static Common.NotificationMessagesConstants;
+    using static Common.GeneralApplicationConstants;
 
     [Authorize]
     public class HotelController : Controller
@@ -22,8 +25,14 @@
         private readonly IWishService wishService;
         private readonly IUserService userService;
 
+        private readonly IMemoryCache memoryCache;
 
-        public HotelController(ICategoryService categoryService, ILocationService locationService, IHotelService hotelService, ICateringService cateringService, IWishService wishService, IImageService imageService, IPostService postService, IUserService userService)
+
+        public HotelController(ICategoryService categoryService, 
+            ILocationService locationService, IHotelService hotelService, 
+            ICateringService cateringService, IWishService wishService, 
+            IImageService imageService, IPostService postService, 
+            IUserService userService, IMemoryCache memoryCache)
         {
             this.categoryService = categoryService;
             this.locationService = locationService;
@@ -33,6 +42,7 @@
             this.imageService = imageService;
             this.postService = postService;
             this.userService = userService;
+            this.memoryCache = memoryCache;
         }
 
         [HttpGet]
@@ -431,6 +441,9 @@
             try
             {
                 await this.hotelService.AddReservation(id, viewModel, this.User.GetId()!);
+
+                this.memoryCache.Remove(ReservationsCacheKey);
+
 
                 return RedirectToAction("Order", "User");
             }

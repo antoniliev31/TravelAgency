@@ -15,6 +15,7 @@
         public const string UserCacheKey = "UsersCache";
         public const string ReservationsCacheKey = "ReservationsCache";
         public const int UsersCacheDurationMinutes = 5;
+        public const int ReservationCacheDurationMinutes = 10;
 
         public const string OnlineUsersCookieName = "OnlineUsers";
         public const int LastActivityBeforeOfflineMinutes = 10;

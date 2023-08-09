@@ -41,6 +41,7 @@ namespace TravelAgency.Web
             builder.Services.AddApplicationServices(typeof(IHotelService));
 
             builder.Services.AddMemoryCache();
+            builder.Services.AddResponseCaching();
 
             builder.Services.ConfigureApplicationCookie(cfg =>
             {
@@ -74,6 +75,8 @@ namespace TravelAgency.Web
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseResponseCaching();
 
             app.UseAuthentication();
             app.UseAuthorization();
