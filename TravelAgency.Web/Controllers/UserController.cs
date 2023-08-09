@@ -8,9 +8,11 @@ using Infrastructure.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Caching.Memory;
 using ViewModels.User;
 
 using static Common.NotificationMessagesConstants;
+using static Common.GeneralApplicationConstants;
 
 [Authorize]
 public class UserController : Controller
@@ -18,12 +20,15 @@ public class UserController : Controller
     private readonly SignInManager<ApplicationUser> signInManager;
     private readonly UserManager<ApplicationUser> userManager;
     private readonly IUserService userService;
+    private readonly IMemoryCache memoryCache;
 
-    public UserController(IUserService userService, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+    public UserController(IUserService userService, SignInManager<ApplicationUser> signInManager, 
+        UserManager<ApplicationUser> userManager, IMemoryCache memoryCache)
     {
         this.signInManager = signInManager;
         this.userManager = userManager;
         this.userService = userService;
+        this.memoryCache = memoryCache;
     }
 
 
@@ -67,6 +72,8 @@ public class UserController : Controller
         }
 
         await this.signInManager.SignInAsync(user, false);
+        this.memoryCache.Remove(UserCacheKey);
+
         return this.RedirectToAction("Index", "Home");
     }
     

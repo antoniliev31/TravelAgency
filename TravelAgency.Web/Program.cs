@@ -40,6 +40,8 @@ namespace TravelAgency.Web
 
             builder.Services.AddApplicationServices(typeof(IHotelService));
 
+            builder.Services.AddMemoryCache();
+
             builder.Services.ConfigureApplicationCookie(cfg =>
             {
                 cfg.LoginPath = "/User/Login";

@@ -1,0 +1,25 @@
+﻿@model IEnumerable<ReservationViewModel>  
+@{ 
+    ViewBag.Title = "All Reservations"; 
+} 
+ 
+<h2 class="text-center">@ViewBag.Title</h2> 
+<hr /> 
+ 
+<div class="row"> 
+    @foreach (var hotel in Model) 
+    { 
+        <div class="card mb-3 col-4"> 
+            <img class="card-img-top" src="@hotel.ImageUrl" alt="House Image"> 
+            <div class="card-body text-center"> 
+                <h4>@hotel.Title</h4>
+                <h6>
+                    Резервирал: <b>@hotel.UserFullName (@hotel.UserEmail)</b> Телефон: <b>@hotel.UserPhoneNumber</b></h6>
+                <h6>Дата на настаняване: <b>@hotel.AccommodationDate.ToString("yyyy-MM-dd")</b></h6>
+                <h6>Дата на напускане: <b>@hotel.DepartureDate.ToString("yyyy-MM-dd")</b></h6>
+                <h6>Брой нощувки: <b>@hotel.Days</b></h6>
+                <h6>Цена: <b>@hotel.TotalPrice</b></h6>
+            </div> 
+        </div> 
+    } 
+</div>
