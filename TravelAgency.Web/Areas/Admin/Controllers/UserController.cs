@@ -22,20 +22,20 @@
         [ResponseCache(Duration = 30, Location = ResponseCacheLocation.Client, NoStore = false)]
         public async Task<IActionResult> AllUsers()
         {
-            IEnumerable<UserViewModel> users =
-                this.memoryCache.Get<IEnumerable<UserViewModel>>(UserCacheKey);
+            var users = await this.userService.AllUserAsync();
+            //var users = this.memoryCache.Get<IEnumerable<UserViewModel>>(UserCacheKey);
 
-            if (users == null)
-            {
-                users = await this.userService.AllUserAsync();
+            //if (users == null)
+            //{
+            //    users = await this.userService.AllUserAsync();
 
-                MemoryCacheEntryOptions cacheOptions = new MemoryCacheEntryOptions()
-                    .SetAbsoluteExpiration(TimeSpan.FromMinutes(UsersCacheDurationMinutes));
+            //    MemoryCacheEntryOptions cacheOptions = new MemoryCacheEntryOptions()
+            //        .SetAbsoluteExpiration(TimeSpan.FromMinutes(UsersCacheDurationMinutes));
 
-                this.memoryCache.Set(UserCacheKey, users, cacheOptions);
-            }
+            //    this.memoryCache.Set(UserCacheKey, users, cacheOptions);
+            //}
 
-            return View(users);
+            return this.View(users);
         }
     }
 }
