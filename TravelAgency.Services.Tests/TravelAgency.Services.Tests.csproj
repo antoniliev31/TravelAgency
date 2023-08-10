@@ -19,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TravelAgency.Common\TravelAgency.Common.csproj" />
     <ProjectReference Include="..\TravelAgency.Data.Models\TravelAgency.Data.Models.csproj" />
     <ProjectReference Include="..\TravelAgency.Data\TravelAgency.Data.csproj" />
     <ProjectReference Include="..\TravelAgency.Services.Data.Models\TravelAgency.Services.Data.Models.csproj" />

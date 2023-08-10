@@ -34,7 +34,7 @@
         {
             ApplicationUser? user = await this.dbContext
                 .ApplicationUsers
-                .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
+                .FirstOrDefaultAsync(u => u.Id.ToString().ToLower() == userId.ToLower());
 
             if (user == null)
             {
@@ -68,7 +68,7 @@
         {
             var allOrders = await this.dbContext
                 .Orders
-                .Where(o => o.UserId.ToString() == id)
+                .Where(o => o.UserId.ToString().ToUpper() == id.ToUpper())
                 .Select(r => new UserAllReservationViewModel
                 {
                     Id = 0,

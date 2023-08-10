@@ -23,14 +23,7 @@
                 .WithMany(c => c.HotelsInThisLocation)
                 .HasForeignKey(h => h.LocationId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-
-            //builder
-            //    .HasOne(h => h.Agent)
-            //    .WithMany(a => a.OwnedHotel)
-            //    .HasForeignKey(h => h.AgentId)
-            //    .OnDelete(DeleteBehavior.Restrict);
-
+            
 
             builder.HasData(this.GenerateHotels());
         }
@@ -51,7 +44,6 @@
                 Star = 4,
                 DoubleRoomPrice = 100,
                 StudioRoomPrice = 150,
-                //AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                 IsActive = true
             };
 
@@ -68,7 +60,6 @@
                 Star = 3,
                 DoubleRoomPrice = 120,
                 StudioRoomPrice = 150,
-                //AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                 IsActive = true
             };
 
@@ -86,7 +77,6 @@
                 Star = 3,
                 DoubleRoomPrice = 120,
                 ApartmentRoomPrice = 200,
-                //AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                 IsActive = true
             };
 
@@ -102,7 +92,6 @@
                 CateringTypeId = 2,
                 Star = 4,
                 DoubleRoomPrice = 120,
-                //AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                 IsActive = true
             };
 
@@ -118,7 +107,6 @@
                 CateringTypeId = 2,
                 Star = 4,
                 DoubleRoomPrice = 170,
-                //AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                 IsActive = true
             };
 
@@ -134,7 +122,6 @@
                 CateringTypeId = 4,
                 Star = 4,
                 DoubleRoomPrice = 200,
-                //AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                 IsActive = true
             };
 
@@ -150,7 +137,6 @@
                 CateringTypeId = 1,
                 Star = 3,
                 DoubleRoomPrice = 100,
-                //AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                 IsActive = true
             };
 
@@ -166,7 +152,6 @@
                 CateringTypeId = 3,
                 Star = 3,
                 DoubleRoomPrice = 160,
-                //AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                 IsActive = true
             };
 
@@ -182,7 +167,6 @@
                 CateringTypeId = 3,
                 Star = 3,
                 DoubleRoomPrice = 130,
-                //AgentId = Guid.Parse("0174683e-a3fd-4f3c-a2b7-3c3792dad867"),
                 IsActive = true
             };
 
