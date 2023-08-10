@@ -1,24 +1,70 @@
-﻿@{ 
-    ViewData["Title"] = "Home Page"; 
-} 
- 
-<div class="mt-4 p-5 bg-light text-center"> 
-    <h2 class="display-4">Hello, Admin!</h2> 
-    <p class="lead mb-1 mt-3"> 
-        This is your administrator area - you can <b>read</b>, <b>create</b>, 
-        <b>delete</b> and <b>edit</b> hotels. 
-        <br />You can <b>rent</b> and <b>leave</b> the free ones, too! 
-    </p> 
-    <p class="lead mt-1"> 
-        You can also see <b>all users and agents</b> and <b>all rents</b> in the system.     </p> 
-    <hr class="my-4"> 
-    <a asp-area="" asp-controller="Hotel" asp-action="All" class="btn btn-primary btn-lg">All Hotels</a>     
+﻿@using TravelAgency.Services.Data
+@using Microsoft.AspNetCore.Identity
+@using TravelAgency.Data.Models
+@using TravelAgency.Services.Data.Interfaces
+@inject UserManager<ApplicationUser> UserManager
+@inject IUserService UserService
+@{
+    ViewData["Title"] = "Home Page";
+    string userFullName = await UserService.GetFullNameByEmailAsync(this.User.Identity?.Name!);
+}
+
+<div class="mt-4 p-5 bg-light text-center">
+    <h2 class="display-4">Hello, @userFullName</h2>
+    <p class="lead mb-1 mt-3">
+        <div class="container mt-5">
+            <h2>Welcome to your administrator dashboard for hotel management!</h2>
+            <p>
+                Here, you have the power to efficiently oversee and control your hotel listings, ensuring a seamless experience for your users. You can perform a range of essential tasks:
+            </p>
+
+            <h3>Hotel Management:</h3>
+            <ul>
+                <strong>Read hotel details</strong>, including their title, location, category, catering type, star rating, and prices for different room types.
+                <strong>Create new hotels</strong>, adding images and comprehensive descriptions.
+                <strong>Edit existing hotel information</strong>, allowing you to keep your listings up to date.
+                <strong>Delete hotels</strong> when needed, maintaining a clean and relevant database.
+                <strong>Monitor available and reserved rooms</strong> to manage occupancy effectively.
+            </ul>
+
+            <h3>User Management:</h3>
+            <ul>
+                <strong>View all users and agents</strong> registered on the platform.
+                <strong>Understand user behavior and preferences</strong> to enhance your services.
+                <strong>Ensure seamless user experiences</strong> by overseeing user accounts.
+            </ul>
+
+            <h3>Reservation Monitoring:</h3>
+            <ul>
+                <strong>Keep track of all reservations</strong> made within the system.
+                <strong>Manage reservations</strong>, ensuring that no booking conflicts arise.
+                <strong>Monitor reservations</strong> to optimize occupancy and revenue.
+            </ul>
+
+            <p>
+                Your role as an administrator is crucial in maintaining the quality of service for both hotel owners and guests. If you ever need assistance or have questions, our support team is here to help.
+            </p>
+
+            <p>
+                Remember, this dashboard empowers you to maintain a thriving hotel platform, so guests can find the perfect accommodations while hotel owners can showcase their properties efficiently. It's all about creating a harmonious travel experience for everyone!
+            </p>
+
+            <p>
+                Thank you for your dedication to providing excellent hospitality services through our platform. Happy managing!
+            </p>
+        </div>
+
+
+    </p>
+    <p class="lead mt-1">
+        You can also see <b>all users and agents</b> and <b>all rents</b> in the system.
+    </p>
+    <hr class="my-4">
+    <a asp-area="" asp-controller="Hotel" asp-action="All" class="btn btn-primary btn-lg">All Hotels</a>
     <span>  |   </span>
-    <a asp-area="" asp-controller="Hotel" asp-action="Add"        class="btn btn-primary btn-lg">Add Hotel</a> 
-    <span>  |   </span> 
-    <a asp-area="Admin" asp-controller="Hotel" asp-action="Mine" class="btn btn-primary btn-lg">My Houses</a> 
-    <span>  |   </span> 
-    <a asp-area="Admin" asp-controller="Reservation" asp-action="All" class="btn btn-primary btn-lg">All Rents</a> 
+    <a asp-area="" asp-controller="Hotel" asp-action="Add" class="btn btn-primary btn-lg">Add Hotel</a>
     <span>  |   </span>
-    <a asp-area="Admin" asp-controller="User" asp-action="AllUsers" class="btn btn-primary btn-lg">All Users</a> 
+    <a asp-area="Admin" asp-controller="Reservation" asp-action="All" class="btn btn-primary btn-lg">All Rents</a>
+    <span>  |   </span>
+    <a asp-area="Admin" asp-controller="User" asp-action="AllUsers" class="btn btn-primary btn-lg">All Reservations</a>
 </div>
