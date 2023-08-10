@@ -7,7 +7,10 @@
     {
         public static ApplicationUser AdminUser;
         public static ApplicationUser User;
-        
+        public static Image Image;
+        public static Hotel Hotel;
+        public static WishList Wish;
+
         public static void SeedDatabase(TravelAgencyDbContext dbContext)
         {
             AdminUser = new ApplicationUser
@@ -61,7 +64,47 @@
             dbContext.ApplicationUsers.Add(User);
             dbContext.ApplicationUsers.Add(AdminUser);
 
-            //dbContext.SaveChanges();
+
+            Hotel = new Hotel
+            {
+                Id = 1,
+                Title = "Test",
+                Description = "Test",
+                Star = 1,
+                DoubleRoomPrice = 100,
+                StudioRoomPrice = 150,
+                ApartmentRoomPrice = 200,
+                IsActive = true,
+                LocationId = 1,
+                CategoryId = 1,
+                CateringTypeId = 1,
+                Posts = null,
+                WishLists = null,
+                OrderLists = null,
+                Images = null,
+                RoomTypes = null
+            };
+
+            dbContext.Hotels.Add(Hotel);
+
+            Image = new Image
+            {
+                Id = 999,
+                ImageUrl = "test",
+                IsMain = true,
+                HotelId = 1,
+
+            };
+
+            dbContext.Images.Add(Image);
+
+            Wish = new WishList
+            {
+                UserId = Guid.Parse("949A14ED-2E82-4F5A-A684-A9C7E3CCB52E"),
+                HotelId = 1,
+            };
         }
+
+        
     }
 }

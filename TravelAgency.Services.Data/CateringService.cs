@@ -38,10 +38,6 @@
 
             return result;
         }
-
-        public Task<IEnumerable<string>> AllCateringTypesNameAsync()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

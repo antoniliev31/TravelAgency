@@ -6,10 +6,9 @@
     using TravelAgency.Data;
     using TravelAgency.Data.Models;
     using Web.ViewModels.User;
-
+    
     public class UserService : IUserService
     {
-
         private readonly TravelAgencyDbContext dbContext;
 
         public UserService(TravelAgencyDbContext dbContext)

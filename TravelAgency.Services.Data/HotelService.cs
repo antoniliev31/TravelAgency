@@ -161,7 +161,7 @@
 
         public async Task<IEnumerable<HotelAllViewModel>> AllWishHotelByUserAsync(string userId)
         {
-            IEnumerable<HotelAllViewModel> allWishHotelByAgent = await this.dbContext
+            IEnumerable<HotelAllViewModel> allWishHotelByUser = await this.dbContext
                 .WishLists
                 .Where(h => h.Hotel.IsActive)
                 .Where(h => h.UserId == Guid.Parse(userId))
@@ -180,7 +180,7 @@
                 })
                 .ToArrayAsync();
 
-            return allWishHotelByAgent;
+            return allWishHotelByUser;
         }
 
         public async Task<IEnumerable<HotelAllViewModel>> AllOrderHotelByUserAsync(string userId)
@@ -214,7 +214,6 @@
                 .Include(h => h.Category)
                 .Include(h => h.Location)
                 .Include(h => h.CateringType)
-                //.ThenInclude(a => a.User)
                 .Include(h => h.Posts)
                 .Include(h => h.Images)
                 .Include(h => h.WishLists)

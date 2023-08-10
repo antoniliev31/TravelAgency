@@ -8,7 +8,6 @@
         Task<IEnumerable<HotelSelectRoomFormModel>> AllRoomTypeAsync();
 
         Task<bool> ExistByIdAsync(int id);
-
-        Task<IEnumerable<string>> AllRoomTypesNameAsync();
+        
     }
 }

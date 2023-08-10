@@ -37,10 +37,6 @@
 
             return result;
         }
-
-        public Task<IEnumerable<string>> AllRoomTypesNameAsync()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

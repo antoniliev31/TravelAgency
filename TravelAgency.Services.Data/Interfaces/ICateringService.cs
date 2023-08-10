@@ -7,7 +7,6 @@
         Task<IEnumerable<HotelSelectCateringFormModel>> AllCateringTypesAsync();
 
         Task<bool> ExistByIdAsync(int id);
-
-        Task<IEnumerable<string>> AllCateringTypesNameAsync();
+        
     }
 }

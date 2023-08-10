@@ -1,15 +1,11 @@
 ﻿namespace TravelAgency.Services.Data
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
     using Interfaces;
     using Microsoft.EntityFrameworkCore;
     using TravelAgency.Data;
     using TravelAgency.Data.Models;
-    using Web.ViewModels.WishList;
 
     public class WishService : IWishService
     {
