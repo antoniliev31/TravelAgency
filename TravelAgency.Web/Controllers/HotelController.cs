@@ -444,7 +444,6 @@
 
                 this.memoryCache.Remove(ReservationsCacheKey);
 
-
                 return RedirectToAction("Order", "User");
             }
             catch (Exception)

@@ -442,24 +442,26 @@
         
         public async Task AddReservation(int id, HotelForReservationViewModel viewModel, string userId)
         {
-            // Изчисляваме броя нощувки
+            
             TimeSpan timeSpan = viewModel.DepartureDate - viewModel.AccommodationDate;
             int days = (int)timeSpan.TotalDays;
-
-            // Изчисляваме общата цена
-            Decimal totalPrice = 0;
+            
+            Decimal roomPrice = 0;
             if (viewModel.SelectedRoomType == "DoubleRoom")
             {
-                totalPrice = viewModel.DoubleRoomPrice * days;
+                roomPrice = viewModel.DoubleRoomPrice;
             }
             else if (viewModel.SelectedRoomType == "Studio")
             {
-                totalPrice = viewModel.StudioPrice * days;
+                roomPrice = viewModel.StudioPrice;
             }
             else if (viewModel.SelectedRoomType == "Apartment")
             {
-                totalPrice = viewModel.ApartmentPrice * days;
+                roomPrice = viewModel.ApartmentPrice;
             }
+
+            
+            Decimal totalPrice = roomPrice * days;
 
             Order order = new Order
             {
@@ -469,9 +471,7 @@
                 АccommodationDate = viewModel.AccommodationDate,
                 DepartureDate = viewModel.DepartureDate,
                 Days = days,
-                Price = viewModel.SelectedRoomType == "Double" ? viewModel.DoubleRoomPrice :
-                    viewModel.SelectedRoomType == "Studio" ? viewModel.StudioPrice :
-                    viewModel.SelectedRoomType == "Apartment" ? viewModel.ApartmentPrice : 0,
+                Price = roomPrice,
                 TotalPrice = totalPrice
             };
 

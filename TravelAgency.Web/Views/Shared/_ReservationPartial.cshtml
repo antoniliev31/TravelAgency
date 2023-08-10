@@ -24,14 +24,6 @@
             <br />
             <a asp-controller="Hotel" asp-action="Details" asp-route-id="@Model.HotelId" class="btn btn-success">Виж повече</a>
             <p></p>
-            @*@if (this.User.Identity?.IsAuthenticated ?? false)
-            {
-                <form class="input-group-sm" asp-controller="Reservation" asp-action="Delete" asp-route-id="@Model.Id" method="post">
-                    <input class="btn btn-danger" type="submit" value="Изтрий резервация" />
-                </form>
-                <p></p>
-                <a asp-controller="Reservation" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Редактирай резервация</a>
-            }*@
         </div>
     </div>
 </div>

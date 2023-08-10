@@ -1,46 +1,77 @@
 ﻿@model IEnumerable<ReservationViewModel>
-@{ 
-    ViewBag.Title = "All Reservations"; 
-} 
+@{
+    ViewBag.Title = "All Reservations";
+}
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>Хотел</th>
-        <th>Резервации</th>
-        <th>Оборот</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var hotel in Model.GroupBy(r => r.Title))
-    {
-        <tr>
-            <td>@hotel.Key</td>
-            <td>
-                @foreach (var reservation in hotel)
-                {
-                    var isPast = DateTime.Now > reservation.DepartureDate;
-                    <p>
-                        @reservation.UserFullName (@reservation.UserEmail)
-                        Телефон: @reservation.UserPhoneNumber
-                        Дата на настаняване: @reservation.AccommodationDate.ToString("yyyy-MM-dd")
-                        Дата на напускане: @reservation.DepartureDate.ToString("yyyy-MM-dd")
-                        Брой нощувки: @reservation.Days
-                        Цена: @reservation.Price
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Хотел</th>
+                <th>Снимка</th>
+                <th>Име</th>
+                <th>E-mail</th>
+                <th>Телефон</th>
+                <th>Дата на настаняване</th>
+                <th>Дата на напускане</th>
+                <th>Брой нощувки</th>
+                <th>Цена</th>
+                <th>Състояние</th>
+                <th>Оборот</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var hotelGroup in Model.GroupBy(r => r.Title))
+            {
+                var firstReservation = hotelGroup.First();
+                var isPast = DateTime.Now > firstReservation.DepartureDate;
+
+                <tr>
+                    <td>@firstReservation.Title</td>
+                    <td><img src="@firstReservation.ImageUrl" alt="Hotel Image" class="img-thumbnail" style="max-width: 100px;" /></td>
+                    <td>@firstReservation.UserFullName</td>
+                    <td>@firstReservation.UserEmail</td>
+                    <td>@firstReservation.UserPhoneNumber</td>
+                    <td>@firstReservation.AccommodationDate.ToString("yyyy-MM-dd")</td>
+                    <td>@firstReservation.DepartureDate.ToString("yyyy-MM-dd")</td>
+                    <td>@firstReservation.Days</td>
+                    <td>@firstReservation.Price</td>
+                    <td>
                         @if (isPast)
                         {
                             <span class="text-danger">Минала резервация</span>
                         }
-                    </p>
+                    </td>
+                    <td rowspan="@hotelGroup.Count()">
+                        @hotelGroup.Sum(r => r.TotalPrice)
+                    </td>
+                </tr>
+
+                @foreach (var reservation in hotelGroup.Skip(1))
+                {
+                    isPast = DateTime.Now > reservation.DepartureDate;
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>@reservation.UserFullName</td>
+                        <td>@reservation.UserEmail</td>
+                        <td>@reservation.UserPhoneNumber</td>
+                        <td>@reservation.AccommodationDate.ToString("yyyy-MM-dd")</td>
+                        <td>@reservation.DepartureDate.ToString("yyyy-MM-dd")</td>
+                        <td>@reservation.Days</td>
+                        <td>@reservation.Price</td>
+                        <td>
+                            @if (isPast)
+                            {
+                                <span class="text-danger">Минала резервация</span>
+                            }
+                        </td>
+                    </tr>
                 }
-            </td>
-            <td>
-                @hotel.Sum(r => r.TotalPrice)
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>
+            }
+        </tbody>
+    </table>
+</div>
