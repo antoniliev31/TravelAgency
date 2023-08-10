@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <partial name="_NotificationsPartial"/>
+<partial name="_NotificationsPartial"/>
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
@@ -28,16 +28,16 @@
             </button>
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Hotel" asp-action="All">Всички хотели</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark btn" asp-area="" asp-controller="Hotel" asp-action="All"><i class="fas fa-hotel"></i> Всички хотели</a>
+                        </li>
                     @if (this.User.Identity?.IsAuthenticated ?? false)
                     {
                         if (this.User.IsAdmin())
                         {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Hotel" asp-action="Add">Добави хотел</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Hotel" asp-action="Add">Добави хотел</a>
+                            </li>
                         }
                     }
                 </ul>
@@ -66,3 +66,18 @@
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<style>
+    .btn {
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+        .btn:hover {
+            background-color: #eaf4fe; 
+            color: white;
+        }
+
+        .btn:active {
+            background-color: #1d2124; 
+        }
+</style>

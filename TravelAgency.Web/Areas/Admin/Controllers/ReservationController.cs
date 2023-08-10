@@ -23,17 +23,19 @@
         [ResponseCache(Duration = 120, Location = ResponseCacheLocation.Client, NoStore = false)]
         public async Task<IActionResult> All()
         {
-            IEnumerable<ReservationViewModel> allReservation =
-                this.memoryCache.Get<IEnumerable<ReservationViewModel>>(ReservationsCacheKey);
-            if (allReservation == null)
-            {
-                allReservation = await this.reservationService.AllAsync();
+            var allReservation = await this.reservationService.AllAsync();
 
-                MemoryCacheEntryOptions cacheOptions = new MemoryCacheEntryOptions()
-                    .SetAbsoluteExpiration(TimeSpan.FromMinutes(ReservationCacheDurationMinutes));
+            //IEnumerable<ReservationViewModel> allReservation =
+            //    this.memoryCache.Get<IEnumerable<ReservationViewModel>>(ReservationsCacheKey);
+            //if (allReservation == null)
+            //{
+            //    allReservation = await this.reservationService.AllAsync();
 
-                this.memoryCache.Set(UserCacheKey, allReservation, cacheOptions);
-            }
+            //    MemoryCacheEntryOptions cacheOptions = new MemoryCacheEntryOptions()
+            //        .SetAbsoluteExpiration(TimeSpan.FromMinutes(ReservationCacheDurationMinutes));
+
+            //    this.memoryCache.Set(UserCacheKey, allReservation, cacheOptions);
+            //}
             
             return this.View(allReservation);
         }
