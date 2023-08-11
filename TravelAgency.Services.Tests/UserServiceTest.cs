@@ -4,55 +4,90 @@ namespace TravelAgency.Services.Tests
     using Data.Interfaces;
     using Microsoft.EntityFrameworkCore;
     using TravelAgency.Data;
+    using TravelAgency.Data.Models;
     using Web.ViewModels.User;
-    using static DatabaseSeeder;
+    using Xunit;
 
+    [TestFixture]
     public class UserServiceTest
     {
         private DbContextOptions<TravelAgencyDbContext> dbOptions;
         private TravelAgencyDbContext dbContext;
         
         private IUserService userService;
-        
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
+        private readonly string testUserId = "949A14ED-2E82-4F5A-A684-A9C7E3CCB52E";
+        private readonly string testUserFullName = "Test Test";
+        private readonly string username = "test@test.com";
+        private readonly string email = "test@test.com";
+        private readonly string firstName = "Test";
+        private readonly string lastName = "Test";
+
+        [SetUp]
+        public async Task Setup()
         {
-            this.dbOptions = new DbContextOptionsBuilder<TravelAgencyDbContext>()
-                .UseInMemoryDatabase("TravelAgencyInMemory" + Guid.NewGuid().ToString())
+            var user = new ApplicationUser
+            {
+                Id = Guid.Parse(testUserId),
+                UserName = username,
+                NormalizedUserName = "TEST@TEST.COM",
+                Email = email,
+                NormalizedEmail = "TEST@TEST.com",
+                EmailConfirmed = true,
+                PasswordHash = "AQAAAAEAACcQAAAAEHmiB5uR1oqD9I2hfuUggkf2QC4GYTpvzI4iqY7pqZfLT+cmafn6btCBoSsDTCZX6g==",
+                SecurityStamp = "d6cd7a62-b808-4f84-9da3-e24b9be6edfb",
+                ConcurrencyStamp = "9d289e8b-75c6-485c-9fed-0de2511d9ee4",
+                PhoneNumber = "+359888888888",
+                PhoneNumberConfirmed = false,
+                TwoFactorEnabled = false,
+                LockoutEnd = null,
+                LockoutEnabled = false,
+                AccessFailedCount = 0,
+                FirstName = firstName,
+                LastName = lastName,
+                MyWishLists = null,
+                MyOrders = null,
+                MyPosts = null
+            };
+
+            var options = new DbContextOptionsBuilder<TravelAgencyDbContext>()
+                .UseInMemoryDatabase(databaseName: "TravelAgencyInMemory")
                 .Options;
-            this.dbContext = new TravelAgencyDbContext(this.dbOptions);
+            dbContext = new TravelAgencyDbContext(options);
 
-            dbContext.Database.EnsureCreated();
+            await dbContext.Database.EnsureDeletedAsync();
 
-            SeedDatabase(this.dbContext);
+            await dbContext.Users.AddAsync(user);
 
-            this.userService = new UserService(this.dbContext);
+            var count = dbContext.Users.Count();
+            
+            await dbContext.SaveChangesAsync();
+
+            userService = new UserService(this.dbContext);
+
         }
         
 
         [Test]
         public async Task GetFullNameByEmailAsync()
         {
-            
-            string userFullName = User.FirstName + " " + User.LastName;
-            
-            string userEmail = User.Email;
+            string userFullName = testUserFullName;
+            string userEmail = email;
 
             string result = await this.userService.GetFullNameByEmailAsync(userEmail);
 
-            Assert.AreEqual(userFullName, result);
+            Assert.Equal(testUserFullName, result);
         }
 
         [Test]
         public async Task GetFullNameByIdAsync()
         {
-            string userId = "6D5800CE-D726-4FC8-83D9-D6B3AC1F591E";
+            string userId = testUserId;
 
-            string userFullName = "Georgi Georgiev";
+            string userFullName = testUserFullName;
 
             string result = await this.userService.GetFullNameByIdAsync(userId);
             
-            Assert.AreEqual(userFullName, result);
+            Assert.Equal(userFullName, result);
         }
 
         [Test]
@@ -62,19 +97,19 @@ namespace TravelAgency.Services.Tests
 
             int count = result.Count();
 
-            Assert.AreEqual(2, count);
+            Assert.Equal(1, count);
         }
 
         [Test]
         public async Task AllUserReservationAsync()
         {
-            string userId = Guid.Parse("6D5800CE-D726-4FC8-83D9-D6B3AC1F591E").ToString();
+            string userId = testUserId;
 
             var allReservations = await this.userService.AllUserReservationAsync(userId);
 
             int count = allReservations.Count();
 
-            Assert.AreEqual(0, count);
+            Assert.Equal(0, count);
         }
     }
 }
