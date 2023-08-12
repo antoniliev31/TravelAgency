@@ -5,5 +5,10 @@
     public interface IReservationService
     {
         Task<IEnumerable<ReservationViewModel>> AllAsync();
+
+        Task CancelReservationAsync(int reservationId);
+
+        Task<bool> ReservationExistById(int id);
+
     }
 }

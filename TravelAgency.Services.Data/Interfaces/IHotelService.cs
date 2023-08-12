@@ -29,6 +29,8 @@
         Task<HotelForReservationViewModel> GetHotelForReservationByAdAsync(int hotelId);
 
         Task AddReservation(int id, HotelForReservationViewModel viewModel, string userId);
+
+        public Task<IEnumerable<HotelAllViewModel>> AllWishHotelByUserAsync(string userId);
     }
 
 }

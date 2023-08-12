@@ -239,7 +239,7 @@
         [Test]
         public async Task LocationExistByNameAsync()
         {
-            var isExist = await locationService.LocationExistByNameAsync("Созопол");
+            var isExist = await locationService.LocationExistByNameAsync("TestCity1");
 
             Assert.IsTrue(isExist);
         }
@@ -247,7 +247,7 @@
         [Test]
         public async Task GetLocationId()
         {
-            int locationId = await locationService.GetLocationId("Созопол");
+            int locationId = await locationService.GetLocationId("TestCity1");
 
             Assert.NotZero(locationId);
         }

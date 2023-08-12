@@ -23,6 +23,14 @@
             <h6>Общо за плащане: <b>@($"{Model.TotalPrice:f2}") ЛВ.</b></h6>
             <br />
             <a asp-controller="Hotel" asp-action="Details" asp-route-id="@Model.HotelId" class="btn btn-success">Виж повече</a>
+            @if (Model.AccommodationDate <= DateTime.Now)
+            {
+                <a asp-controller="Hotel" asp-action="Cancel" asp-route-id="@Model.Id" class="btn btn-danger">Откажи</a>
+            }
+            else
+            {
+                <button class="btn btn-secondary" disabled>Изтекла</button>
+            }
             <p></p>
         </div>
     </div>

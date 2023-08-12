@@ -70,7 +70,7 @@
                 .Where(o => o.UserId.ToString().ToUpper() == id.ToUpper())
                 .Select(r => new UserAllReservationViewModel
                 {
-                    Id = 0,
+                    Id = r.Id,
                     Title = r.Hotel.Title,
                     ImageUrl = r.Hotel.Images.FirstOrDefault(i => i.IsMain)!.ImageUrl ?? r.Hotel.Images.FirstOrDefault()!.ImageUrl,
                     Location = r.Hotel.Location.Name,

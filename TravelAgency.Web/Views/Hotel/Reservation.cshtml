@@ -28,11 +28,11 @@
 
                 <div class="form-group">
                     <label asp-for="Location" class="control-label"></label>
-                    <input asp-for="Location" class="form-control" disabled="disabled"/>
+                    <input asp-for="Location" class="form-control" disabled="disabled" />
                 </div>
                 <div class="form-group">
                     <label asp-for="CateringType" class="control-label"></label>
-                    <input asp-for="CateringType" class="form-control" disabled="disabled"/>
+                    <input asp-for="CateringType" class="form-control" disabled="disabled" />
                 </div>
             </div>
             <div class="col-md-6">
@@ -40,7 +40,7 @@
                     @if (Model.DoubleRoomPrice > 0 || Model.StudioPrice > 0 || Model.ApartmentPrice > 0)
                     {
                         @if (Model.DoubleRoomPrice > 0 && (Model.StudioPrice > 0 || Model.ApartmentPrice > 0) ||
-                             Model.StudioPrice > 0 && Model.ApartmentPrice > 0)
+                       Model.StudioPrice > 0 && Model.ApartmentPrice > 0)
                         {
                             <span>Моля изберете вида на помещението:</span>
                         }
@@ -49,7 +49,7 @@
                             <span>Ние предлагаме:</span>
                         }
                     }
-                    <hr class="text-black"/>
+                    <hr class="text-black" />
                 </div>
                 <div class="form-check">
                     @if (Model.DoubleRoomPrice > 0)
@@ -58,7 +58,7 @@
                         <label class="form-check-label" for="doubleRoomCheckbox">Двойна стая: @Model.DoubleRoomPrice лв.</label>
                     }
                 </div>
-                
+
                 <input type="hidden" name="DoubleRoomPrice" value="@Model.DoubleRoomPrice" />
                 <div class="form-check">
                     @if (Model.StudioPrice > 0)
@@ -67,7 +67,7 @@
                         <label class="form-check-label" for="studioCheckbox">Студио: @Model.StudioPrice лв.</label>
                     }
                 </div>
-                
+
                 <input type="hidden" name="StudioPrice" value="@Model.StudioPrice" />
                 <div class="form-check">
                     @if (Model.ApartmentPrice > 0)
@@ -76,9 +76,9 @@
                         <label class="form-check-label" for="apartmentCheckbox">Апартамент: @Model.ApartmentPrice лв.</label>
                     }
                 </div>
-                
+
                 <input type="hidden" name="ApartmentPrice" value="@Model.ApartmentPrice" />
-                <hr/>
+                <hr />
 
                 <div class="modal-title">
                     <label asp-for="@Model.AccommodationDate"></label>
@@ -102,11 +102,11 @@
                     <input id="totalAmount" class="form-control" readonly name="TotalPrice">
                 </div>
 
-                <hr/>
+                <hr />
 
                 @{
                     bool hasRoomTypeSelected = true;
-                    
+
                     if (Model.DoubleRoomPrice > 0)
                     {
                         hasRoomTypeSelected = true;
@@ -129,10 +129,10 @@
                 <input type="hidden" id="SelectedRoomTypeHidden" name="SelectedRoomType" value="">
                 <input type="hidden" id="AccommodationDateHidden" name="AccommodationDate" value="">
                 <input type="hidden" id="DepartureDateHidden" name="DepartureDate" value="">
-                
+
 
                 <div class="form-group mt-2">
-                    <input class="btn btn-primary mt-3" type="submit" value="Резервирай"/>
+                    <input class="btn btn-primary mt-3" type="submit" value="Резервирай" />
                 </div>
 
             </div>
@@ -245,23 +245,7 @@
                 // Маркираме избраната опция
                 $(this).find(':selected').prop('selected', true);
             });
-
-            // Проверка дали е избрана поне една възможност за настаняване
-            function checkRoomTypeSelected() {
-                var selectedRoomType = $('input[name="SelectedRoomType"]:checked').val();
-                if (!selectedRoomType) {
-                    $('.text-danger-roomtype').text('Моля, изберете поне една възможност за настаняване.');
-                    return false;
-                } else {
-                    $('.text-danger-roomtype').text('');
-                    return true;
-                }
-            }
-
-            // При подаване на формата, проверяваме дали е избрана поне една възможност
-            $('form').submit(function () {
-                return checkRoomTypeSelected();
-            });
+                       
 
             // Функция за съхранение на избраните стойности при промяна на полетата
             function saveSelectedValues() {
@@ -287,7 +271,7 @@
             // При подаване на формата, предаваме съхранените стойности към сървъра
             $('form').submit(function () {
                 saveSelectedValues();
-                return true; // Позволява на формата да се изпрати към сървъра
+                return true;
             });
 
 

@@ -3,7 +3,9 @@
     using Interfaces;
     using Microsoft.EntityFrameworkCore;
     using TravelAgency.Data;
+    using TravelAgency.Data.Models;
     using Web.ViewModels.Reservation;
+    using static TravelAgency.Common.EntityValidationConstants;
 
     public class ReservationService : IReservationService
     {
@@ -37,6 +39,24 @@
                 .ToListAsync();
 
             return allReservation;
+        }
+
+        public async Task CancelReservationAsync(int reservationId)
+        {
+            Order order = (await this.dbContext.Orders
+                .FirstOrDefaultAsync(o => o.Id == reservationId))!;
+
+            this.dbContext.Orders.Remove(order);
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<bool> ReservationExistById(int id)
+        {
+            bool result = await this.dbContext
+            .Orders
+                .AnyAsync(a => a.Id == id);
+
+            return result;
         }
     }
 }

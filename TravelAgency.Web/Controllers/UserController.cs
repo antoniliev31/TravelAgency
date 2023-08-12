@@ -129,4 +129,18 @@ public class UserController : Controller
 
         return this.View(myOredr);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> MyWish()
+    {
+        List<UserAllReservationViewModel> myOredr = new List<UserAllReservationViewModel>();
+
+        string userId = this.User.GetId()!;
+
+
+        myOredr.AddRange(await this.userService.AllUserReservationAsync(userId!));
+
+
+        return this.View(myOredr);
+    }
 }

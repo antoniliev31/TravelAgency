@@ -6,6 +6,8 @@
     using Microsoft.EntityFrameworkCore;
     using TravelAgency.Data;
     using TravelAgency.Data.Models;
+    using Web.ViewModels.User;
+    using static TravelAgency.Common.EntityValidationConstants;
 
     public class WishService : IWishService
     {
@@ -31,7 +33,7 @@
         public async Task RemoveHotelFromWishListAsync(int hotelId, string userId)
         {
             WishList? wish = await this.dbContext.WishLists
-                .FirstOrDefaultAsync(w => w.HotelId == hotelId && w.UserId.ToString() == userId);
+                .FirstOrDefaultAsync(w => w.HotelId == hotelId && w.UserId.ToString().ToLower() == userId.ToLower());
 
             if (wish != null)
             {
@@ -45,6 +47,9 @@
             return await this.dbContext.WishLists
                 .AnyAsync(w => w.HotelId == hotelId && w.UserId.ToString().ToLower() == userId.ToLower());
         }
+        
+
+        
 
     }
 }

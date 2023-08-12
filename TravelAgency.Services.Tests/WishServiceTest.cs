@@ -5,7 +5,7 @@
     using Microsoft.EntityFrameworkCore;
     using TravelAgency.Data;
     using TravelAgency.Data.Models;
-    
+
 
     public class WishServiceTest
     {
@@ -240,9 +240,9 @@
         public async Task AddHotelToWishListAsync_ShouldAddHotelToWishList()
         {
             int hotelId = 1;
-            
+
             await wishService.AddHotelToWishListAsync(hotelId, userId);
-            
+
             var isInWishList = await wishService.IsHotelInWishListAsync(hotelId, userId);
 
             Assert.True(isInWishList);
@@ -251,13 +251,11 @@
         [Test]
         public async Task RemoveHotelFromWishListAsync_ShouldRemoveHotelFromWishList()
         {
-            
+
             int hotelId = 1;
-            
-            await wishService.AddHotelToWishListAsync(hotelId, userId);
 
             await wishService.RemoveHotelFromWishListAsync(hotelId, userId);
-            
+
             bool isInWishList = await wishService.IsHotelInWishListAsync(hotelId, userId);
 
             Assert.False(isInWishList);
@@ -266,13 +264,13 @@
         [Test]
         public async Task IsHotelInWishListAsync_ShouldCheckIfHotelIsInWishList()
         {
-            
+
             int hotelId = 1;
-            
+
             await wishService.AddHotelToWishListAsync(hotelId, userId);
-            
+
             bool isInWishList = await wishService.IsHotelInWishListAsync(hotelId, userId);
-            
+
             Assert.True(isInWishList);
         }
 

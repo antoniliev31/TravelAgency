@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model IEnumerable<HotelAllViewModel>
+
+
+@{
+    ViewBag.Title = "Моите любими места";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+<hr/>
+
+@if (!Model.Any())
+{
+    <h2 class="text-center">Все още нямате любими места!</h2>
+}
+
+<div class="row mt-0 mb-0">
+    @foreach (var hotel in Model)
+    {
+        <div class="col-md-4">
+            <partial name="_MyWishHotelPartial" model="@hotel" />
+        </div>
+        
+    }
+</div>

@@ -1,0 +1,26 @@
+﻿@model HotelAllViewModel
+
+<div class="col-xl-auto">
+    <div class="card mb-md-4">
+        <div class="card-header text-center alert-primary"><h4><b>@Model.Location</b></h4></div>
+        <img class="card-img-top mb-0" src="@Model.ImageUrl" alt="Hotel Image">
+        <div class="card-body mt-0 text-center">
+            @{
+                int star = Model.Star;
+            }
+            @for (int i = 1; i <= star; i++)
+            {
+                <a class="star"></a>
+            }
+            <h4>@Model.Title</h4>
+            <h6 class="fw-bold">@Model.Catering</h6>
+            @if (Model.DoubleRoomPrice > 0)
+            {
+                <h6>Цена за двойна стая: <b>@($"{Model.DoubleRoomPrice:f0}") ЛВ.</b></h6>
+            }
+            <br />
+            <a asp-area="" asp-controller="Hotel" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-success">Виж повече</a>
+            <p></p>
+        </div>
+    </div>
+</div>

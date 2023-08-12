@@ -12,6 +12,8 @@
 
     using static Common.NotificationMessagesConstants;
     using static Common.GeneralApplicationConstants;
+    using TravelAgency.Services.Data;
+    using static TravelAgency.Common.EntityValidationConstants;
 
     [Authorize]
     public class HotelController : Controller
@@ -24,6 +26,7 @@
         private readonly IPostService postService;
         private readonly IWishService wishService;
         private readonly IUserService userService;
+        private readonly IReservationService reservationService;
 
         private readonly IMemoryCache memoryCache;
 
@@ -32,7 +35,7 @@
             ILocationService locationService, IHotelService hotelService, 
             ICateringService cateringService, IWishService wishService, 
             IImageService imageService, IPostService postService, 
-            IUserService userService, IMemoryCache memoryCache)
+            IUserService userService, IMemoryCache memoryCache, IReservationService reservationService)
         {
             this.categoryService = categoryService;
             this.locationService = locationService;
@@ -43,6 +46,7 @@
             this.postService = postService;
             this.userService = userService;
             this.memoryCache = memoryCache;
+            this.reservationService = reservationService;
         }
 
         [HttpGet]
@@ -94,14 +98,14 @@
 
             if (!categoryExist)
             {
-                this.ModelState.AddModelError(nameof(model.CategoryId), "Selected category not exist!");
+                this.ModelState.AddModelError(nameof(model.CategoryId), "Няма такава категория!!");
             }
 
             bool cateringExist = await this.cateringService.ExistByIdAsync(model.CategoryId);
 
             if (!cateringExist)
             {
-                this.ModelState.AddModelError(nameof(model.CateringTypeId), "Selected catering type not exist!");
+                this.ModelState.AddModelError(nameof(model.CateringTypeId), "Няма такъв тъп изхранване!");
             }
 
             bool locationExist = await this.locationService.LocationExistByNameAsync(model.Location);
@@ -130,7 +134,7 @@
                     await this.imageService.AddImagesAsync(model.Images, hotelId);
                 }
 
-                this.TempData[SuccessMessage] = "Hotel was added successfully!";
+                this.TempData[SuccessMessage] = "Хотелът беше добавен успешно!";
 
                 return this.RedirectToAction("Details", "Hotel", new { id = hotelId });
 
@@ -155,7 +159,7 @@
 
             if (!hotelExist)
             {
-                this.TempData[ErrorMessage] = "Hotel with the provided id does not exist!";
+                this.TempData[ErrorMessage] = "Не намерих такъв хотел!";
                 return this.RedirectToAction("All", "Hotel");
             }
 
@@ -181,7 +185,7 @@
             if (string.IsNullOrEmpty(comment))
             {
 
-                this.TempData[ErrorMessage] = "Please enter a comment.";
+                this.TempData[ErrorMessage] = "Моля, въведете коментар!";
                 return this.RedirectToAction("Details", new { id = id });
             }
 
@@ -190,7 +194,7 @@
             var hotelExists = await this.hotelService.HotelExistByIdAsync(id);
             if (!hotelExists)
             {
-                this.TempData[ErrorMessage] = "Hotel not found.";
+                this.TempData[ErrorMessage] = "Не намерих такъв хотел!";
                 return this.RedirectToAction("All");
             }
 
@@ -204,7 +208,7 @@
                 };
                 await this.postService.AddPostAsync(post);
             }
-            this.TempData[SuccessMessage] = "You have successfully posted your comment.";
+            this.TempData[SuccessMessage] = "Вие успешно публикувахте своя коментар!";
             return this.RedirectToAction("Details", new { id = id });
         }
 
@@ -216,14 +220,14 @@
 
             if (!hotelExist)
             {
-                this.TempData[ErrorMessage] = "Hotel with the provided id does not exist!";
+                this.TempData[ErrorMessage] = "Не намерих такъв хотел!";
                 return this.RedirectToAction("All", "Hotel");
             }
 
             
             if (!this.User.IsAdmin())
             {
-                this.TempData[ErrorMessage] = "You must be an agent to edit hotel info";
+                this.TempData[ErrorMessage] = "You must be an admin to edit hotel info";
 
                 return this.RedirectToAction("Index", "Home");
             }
@@ -262,14 +266,14 @@
 
             if (!hotelExist)
             {
-                this.TempData[ErrorMessage] = "Hotel with the provided id does not exist!";
+                this.TempData[ErrorMessage] = "Не намерих такъв хотел!";
                 return this.RedirectToAction("All", "Hotel");
             }
 
             
             if (!this.User.IsAdmin())
             {
-                this.TempData[ErrorMessage] = "You must become an agent in order to edit hotel info";
+                this.TempData[ErrorMessage] = "You must become an admin in order to edit hotel info";
                 return this.RedirectToAction("Index", "Home");
             }
 
@@ -279,7 +283,7 @@
                 await this.hotelService.EditHotelByIdAndFormModelAsync(id, model);
                 model.Categories = await this.categoryService.AllCategoryesAsync();
                 model.Caterings = await this.cateringService.AllCateringTypesAsync();
-                this.TempData[SuccessMessage] = "Hotel was edited successfully!";
+                this.TempData[SuccessMessage] = "Успешно променихте данните!";
                 return this.RedirectToAction("Details", "Hotel", new { id = id });
             }
             catch (Exception)
@@ -298,14 +302,14 @@
 
             if (!hotelExist)
             {
-                this.TempData[ErrorMessage] = "Hotel with the provided id does not exist!";
+                this.TempData[ErrorMessage] = "Не намерих такъв хотел!";
                 return this.RedirectToAction("All", "Hotel");
             }
 
             
             if (!this.User.IsAdmin())
             {
-                this.TempData[ErrorMessage] = "You must become an agent in order to edit hotel info";
+                this.TempData[ErrorMessage] = "You must become an admin in order to edit hotel info";
                 return this.RedirectToAction("Index", "Home");
             }
 
@@ -331,14 +335,14 @@
 
             if (!hotelExist)
             {
-                this.TempData[ErrorMessage] = "Hotel with the provided id does not exist!";
+                this.TempData[ErrorMessage] = "Не намерих такъв хотел!";
                 return this.RedirectToAction("All", "Hotel");
             }
 
             
             if (!this.User.IsAdmin())
             {
-                this.TempData[ErrorMessage] = "You must become an agent in order to edit hotel info";
+                this.TempData[ErrorMessage] = "You must become an admin in order to edit hotel info";
                 return this.RedirectToAction("Index", "Home");
             }
 
@@ -347,7 +351,7 @@
             {
                 await this.hotelService.DeleteHotelByIdAsync(id);
 
-                this.TempData[WarningMessage] = "The hotel was successfully deleted!";
+                this.TempData[WarningMessage] = "Успешно изтрихте този хотел!";
                 return this.RedirectToAction("All", "Hotel");
             }
             catch (Exception)
@@ -366,14 +370,14 @@
 
             if (!hotelExist)
             {
-                this.TempData[ErrorMessage] = "Hotel with the provided id does not exist!";
+                this.TempData[ErrorMessage] = "Не намерих такъв хотел!";
                 return this.RedirectToAction("All", "Hotel");
             }
 
             
             if (this.User.IsAdmin())
             {
-                this.TempData[ErrorMessage] = "You can't like your own hotels!";
+                this.TempData[ErrorMessage] = "Не е редно сам да харесвате собствените си хотели!";
                 return this.RedirectToAction("Details", "Hotel", new { id = id });
             }
 
@@ -385,7 +389,7 @@
                 if (!isHotelInWishList)
                 {
                     await this.wishService.AddHotelToWishListAsync(id, userId);
-                    this.TempData[SuccessMessage] = "You have successfully liked this hotel!";
+                    this.TempData[SuccessMessage] = "Не е редно сам да харесвате собствените си хотели!";
                 }
                 else
                 {
@@ -402,6 +406,28 @@
             }
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> Wish()
+        {
+            
+            string userId = this.User.GetId() ?? throw new InvalidOperationException("User not found.");
+           
+            try
+            {
+                IEnumerable<HotelAllViewModel> viewModel = await this.hotelService.AllWishHotelByUserAsync(userId);
+
+                return View(viewModel);
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred! Please try again later!";
+
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+
         [HttpGet]
         public async Task<IActionResult> Reservation(int id)
         {
@@ -409,7 +435,7 @@
 
             if (!hotelExist)
             {
-                this.TempData[ErrorMessage] = "Hotel with the provided id does not exist!";
+                this.TempData[ErrorMessage] = "Не намерих такъв хотел!";
                 return this.RedirectToAction("All", "Hotel");
             }
 
@@ -434,9 +460,24 @@
 
             if (!hotelExist)
             {
-                this.TempData[ErrorMessage] = "Hotel with the provided id does not exist!";
+                this.TempData[ErrorMessage] = "Не намерих такъв хотел!";
                 return this.RedirectToAction("All", "Hotel");
             }
+
+            if (viewModel.AccommodationDate >= viewModel.DepartureDate)
+            {
+                this.TempData[ErrorMessage] = "Неправилно избрани дати!";
+                viewModel = await this.hotelService.GetHotelForReservationByAdAsync(id);
+                return this.View(viewModel);
+            }
+
+            if (viewModel.SelectedRoomType == null)
+            {
+                this.TempData[ErrorMessage] = "Моля, изберете поне един вид стая!";
+                viewModel = await this.hotelService.GetHotelForReservationByAdAsync(id);
+                return this.View(viewModel);
+            }
+
 
             try
             {
@@ -450,6 +491,31 @@
             {
                 this.TempData[ErrorMessage] = "Unexpected error occurred! Please try again later!";
 
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> Cancel(int id)
+        {
+            bool reservationExist = await this.reservationService.ReservationExistById(id);
+
+            if (!reservationExist)
+            {
+                this.TempData[ErrorMessage] = "Reservation with the provided id does not exist!";
+                return this.RedirectToAction("Order", "User");
+            }
+
+            try
+            {
+                await reservationService.CancelReservationAsync(id);
+
+                return RedirectToAction("Order", "User");
+            }
+            catch (Exception)
+            {
+
+                TempData[ErrorMessage] = "Unexpected error occurred! Please try again later!";
                 return RedirectToAction("Index", "Home");
             }
         }
