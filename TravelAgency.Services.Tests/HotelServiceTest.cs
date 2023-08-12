@@ -7,19 +7,13 @@
     using TravelAgency.Data.Models;
     using Web.ViewModels.Hotel;
     using Web.ViewModels.Hotel.Enums;
-    using static DatabaseSeeder;
+    
 
     [TestFixture]
     public class HotelServiceTest
     {
         private TravelAgencyDbContext context;
         private IHotelService hotelService;
-        private ICategoryService categoryService;
-        private ILocationService locationService;
-        private ICateringService cateringService;
-        private IPostService postService;
-        private IImageService imageService;
-        private IWishService wishService;
 
         private string userId = "949A14ED-2E82-4F5A-A684-A9C7E3CCB52E";
 
@@ -243,13 +237,6 @@
             await context.SaveChangesAsync();
 
             hotelService = new HotelService(context);
-            //categoryService = new CategoryService(context);
-            //locationService = new LocationService(context);
-            //cateringService = new CateringService(context);
-            //postService = new PostService(context);
-            //imageService = new ImageService(context);
-            //wishService = new WishService(context);
-
         }
 
 
@@ -367,8 +354,7 @@
         [Test]
         public async Task DeleteHotelByIdAsync_ShouldDeleteHotel()
         {
-            // Подгответе данни за теста
-            HotelFormModel model = new HotelFormModel
+           HotelFormModel model = new HotelFormModel
             {
                 Title = "NewHotel",
                 Location = "TestNewLocation",
@@ -384,12 +370,12 @@
             };
 
             var createResult = await hotelService.CreateHotelAndReturnIdAsync(model, 1);
-            var hotelId = createResult; // createResult е вече идентификаторът на създадения хотел
+            var hotelId = createResult; 
 
             await hotelService.DeleteHotelByIdAsync(hotelId);
             
             var isDeleted = await context.Hotels
-                .Where(h => h.Id == hotelId && !h.IsActive) // Проверете дали хотелът съществува и не е активен
+                .Where(h => h.Id == hotelId && !h.IsActive) 
                 .AnyAsync();
 
            Assert.True(isDeleted);

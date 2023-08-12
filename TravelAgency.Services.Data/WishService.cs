@@ -43,7 +43,7 @@
         public async Task<bool> IsHotelInWishListAsync(int hotelId, string userId)
         {
             return await this.dbContext.WishLists
-                .AnyAsync(w => w.HotelId == hotelId && w.UserId.ToString() == userId);
+                .AnyAsync(w => w.HotelId == hotelId && w.UserId.ToString().ToLower() == userId.ToLower());
         }
 
     }
