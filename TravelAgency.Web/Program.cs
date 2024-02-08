@@ -19,6 +19,7 @@ namespace TravelAgency.Web
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            
             builder.Services.AddDbContext<TravelAgencyDbContext>(options =>
                 options.UseSqlServer(connectionString));
 

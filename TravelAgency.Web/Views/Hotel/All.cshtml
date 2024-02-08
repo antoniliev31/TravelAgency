@@ -1,9 +1,9 @@
 ﻿@model AllHotelQueryModel
-
-
 @{
-    ViewBag.Title = $"{Model.TotalHotels} ОФЕРТИ ЗА ПОЧИВКА";
+    string title = $"{Model.TotalHotels} ОФЕРТИ ЗА ПОЧИВКА";
 }
+
+<h3 class="text-center" style="color: red">@title</h3>
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <h6 class="text-center">Почивки в България и чужбина на супер цени. Разгледайте и сравнете най-изгодните почивки сега!</h6>
@@ -11,10 +11,10 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2">
+        <div id="form-find-hotel" class="col-md-2">
             <form method="get">
-                <div class="row" style="font-weight: bold; background-color: orange; padding: 15px;">
-                    <p class="text-center" style="font-weight: bold; text-align-all: center" ;>ФИЛТРИРАНЕ ПО</p>
+                <div class="row" id="filter-box">
+                    <p id="filter-text">Arrange by:</p>
                 </div>
 
                 <div class="form-group">
@@ -65,59 +65,58 @@
                         <option value="4">(A-Я)Град(Населено място)</option>
                         <option value="5">(Я-А)Град(Населено място)</option>
                     </select>
-                </div>
+                </div>               
 
-               @* <div class="form-group">
+                <div id="btn-form-submit" class="form-group">
+                    <input type="submit" value="Търси" class="btn btn-primary"/>
+                </div>
+                <br />
+                <div class="form-group">
                     <label asp-for="HotelsPerPage" style="font-weight: bold;"></label>
                     <select asp-for="HotelsPerPage" class="form-control" onchange="this.form.submit()" value="@Model.HotelsPerPage">
                         <option value="3">3</option>
                         <option value="6">6</option>
                         <option value="9">9</option>
                     </select>
-                </div>*@
-
-                <div class="form-group">
-                    <input type="submit" value="Търси" class="btn btn-primary" />
                 </div>
             </form>
+
+            
         </div>
 
         <div class="col-md-8">
-            <div class="row">
-
-                <div class="col-md-6">
-                    <div class="d-grid gap-1 d-md-flex justify-content-md-start">
-                        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
-                           asp-controller="Hotel" asp-action="All"
-                           asp-route-currentPage="@(Model.CurrentPage - 1)"
-                           asp-route-category="@Model.Category"
-                           asp-route-city="@Model.Location"
-                           asp-route-searchTerm="@Model.SearchString"
-                           asp-route-sorting="@((int)Model.HotelSorting)"><<</a>
-                    </div>
+            <div id="pagination" class="">
+                <div class="">                    
+                     <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+                         asp-controller="Hotel" asp-action="All"
+                         asp-route-currentPage="@(Model.CurrentPage - 1)"
+                         asp-route-category="@Model.Category"
+                         asp-route-city="@Model.Location"
+                         asp-route-searchTerm="@Model.SearchString"
+                         asp-route-sorting="@((int)Model.HotelSorting)"><<
+                     </a>                    
                 </div>
+                <div>
+                    @{
+                        int maxPage = (int)Math.Ceiling((double)Model.TotalHotels / Model.HotelsPerPage);
+                        bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage || !Model.Hotels.Any();
+                    }
+                    <h5 class="">Page: @Model.CurrentPage from @maxPage</h5>
+                </div>                
 
-                @{
-                    int maxPage = (int)Math.Ceiling((double)Model.TotalHotels / Model.HotelsPerPage);
-                    bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage || !Model.Hotels.Any();
-                }
-
-                <div class="col-md-6">
-                    <div class="d-grid gap-1 d-md-flex justify-content-md-end">
-                        <a class="btn btn-primary
-                   @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
-                           asp-controller="Hotel" asp-action="All"
-                           asp-route-currentPage="@(Model.CurrentPage + 1)"
-                           asp-route-category="@Model.Category"
-                           asp-route-city="@Model.Location"
-                           asp-route-searchTerm="@Model.SearchString"
-                           asp-route-sorting="@((int)Model.HotelSorting)">>></a>
-                    </div>
+                <div class="">
+                    <a class="btn btn-primary @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
+                       asp-controller="Hotel" asp-action="All"
+                       asp-route-currentPage="@(Model.CurrentPage + 1)"
+                       asp-route-category="@Model.Category"
+                       asp-route-city="@Model.Location"
+                       asp-route-searchTerm="@Model.SearchString"
+                       asp-route-sorting="@((int)Model.HotelSorting)">>></a>
                 </div>
 
             </div>
 
-            <h5 class="text-center">Страница: @Model.CurrentPage от @maxPage</h5>
+            
 
             <div class="row mt-0 mb-0">
                 @if (!Model.Hotels.Any())

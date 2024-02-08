@@ -1,5 +1,6 @@
 ﻿@using TravelAgency.Services.Data.Interfaces
 @using TravelAgency.Web.Infrastructure.Extensions
+
 @model HotelAllViewModel
 @{
     bool isUserAdmin = this.User.IsAdmin();
@@ -7,7 +8,7 @@
 
 <div class="col-xl-auto">
     <div class="card mb-md-4">
-        <div class="card-header text-center alert-primary"><h4><b>@Model.Location</b></h4></div>
+        <div class="text-center alert-primary"><h4>@Model.Location</h4></div>
         <img class="card-img-top mb-0" src="@Model.ImageUrl" alt="Hotel Image">
         <div class="card-body mt-0 text-center">
             @{
@@ -15,16 +16,15 @@
             }
             @for (int i = 1; i <= star; i++)
             {
-                <a class="star"></a>
+                <i class="fa-sharp fa-solid fa-star" style="color: orange"></i>
             }
             <h4>@Model.Title</h4>
             <h6 class="fw-bold">@Model.Catering</h6>
             @if (Model.DoubleRoomPrice > 0)
             {
                 <h6>Цена за двойна стая: <b>@($"{Model.DoubleRoomPrice:f0}") ЛВ.</b></h6>
-            }
-            <br />
-            <a asp-area="" asp-controller="Hotel" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-success">Виж повече</a>
+            }            
+            <a asp-area="" asp-controller="Hotel" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info" id="btn-more">Детайли</a>
             <p></p>
             @if (this.User.Identity?.IsAuthenticated ?? false)
             {

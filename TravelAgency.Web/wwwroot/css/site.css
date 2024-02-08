@@ -1,3 +1,6 @@
+@import url("hotel.css");
+@import url("all-notel.css");
+
 html {
     font-size: 14px !important;
 }
@@ -50,6 +53,7 @@ body {
 
 .like-icon {
     font-size: 20px;
+    border: none;
 }
 
 .like-count {
@@ -61,4 +65,10 @@ body {
     color: red;
     display: block; 
     margin-top: 5px; 
+}
+
+   
+
+.btn {
+    padding: 0.05rem 0.2rem;
 }

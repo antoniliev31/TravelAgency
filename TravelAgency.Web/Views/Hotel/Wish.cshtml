@@ -16,12 +16,17 @@
     <h2 class="text-center">Все още нямате любими места!</h2>
 }
 
-<div class="row mt-0 mb-0">
-    @foreach (var hotel in Model)
-    {
-        <div class="col-md-4">
-            <partial name="_MyWishHotelPartial" model="@hotel" />
-        </div>
-        
-    }
+<div class="container-fluid">
+    <div class="">
+        <duv class="col-md-8">
+            <div class="row mt-0 mb-0">
+                @foreach (var hotel in Model)
+                {
+                    <div class="col-md-4">
+                        <partial name="_MyWishHotelPartial" model="@hotel" />
+                    </div>
+                }
+            </div>            
+        </duv>        
+    </div>    
 </div>

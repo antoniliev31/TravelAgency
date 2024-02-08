@@ -1,0 +1,9 @@
+﻿#btn-more {
+    background-color: aqua;
+    padding: 0.05rem 0.2rem;
+}
+
+#btn-more:hover {
+    color: black;
+    background-color: aliceblue
+}

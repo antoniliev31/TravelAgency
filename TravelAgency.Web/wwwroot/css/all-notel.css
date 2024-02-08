@@ -1,0 +1,35 @@
+﻿#filter-box {
+    font-weight: 600;
+    background-color: orange;    
+    text-align: center;
+    justify-content: center;
+    align-items: center;    
+    border-radius: 0.4rem;
+}
+
+
+
+#filter-text {
+    margin: 0.2rem;
+    
+}
+
+#btn-form-submit {    
+    text-align: center;
+    padding-top: 0.8rem;    
+}
+
+#form-find-hotel {    
+    display: flex;
+}
+
+#pagination {
+    display: flex;    
+    justify-content: space-between;
+    padding: 0.5rem;
+
+}
+
+btn-primary:disabled, .btn-primary.disabled {    
+    display: none;
+}

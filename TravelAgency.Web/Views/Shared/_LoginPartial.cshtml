@@ -1,12 +1,14 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using TravelAgency.Data.Models
 @using TravelAgency.Services.Data.Interfaces
+@using TravelAgency.Web.Infrastructure.Extensions
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @inject IUserService UserService
 @{
     string userFullName = await UserService.GetFullNameByEmailAsync(this.User.Identity?.Name!);
+    bool isUserAdmin = this.User.IsAdmin();
 }
 
 <ul class="navbar-nav">
@@ -15,19 +17,21 @@
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Здравей, @userFullName</a>
         </li>
+        @if (!isUserAdmin)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Hotel" asp-action="Wish">
+                    <i class="fa fa-heart" aria-hidden="true"></i>Моите любими места
+                </a>
+            </li>
 
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Hotel" asp-action="Wish">
-                <i class="fa fa-heart" aria-hidden="true"></i>Моите любими места
-            </a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Order">
-                <i class="fas fa-shopping-cart"></i>
-                Cart
-            </a>
-        </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Order">
+                    <i class="fas fa-shopping-cart"></i>
+                    Cart
+                </a>
+            </li>
+        }
         
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">

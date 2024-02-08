@@ -389,12 +389,12 @@
                 if (!isHotelInWishList)
                 {
                     await this.wishService.AddHotelToWishListAsync(id, userId);
-                    this.TempData[SuccessMessage] = "Не е редно сам да харесвате собствените си хотели!";
+                    this.TempData[SuccessMessage] = "Вие добавихте този хотел в любими места!";
                 }
                 else
                 {
                     await this.wishService.RemoveHotelFromWishListAsync(id, userId);
-                    this.TempData[SuccessMessage] = "You have successfully removed this hotel!";
+                    this.TempData[SuccessMessage] = "Вие премахнахте този хотел от любимите ви места!";
                 }
 
                 return this.RedirectToAction("Details", "Hotel", new { id = id });
