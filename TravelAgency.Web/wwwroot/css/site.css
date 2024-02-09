@@ -72,3 +72,12 @@ body {
 .btn {
     padding: 0.05rem 0.2rem;
 }
+
+#hotel-coments {
+    background-color: aliceblue;
+}
+
+#carousel-img {
+    overflow: hidden;
+    height: inherit;
+}

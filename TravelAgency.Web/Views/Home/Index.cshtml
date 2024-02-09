@@ -9,8 +9,8 @@
 @if (!hotels.Any()) 
 { 
     <div class="mt-4 p-5 bg-light"> 
-        <h1 class="display-4">Welcome to the best place for renting houses!</h1>         
-        <p class="lead"> There are no houses in the system currently available so why don't you just add one? 
+        <h1 class="display-4">Welcome to the best place for reservation and planing your vacantion!</h1>         
+        <p class="lead"> There are no hotels in the system currently available so why don't you just add one? 
         </p> 
         <hr class="my-4"> 
         <p class="lead"> 
@@ -22,30 +22,38 @@
     </div> 
 } 
  
-<div class="mb-5"></div>  
-<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel"> 
-    <div class="carousel-inner" style="max-width: 800px; margin: 0 auto;">
+  
+<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner" style="">
         @for (int i = 0; i < hotels.Count(); i++) 
         { 
-            IndexViewModel hotel = hotels[i]; 
-            <div class="carousel-item @(i == 0 ? "active" : string.Empty)"> 
-                <img class="d-block w-100" style="height:500px" src="@hotel.ImageUrl" alt="@hotel.Title"> 
+            IndexViewModel hotel = hotels[i];
+                     
+            <div class="carousel-item @(i == 0 ? "active" : string.Empty)">
+                <img id="carousel-img" class="d-block w-100 h-50" style="" src="@hotel.ImageUrl" alt="@hotel.Title">
                 <div class="carousel-caption d-none d-md-block">
                     <h5> <a asp-controller="Hotel" asp-action="Details" asp-route-id="@hotel.Id" class="btn btn-primary"> @hotel.Title</a> </h5>
-                         
+                    <p id="hotel-coments">@hotel.Text</p>     
                 </div> 
             </div> 
         } 
     </div> 
-    <button class="carousel-control-prev" type="button" data-bstarget="#carouselExampleControls" data-bs-slide="prev"> 
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span> 
-        <span class="visually-hidden">Previous</span> 
-    </button> 
-    <button class="carousel-control-next" type="button" data-bstarget="#carouselExampleControls" data-bs-slide="next"> 
-        <span class="carousel-control-next-icon" aria-hidden="true"></span> 
-        <span class="visually-hidden">Next</span> 
-    </button> 
+    <button class="carousel-control-prev" style="color: white"type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
 </div> 
+
+
 
 
 
