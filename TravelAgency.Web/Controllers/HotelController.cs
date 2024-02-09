@@ -60,7 +60,7 @@
             queryModel.Categories = await this.categoryService.AllCategoryNamesAsync();
             queryModel.Locations = await this.locationService.AllLocationNamesAsync();
             queryModel.Stars = await this.hotelService.AllStarsAsync();
-
+            
             return this.View(queryModel);
 
         }

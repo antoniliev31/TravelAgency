@@ -65,8 +65,8 @@
                         <option value="4">(A-Я)Град(Населено място)</option>
                         <option value="5">(Я-А)Град(Населено място)</option>
                     </select>
-                </div>               
-
+                </div>   
+                
                 <div id="btn-form-submit" class="form-group">
                     <input type="submit" value="Търси" class="btn btn-primary"/>
                 </div>
@@ -78,6 +78,9 @@
                         <option value="6">6</option>
                         <option value="9">9</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <input asp-for="HotelsPerPage" type="hidden" />
                 </div>
             </form>
 
@@ -93,6 +96,7 @@
                          asp-route-category="@Model.Category"
                          asp-route-city="@Model.Location"
                          asp-route-searchTerm="@Model.SearchString"
+                         asp-route-hotelsPerPage="@Model.HotelsPerPage"
                          asp-route-sorting="@((int)Model.HotelSorting)"><<
                      </a>                    
                 </div>
@@ -111,6 +115,7 @@
                        asp-route-category="@Model.Category"
                        asp-route-city="@Model.Location"
                        asp-route-searchTerm="@Model.SearchString"
+                       asp-route-hotelsPerPage="@Model.HotelsPerPage"
                        asp-route-sorting="@((int)Model.HotelSorting)">>></a>
                 </div>
 
